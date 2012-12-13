@@ -1,0 +1,31 @@
+-R . LemmaOverloading
+-R ../../Saclay/ReleasedSsreflect/theories Ssreflect
+-I ../../Saclay/ReleasedSsreflect/src
+prelude.v 
+rels.v
+ordtype.v
+finmap.v
+heaps.v
+hprop.v
+domains.v
+stmod.v
+stsep.v
+stlog.v
+auto.v
+noalias.v
+noaliasBT.v
+noaliasCTC.v
+prefix.v
+perms.v
+xfind.v
+xfindCTC.v
+terms.v
+cancel.v
+cancel2.v
+cancelD.v
+cancelCTC.v 
+stlogR.v
+llistR.v
+stlogCTC.v
+indom.v
+indomCTC.v
