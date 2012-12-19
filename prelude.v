@@ -189,7 +189,7 @@ Variable (T : Type -> Type -> Type).
 Program
 Definition coerce2 A1 A2 B1 B2 (x : T A1 A2) : 
              (A1, A2) = (B1, B2) -> T B1 B2.
-Proof. by move=>A1 A2 B1 B2 x [<- <-]; exact: x. Defined.
+Proof. by move =>[<- <-]; exact: x. Defined.
 
 Lemma eqc2 A1 A2 (x : T A1 A2) (pf : (A1, A2) = (A1, A2)) : 
         coerce2 x pf = x.

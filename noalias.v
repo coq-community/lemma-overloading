@@ -182,7 +182,9 @@ Definition axiom (x y : ptr) (s : tagged_seq) :=
   [/\ x \in untag s, y \in untag s & uniq s -> x != y].
 
 (* Main structure *)
+Set Record Elimination Schemes.
 Structure form x y := Form {seq_of :> tagged_seq; _ : axiom x y seq_of}.
+Unset Record Elimination Schemes.
 
 Lemma foundx_pf x y (s : Search.form y) : axiom x y (foundx_tag (x :: s)).
 Proof.
