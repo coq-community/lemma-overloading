@@ -40,5 +40,5 @@ Institution: IMDEA Software Institute
 Author: Derek Dreyer
 Email: dreyer@mpi-sws.org
 Institution: MPI-SWS
-Require: ReleasedSsreflect
+Require: Ssreflect
 License: GPL

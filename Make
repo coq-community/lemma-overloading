@@ -1,7 +1,7 @@
 -R . LemmaOverloading
--R ../../Saclay/ReleasedSsreflect/theories Ssreflect
--I ../../Saclay/ReleasedSsreflect/src
-prelude.v 
+-R ../../Saclay/Ssreflect/theories Ssreflect
+-I ../../Saclay/Ssreflect/src
+prelude.v
 rels.v
 ordtype.v
 finmap.v
@@ -23,7 +23,7 @@ terms.v
 cancel.v
 cancel2.v
 cancelD.v
-cancelCTC.v 
+cancelCTC.v
 stlogR.v
 llistR.v
 stlogCTC.v
