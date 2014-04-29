@@ -63,7 +63,7 @@ suff L: forall s1 s2, perm s1 s2 -> perm s2 s1 by split; apply: L.
 apply: perm_ind=>s1' s2'.
 - by move=>->->; apply: permutation_nil.
 - by move=>x t1 t2 -> -> H1; apply: permutation_skip.
-- by move=>x y t -> ->; apply: permutation_swap.
+- by move =>x y t -> ->; apply: permutation_swap eq_refl eq_refl.
 by move=>t _ H1 _ H2; apply: permutation_trans H2 H1.
 Qed.
 
@@ -86,8 +86,8 @@ Lemma perm_cat2rL s s1 s2 : perm s1 s2 -> perm (s1 ++ s) (s2 ++ s).
 Proof.
 move=>H; move: s1 s2 H s; apply: perm_ind=>s1 s2.
 - by move=>->->.
-- by move=>x t1 t2 -> -> H IH s /=; apply: permutation_skip.
-- by move=>x y t -> -> s /=; apply: permutation_swap.
+- by move=>x t1 t2 -> -> H IH s /=; apply: permutation_skip (IH _).
+- by move=>x y t -> -> s /=; apply: permutation_swap eq_refl.
 by move=>t H1 IH1 H2 IH2 s; apply: permutation_trans (IH2 s).
 Qed.
 
@@ -100,7 +100,7 @@ move=>H; move: s1 s2 H t1 t2; apply: perm_ind=>s1 s2.
   by move/IH; apply: permutation_skip.
 - move=>x y t -> -> t1 t2 H.
   by apply: (permutation_trans (t:=[:: x, y & t] ++ t2)); 
-     [apply: perm_cat2lL | simpl; apply: permutation_swap].
+     [apply: perm_cat2lL | simpl; apply: permutation_swap eq_refl].
 move=>t H1 IH1 H2 IH2 t1 t2 H.
 by apply: permutation_trans (IH2 _ _ H); apply: IH1.
 Qed.
@@ -116,7 +116,7 @@ Proof.
 elim:s1 s2=>[|x s1 IH1] s2 /=; first by rewrite cats0.
 apply: (@perm_trans (x::s2++s1)); first by apply: permutation_skip (IH1 s2).
 elim: s2=>[|y s2 IH2] //=.
-apply: (@perm_trans (y::x::s2++s1)); first by apply: permutation_swap.
+apply: (@perm_trans (y::x::s2++s1)); first by apply: permutation_swap eq_refl.
 by apply: permutation_skip IH2.
 Qed.
 
@@ -136,10 +136,10 @@ Hint Resolve perm_cons_catCA perm_cons_catAC.
 Lemma perm_cons_cat_consL s1 s2 s x : 
         perm s (s1 ++ s2) -> perm (x :: s) (s1 ++ x :: s2).
 Proof.
-case: s1=>[|a s1] /= H; first by apply: permutation_skip.
-apply: (@perm_trans (x::a::s1++s2)); first by apply: permutation_skip.
-apply: (@perm_trans (a::x::s1++s2)); first by apply: permutation_swap.
-by apply: permutation_skip=>//; apply: perm_catCA.
+case: s1=>[|a s1] /= H; first by apply: permutation_skip H.
+apply: (@perm_trans (x::a::s1++s2)); first by apply: permutation_skip eq_refl H.
+apply: (@perm_trans (a::x::s1++s2)); first by apply: permutation_swap eq_refl.
+by apply: permutation_skip eq_refl eq_refl _=>//.
 Qed.
 
 (* a somewhat generalized induction principle *)
@@ -160,7 +160,7 @@ move=>H1 H2 H3 H4; apply: perm_ind=>s1 s2; last 1 first.
 move=>x y t -> ->.
 have R : forall t, P t t by elim=>[|e t1 IH] //; apply:  H2.
 apply: (H4 (y :: x :: t))=>//; last by apply: H3.
-by apply: permutation_swap.
+by apply: permutation_swap eq_refl.
 Qed.
 
 (* Now the hard part; the opposite implications *)
@@ -188,28 +188,28 @@ apply: perm_ind2; last 1 first.
   - case: E1 E2 H=><- <- [<-] ->; apply: (@perm_trans (s1 ++ x:: s2)).
     by apply: perm_cons_cat_consL.
   case: E1 E2 H IH=><- -> [<-] -> H IH.
-  by apply: permutation_skip=>//; apply: IH.
+  apply: permutation_skip eq_refl eq_refl _=>//; apply: IH eq_refl eq_refl.
 move=>x y p1 p2 H IH z s1 t1 s2 t2 E1 E2.
 case: s1 E1 H IH=>[|b s1]; case: s2 E2=>[|c s2]=>/=.
-- by case=><- <- [<-] <- H IH; apply: permutation_skip.
+- case=><- <- [<-] <- H IH; apply: permutation_skip eq_refl eq_refl H.
 - case=><-; case: s2=>[|b s2] /=.
-  - by case=><- <-; case=><- H IH; apply: permutation_skip H.
+  - by case=><- <-; case=><- H IH; apply: permutation_skip eq_refl H.
   case=><- -> [<-] <- H IH.
-  by apply: permutation_skip=>//; apply: perm_trans H _.
+  by apply: permutation_skip eq_refl eq_refl _=>//; apply: perm_trans H _.
 - case=><- <- [<-]; case: s1=>[|a s1] /=.
-  - by case=><- H IH; apply: permutation_skip.
-  by case=><- -> H IH; apply: permutation_skip=>//; apply: perm_trans H.
+  - by case=><- H IH; apply: permutation_skip eq_refl eq_refl _.
+  by case=><- -> H IH; apply: permutation_skip eq_refl eq_refl _=>//; apply: perm_trans H.
 case=><-; case: s2=>[|a s2] /=; case: s1=>[|d s1] /=.
-- by case=><- <- [<-] <- <- H IH; apply: permutation_skip.
+- by case=><- <- [<-] <- <- H IH; apply: permutation_skip eq_refl eq_refl _.
 - case=><- <- [<-] <- -> H IH.
-  apply: (@perm_trans (x::y::s1 ++ t1)); first by apply: permutation_swap.
-  by apply: permutation_skip=>//; apply: perm_trans H.
+  apply: (@perm_trans (x::y::s1 ++ t1)); first by apply: permutation_swap eq_refl.
+  by apply: permutation_skip eq_refl eq_refl _=>//; apply: perm_trans H.
 - case=><- -> [<-] <- <- H IH.
-  apply: (@perm_trans (y::x::s2++t2)); last by apply: permutation_swap.
-  by apply: permutation_skip=>//; apply: perm_trans H _.
+  apply: (@perm_trans (y::x::s2++t2)); last by apply: permutation_swap eq_refl.
+  by apply: permutation_skip eq_refl eq_refl _ =>//; apply: perm_trans H _.
 case=><- -> [<-] <- -> H IH.
-apply: (@perm_trans (x::y::s1++t1)); first by apply: permutation_swap.
-by apply: permutation_skip=>//; apply: permutation_skip=>//; apply: IH.
+apply: (@perm_trans (x::y::s1++t1)); first by apply: permutation_swap eq_refl.
+by apply: permutation_skip eq_refl eq_refl _=>//; apply: permutation_skip eq_refl eq_refl _=>//; apply: IH eq_refl eq_refl.
 Qed.
 
 Lemma perm_cons x s1 s2 : perm (x :: s1) (x :: s2) <-> perm s1 s2.
@@ -222,7 +222,7 @@ Lemma perm_cons_cat_cons x s1 s2 s :
         perm (x :: s) (s1 ++ x :: s2) <-> perm s (s1 ++ s2).
 Proof.
 split=>[|H]; first by by move/(@perm_cat_consR [::] s s1 s2 x).
-by apply: (@perm_trans (x :: s1++s2))=>//; apply: permutation_skip.
+by apply: (@perm_trans (x :: s1++s2))=>//; apply: permutation_skip eq_refl _.
 Qed.
 
 Lemma perm_cat_cons x s1 s2 t1 t2 : 
