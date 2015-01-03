@@ -46,10 +46,13 @@ TIMER=$(if $(TIMED), $(STDTIME), $(TIMECMD))
 #                        #
 ##########################
 
-COQLIBS?=-I ../../Saclay/Ssreflect/src -R ../../Saclay/Ssreflect/theories Ssreflect\
-  -R . LemmaOverloading
-COQDOCLIBS?=-R ../../Saclay/Ssreflect/theories Ssreflect\
-  -R . LemmaOverloading
+COQLIBS?=\
+  -R "../../Saclay/Ssreflect/theories" Ssreflect\
+  -R "." LemmaOverloading\
+  -I "../../Saclay/Ssreflect/src"
+COQDOCLIBS?=\
+  -R "../../Saclay/Ssreflect/theories" Ssreflect\
+  -R "." LemmaOverloading
 
 ##########################
 #                        #
@@ -82,6 +85,7 @@ COQDOCINSTALL=$(XDG_DATA_HOME)/doc/coq
 else
 COQLIBINSTALL="${COQLIB}user-contrib"
 COQDOCINSTALL="${DOCDIR}user-contrib"
+COQTOPINSTALL="${COQLIB}toploop"
 endif
 
 ######################
@@ -144,6 +148,8 @@ all: $(VOFILES)
 
 quick:
 	$(MAKE) -f $(firstword $(MAKEFILE_LIST)) all VO=vi
+vi2vo:
+	$(COQC) $(COQDEBUG) $(COQFLAGS) -schedule-vi2vo $(J) $(VOFILES:%.vo=%.vi)
 checkproofs:
 	$(COQC) $(COQDEBUG) $(COQFLAGS) -schedule-vi-checking $(J) $(VOFILES:%.vo=%.vi)
 gallina: $(GFILES)
@@ -244,31 +250,34 @@ Makefile: Make
 #                 #
 ###################
 
-%.vo %.glob: %.v
+$(VOFILES): %.vo: %.v
 	$(COQC) $(COQDEBUG) $(COQFLAGS) $*
 
-%.vi: %.v
+$(GLOBFILES): %.glob: %.v
+	$(COQC) $(COQDEBUG) $(COQFLAGS) $*
+
+$(VFILES:.v=.vi): %.vi: %.v
 	$(COQC) -quick $(COQDEBUG) $(COQFLAGS) $*
 
-%.g: %.v
+$(GFILES): %.g: %.v
 	$(GALLINA) $<
 
-%.tex: %.v
+$(VFILES:.v=.tex): %.tex: %.v
 	$(COQDOC) $(COQDOCFLAGS) -latex $< -o $@
 
-%.html: %.v %.glob
+$(HTMLFILES): %.html: %.v %.glob
 	$(COQDOC) $(COQDOCFLAGS) -html $< -o $@
 
-%.g.tex: %.v
+$(VFILES:.v=.g.tex): %.g.tex: %.v
 	$(COQDOC) $(COQDOCFLAGS) -latex -g $< -o $@
 
-%.g.html: %.v %.glob
+$(GHTMLFILES): %.g.html: %.v %.glob
 	$(COQDOC) $(COQDOCFLAGS)  -html -g $< -o $@
 
-%.v.d: %.v
+$(addsuffix .d,$(VFILES)): %.v.d: %.v
 	$(COQDEP) $(COQLIBS) "$<" > "$@" || ( RV=$$?; rm -f "$@"; exit $${RV} )
 
-%.v.beautified:
+$(addsuffix .beautified,$(VFILES)): %.v.beautified:
 	$(COQC) $(COQDEBUG) $(COQFLAGS) -beautify $*
 
 # WARNING
