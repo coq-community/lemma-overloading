@@ -15,7 +15,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-Require Import ssreflect ssrfun ssrbool ssrnat seq eqtype.
+From Ssreflect Require Import ssreflect ssrfun ssrbool ssrnat seq eqtype.
 Require Import prelude heaps terms prefix xfindCTC.
 Set Implicit Arguments.
 Unset Strict Implicit.

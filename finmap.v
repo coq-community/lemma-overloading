@@ -15,7 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-Require Import ssreflect ssrbool ssrnat eqtype ssrfun seq path fintype ordtype.
+From Ssreflect Require Import ssreflect ssrbool ssrnat eqtype ssrfun seq path fintype.
+Require Import ordtype.
 Require Import prelude.
 Set Implicit Arguments.
 Unset Strict Implicit.

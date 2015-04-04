@@ -17,7 +17,8 @@
 
 Set Automatic Coercions Import.
 
-Require Import ssreflect ssrfun ssrbool ssrnat seq prefix.
+From Ssreflect Require Import ssreflect ssrfun ssrbool ssrnat seq.
+Require Import prefix.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Import Prenex Implicits.

@@ -15,7 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-Require Import ssreflect ssrfun ssrbool ssrnat seq eqtype rels.
+From Ssreflect Require Import ssreflect ssrfun ssrbool ssrnat seq eqtype.
+Require Import rels.
 Require Import heaps.
 Set Implicit Arguments.
 Unset Strict Implicit.

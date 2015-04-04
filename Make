@@ -1,6 +1,5 @@
 -R . LemmaOverloading
--R ../../Saclay/Ssreflect/theories Ssreflect
--I ../../Saclay/Ssreflect/src
+-I ../ssreflect/src
 prelude.v
 rels.v
 ordtype.v

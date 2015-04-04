@@ -15,7 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-Require Import ssreflect ssrbool ssrnat ssrfun eqtype seq path rels.
+From Ssreflect Require Import ssreflect ssrbool ssrnat ssrfun eqtype seq path.
+Require Import rels.
 Require Import prelude prefix xfind heaps terms cancel.
 Set Implicit Arguments.
 Unset Strict Implicit.

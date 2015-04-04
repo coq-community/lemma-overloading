@@ -17,7 +17,7 @@
 
 Set Automatic Coercions Import.
 
-Require Import ssreflect ssrfun ssrbool ssrnat seq eqtype.
+From Ssreflect Require Import ssreflect ssrfun ssrbool ssrnat seq eqtype.
 Require Import heaps noalias.
 Set Implicit Arguments.
 Unset Strict Implicit.

@@ -15,7 +15,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-Require Import ssreflect ssrfun ssrnat div ssrbool seq finmap ordtype path eqtype.
+From Ssreflect Require Import ssreflect ssrfun ssrnat div ssrbool seq.
+Require Import finmap ordtype.
+From Ssreflect Require Import path eqtype.
 Require Import prelude Eqdep.
 Set Implicit Arguments.
 Unset Strict Implicit.
