@@ -389,15 +389,15 @@ Ltac hstep :=
 
 Lemma swp : forall (A : Type) (v : A) x h, h \In x :--> v <-> h = x :-> v.
 Proof. 
-move=>A v x h; split; first by admit. (* case; unlock. *)
+move=>A v x h; split; first by admit. 
 by move=>->; rewrite InE /pts /=; unlock.
-Qed.
+Admitted.
 
 Lemma opn : forall (A : Type) (v : A) x h, h \In x :--> v <-> x :-> v = h.
 Proof. 
 move=>A v x h; split=>[|H]; first by admit. (* case; unlock. *)
 by rewrite InE /= /pts; unlock. 
-Qed.
+Admitted.
 
 Prenex Implicits swp opn.
 

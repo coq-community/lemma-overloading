@@ -16,7 +16,7 @@
 *)
 
 From Ssreflect Require Import ssreflect ssrfun ssrnat div ssrbool seq.
-Require Import finmap ordtype.
+From LemmaOverloading Require Import finmap ordtype.
 From Ssreflect Require Import path eqtype.
 Require Import prelude Eqdep.
 Set Implicit Arguments.
@@ -428,7 +428,7 @@ Lemma pts_injP A1 A2 x1 x2 (v1 : A1) (v2 : A2) :
         def (x1 :-> v1) -> x1 :-> v1 = x2 :-> v2 -> x1 = x2 /\ A1 = A2.
 Proof.
 rewrite /pts /upd /=.
-by case: decP=>H1; case: decP=>H2 // _; case.
+case: decP=>H1; case: decP=>H2 //. move=>_. case. (* FIXME *)
 Qed.
 
 Lemma pts_injT A1 A2 x (v1 : A1) (v2 : A2) : 
