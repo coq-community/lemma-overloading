@@ -19,7 +19,6 @@
 
 .DEFAULT_GOAL := all
 
-# 
 # This Makefile may take arguments passed as environment variables:
 # COQBIN to specify the directory where Coq binaries resides;
 # TIMECMD set a command to log .v compilation time;
@@ -35,9 +34,9 @@ endef
 includecmdwithout@ = $(eval $(subst @,$(donewline),$(shell { $(1) | tr -d '\r' | tr '\n' '@'; })))
 $(call includecmdwithout@,$(COQBIN)coqtop -config)
 
-TIMED=
-TIMECMD=
-STDTIME?=/usr/bin/time -f "$* (user: %U mem: %M ko)"
+TIMED?=
+TIMECMD?=
+STDTIME=/usr/bin/time -f "$* (user: %U mem: %M ko)"
 TIMER=$(if $(TIMED), $(STDTIME), $(TIMECMD))
 
 vo_to_obj = $(addsuffix .o,\
@@ -52,9 +51,10 @@ vo_to_obj = $(addsuffix .o,\
 
 COQLIBS?=\
   -R "." LemmaOverloading\
-  -I "../ssreflect/src"
+  -R "ssreflect/src" Ssreflect
 COQDOCLIBS?=\
-  -R "." LemmaOverloading
+  -R "." LemmaOverloading\
+  -R "ssreflect/src" Ssreflect
 
 ##########################
 #                        #
@@ -96,36 +96,43 @@ endif
 #                    #
 ######################
 
-VFILES:=indomCTC.v\
-  indom.v\
-  stlogCTC.v\
-  llistR.v\
-  stlogR.v\
-  cancelCTC.v\
-  cancelD.v\
-  cancel2.v\
-  cancel.v\
-  terms.v\
-  xfindCTC.v\
-  xfind.v\
-  perms.v\
-  prefix.v\
-  noaliasCTC.v\
-  noaliasBT.v\
-  noalias.v\
-  auto.v\
-  stlog.v\
-  stsep.v\
-  stmod.v\
-  domains.v\
-  hprop.v\
-  heaps.v\
-  finmap.v\
-  ordtype.v\
+VFILES:=prelude.v\
   rels.v\
-  prelude.v
+  ordtype.v\
+  finmap.v\
+  heaps.v\
+  hprop.v\
+  domains.v\
+  stmod.v\
+  stsep.v\
+  stlog.v\
+  auto.v\
+  noalias.v\
+  noaliasBT.v\
+  noaliasCTC.v\
+  prefix.v\
+  perms.v\
+  xfind.v\
+  xfindCTC.v\
+  terms.v\
+  cancel.v\
+  cancel2.v\
+  cancelD.v\
+  cancelCTC.v\
+  stlogR.v\
+  llistR.v\
+  stlogCTC.v\
+  indom.v\
+  indomCTC.v
 
+ifneq ($(filter-out archclean clean cleanall printenv,$(MAKECMDGOALS)),)
 -include $(addsuffix .d,$(VFILES))
+else
+ifeq ($(MAKECMDGOALS),)
+-include $(addsuffix .d,$(VFILES))
+endif
+endif
+
 .SECONDARY: $(addsuffix .d,$(VFILES))
 
 VO=vo
@@ -211,17 +218,17 @@ install:
 	done
 
 install-doc:
-	install -d "$(DSTROOT)"$(COQDOCINSTALL)/LemmaOverloading/html
+	install -d "$(DSTROOT)"$(COQDOCINSTALL)/$(INSTALLDEFAULTROOT)/html
 	for i in html/*; do \
-	 install -m 0644 $$i "$(DSTROOT)"$(COQDOCINSTALL)/LemmaOverloading/$$i;\
+	 install -m 0644 $$i "$(DSTROOT)"$(COQDOCINSTALL)/$(INSTALLDEFAULTROOT)/$$i;\
 	done
 
 uninstall_me.sh: Makefile
-	echo '#!/bin/sh' > $@ 
+	echo '#!/bin/sh' > $@
 	printf 'cd "$${DSTROOT}"$(COQLIBINSTALL)/LemmaOverloading && rm -f $(VOFILES) $(VFILES) $(GLOBFILES) $(NATIVEFILES) $(CMOFILES) $(CMIFILES) $(CMAFILES) && find . -type d -and -empty -delete\ncd "$${DSTROOT}"$(COQLIBINSTALL) && find "LemmaOverloading" -maxdepth 0 -and -empty -exec rmdir -p \{\} \;\n' >> "$@"
-	printf 'cd "$${DSTROOT}"$(COQDOCINSTALL)/LemmaOverloading \\\n' >> "$@"
+	printf 'cd "$${DSTROOT}"$(COQDOCINSTALL)/$(INSTALLDEFAULTROOT) \\\n' >> "$@"
 	printf '&& rm -f $(shell find "html" -maxdepth 1 -and -type f -print)\n' >> "$@"
-	printf 'cd "$${DSTROOT}"$(COQDOCINSTALL) && find LemmaOverloading/html -maxdepth 0 -and -empty -exec rmdir -p \{\} \;\n' >> "$@"
+	printf 'cd "$${DSTROOT}"$(COQDOCINSTALL) && find $(INSTALLDEFAULTROOT)/html -maxdepth 0 -and -empty -exec rmdir -p \{\} \;\n' >> "$@"
 	chmod +x $@
 
 uninstall: uninstall_me.sh
@@ -242,8 +249,7 @@ archclean::
 
 printenv:
 	@"$(COQBIN)coqtop" -config
-	@echo 'CAMLC =	$(CAMLC)'
-	@echo 'CAMLOPTC =	$(CAMLOPTC)'
+	@echo 'OCAMLFIND =	$(OCAMLFIND)'
 	@echo 'PP =	$(PP)'
 	@echo 'COQFLAGS =	$(COQFLAGS)'
 	@echo 'COQLIBINSTALL =	$(COQLIBINSTALL)'
