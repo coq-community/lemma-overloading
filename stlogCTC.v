@@ -15,7 +15,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From Ssreflect Require Import ssreflect ssrbool ssrnat eqtype seq ssrfun.
+From mathcomp Require Import ssreflect ssrbool ssrnat eqtype seq ssrfun.
 Require Import heaps rels hprop stmod stsep stlog. 
 Set Implicit Arguments.
 Unset Strict Implicit.

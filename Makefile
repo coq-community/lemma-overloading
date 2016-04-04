@@ -51,10 +51,10 @@ vo_to_obj = $(addsuffix .o,\
 
 COQLIBS?=\
   -R "." LemmaOverloading\
-  -R "ssreflect/src" Ssreflect
+  -R "math-comp/mathcomp" mathcomp
 COQDOCLIBS?=\
   -R "." LemmaOverloading\
-  -R "ssreflect/src" Ssreflect
+  -R "math-comp/mathcomp" mathcomp
 
 ##########################
 #                        #
@@ -233,6 +233,26 @@ uninstall_me.sh: Makefile
 
 uninstall: uninstall_me.sh
 	sh $<
+
+.merlin:
+	@echo 'FLG -rectypes' > .merlin
+	@echo "B $(COQLIB) kernel" >> .merlin
+	@echo "B $(COQLIB) lib" >> .merlin
+	@echo "B $(COQLIB) library" >> .merlin
+	@echo "B $(COQLIB) parsing" >> .merlin
+	@echo "B $(COQLIB) pretyping" >> .merlin
+	@echo "B $(COQLIB) interp" >> .merlin
+	@echo "B $(COQLIB) printing" >> .merlin
+	@echo "B $(COQLIB) intf" >> .merlin
+	@echo "B $(COQLIB) proofs" >> .merlin
+	@echo "B $(COQLIB) tactics" >> .merlin
+	@echo "B $(COQLIB) tools" >> .merlin
+	@echo "B $(COQLIB) toplevel" >> .merlin
+	@echo "B $(COQLIB) stm" >> .merlin
+	@echo "B $(COQLIB) grammar" >> .merlin
+	@echo "B $(COQLIB) config" >> .merlin
+	@echo "B $(COQLIB) ltac" >> .merlin
+	@echo "B $(COQLIB) engine" >> .merlin
 
 clean::
 	rm -f $(OBJFILES) $(OBJFILES:.o=.native) $(NATIVEFILES)

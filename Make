@@ -1,5 +1,5 @@
 -R . LemmaOverloading
--R ssreflect/src Ssreflect
+-R math-comp/mathcomp mathcomp
 
 prelude.v
 rels.v

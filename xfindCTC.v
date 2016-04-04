@@ -15,7 +15,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From Ssreflect Require Import ssreflect ssrfun ssrbool ssrnat seq.
+From mathcomp Require Import ssreflect ssrfun ssrbool ssrnat seq.
 Require Import prefix.
 Set Implicit Arguments.
 Unset Strict Implicit.

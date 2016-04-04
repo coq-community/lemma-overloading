@@ -1,4 +1,4 @@
-From Ssreflect Require Import ssreflect ssrfun ssrbool ssrnat seq eqtype.
+From mathcomp Require Import ssreflect ssrfun ssrbool ssrnat seq eqtype.
 Require Import prelude prefix heaps terms.
 Set Implicit Arguments.
 Unset Strict Implicit.

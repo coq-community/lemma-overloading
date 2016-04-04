@@ -1,4 +1,3 @@
-[submodule "ssreflect"]
-	path = ssreflect
-	url = https://scm.gforge.inria.fr/anonscm/git/coq-contribs/ssreflect.git
-	branch = trunk
+[submodule "math-comp"]
+	path = math-comp
+	url = https://github.com/math-comp/math-comp.git
