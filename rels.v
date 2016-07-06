@@ -15,7 +15,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From Ssreflect Require Import ssreflect ssrfun ssrbool eqtype seq.
+From mathcomp.ssreflect Require Import ssreflect ssrfun ssrbool eqtype seq.
 Require Import Setoid Morphisms.
 Set Implicit Arguments.
 Unset Strict Implicit. 

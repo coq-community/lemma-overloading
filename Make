@@ -1,5 +1,4 @@
 -R . LemmaOverloading
--I ../ssreflect/src
 prelude.v
 rels.v
 ordtype.v

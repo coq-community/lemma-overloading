@@ -15,9 +15,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From Ssreflect Require Import ssreflect ssrfun ssrnat div ssrbool seq.
+From mathcomp.ssreflect Require Import ssreflect ssrfun ssrnat div ssrbool seq.
 From LemmaOverloading Require Import finmap ordtype.
-From Ssreflect Require Import path eqtype.
+From mathcomp.ssreflect Require Import path eqtype.
 Require Import prelude Eqdep.
 Set Implicit Arguments.
 Unset Strict Implicit.

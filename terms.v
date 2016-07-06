@@ -15,7 +15,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From Ssreflect Require Import ssreflect ssrbool ssrnat ssrfun eqtype seq path.
+From mathcomp.ssreflect Require Import ssreflect ssrbool ssrnat ssrfun eqtype seq path.
 Require Import rels.
 Require Import prelude prefix perms heaps.
 Set Implicit Arguments.
