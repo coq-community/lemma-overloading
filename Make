@@ -1,6 +1,4 @@
 -R . LemmaOverloading
--R math-comp/mathcomp mathcomp
-
 prelude.v
 rels.v
 ordtype.v

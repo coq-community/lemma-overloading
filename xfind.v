@@ -17,7 +17,7 @@
 
 Set Automatic Coercions Import.
 
-From mathcomp Require Import ssreflect ssrfun ssrbool ssrnat seq.
+From mathcomp.ssreflect Require Import ssreflect ssrfun ssrbool ssrnat seq.
 Require Import prefix.
 Set Implicit Arguments.
 Unset Strict Implicit.

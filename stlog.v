@@ -16,7 +16,7 @@
 *)
 
 Set Automatic Coercions Import.
-From mathcomp Require Import ssreflect ssrbool ssrnat eqtype seq ssrfun.
+From mathcomp.ssreflect Require Import ssreflect ssrbool ssrnat eqtype seq ssrfun.
 Require Import heaps rels hprop stmod stsep. 
 Set Implicit Arguments.
 Unset Strict Implicit.
@@ -389,15 +389,15 @@ Ltac hstep :=
 
 Lemma swp : forall (A : Type) (v : A) x h, h \In x :--> v <-> h = x :-> v.
 Proof. 
-move=>A v x h; split; first by admit. (* case; unlock. *)
+move=>A v x h; split; first by admit. 
 by move=>->; rewrite InE /pts /=; unlock.
-Qed.
+Admitted.
 
 Lemma opn : forall (A : Type) (v : A) x h, h \In x :--> v <-> x :-> v = h.
 Proof. 
 move=>A v x h; split=>[|H]; first by admit. (* case; unlock. *)
 by rewrite InE /= /pts; unlock. 
-Qed.
+Admitted.
 
 Prenex Implicits swp opn.
 

@@ -17,7 +17,7 @@
 
 Set Automatic Coercions Import.
 
-From mathcomp Require Import ssreflect ssrfun ssrbool ssrnat seq eqtype.
+From mathcomp.ssreflect Require Import ssreflect ssrfun ssrbool ssrnat seq eqtype.
 Require Import heaps noalias.
 Set Implicit Arguments.
 Unset Strict Implicit.
@@ -57,7 +57,7 @@ Export NoAlias2.Exports.
 
 Lemma noaliasR2 s x y (f : Scan.form s) (g : NoAlias2.form x y s) : 
                def f -> NoAlias2.eq_of g. 
-Proof. admit. Qed.
+Proof. admit. Admitted.
 
 Implicit Arguments noaliasR2 [s x y f g].
 
@@ -85,8 +85,6 @@ split.
 try rewrite !(negbTE (noaliasR2 D)).
 admit.
 Abort.
-
-
 
 (* A faulty version that evidences a bug in the CS inference algorithm *)
 (* In this example we do not use the extra parametrized tagging, as in *)
@@ -150,4 +148,4 @@ split.
 (* just as it should *)
 rewrite !(negbTE (noaliasR D)).
 admit.
-Abort.
+Admitted.
