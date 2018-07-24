@@ -409,7 +409,7 @@ Program
 Canonical Structure start x y (f : Search2.form x y) := 
   @Check x y f y (Logic.eq_refl _) _.
 Next Obligation.
-elim: f H=>[s H /= U].
+case: f H=>[s H /= U].
 by case: H=>_ _; apply.
 Qed.
 
@@ -443,8 +443,8 @@ Program
 Canonical Structure start' x y (f : Search2.form x y) := 
   @Check' x f y _.
 Next Obligation.
-elim: f H=>[s H /= U].
-by elim: H=>_ _; apply.
+case: f H=>[s H /= U].
+by case: H=>_ _; apply.
 Qed.
 
 
