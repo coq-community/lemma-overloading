@@ -59,7 +59,7 @@ Notation " R ===> R' " := (@Morphisms.respectful _ _ R R')
 (* not included in the other libraries *)
 
 Definition inj_pair2 := @inj_pair2.
-Implicit Arguments inj_pair2 [U P p x y].
+Arguments inj_pair2 [U P p x y].
 Prenex Implicits inj_pair2.
 
 Lemma inj_sval A P : injective (@sval A P).
@@ -163,7 +163,7 @@ Proof. by move=>pf; rewrite eqc. Qed.
 End Coercions.
 
 Hint Resolve jmeq_refl.
-Implicit Arguments jmeq [A B].
+Arguments jmeq T [A B] x y.
 Notation "a =jm b" := (jmeq id a b) (at level 50).
 
 (* some additional elimination principles *)
@@ -210,7 +210,7 @@ Proof. by move=>pf; rewrite eqc2. Qed.
 End Coercions2.
 
 Hint Resolve refl_jmeq2.
-Implicit Arguments jmeq2 [A1 A2 B1 B2].
+Arguments jmeq2 T [A1 A2 B1 B2] x y.
 
 (***************************)
 (* operations on functions *)
@@ -256,7 +256,7 @@ Prenex Implicits swap rCA rAC rA iA pL pR.
 (*
 Definition Id A : simpl_fun A A := [fun x => x].
 
-Implicit Arguments Id [A].
+Arguments Id [A].
 Prenex Implicits Id.
 *)
 
@@ -364,9 +364,9 @@ Qed.
 
 End ReflectConnectives.
 
-Implicit Arguments and6P [b1 b2 b3 b4 b5 b6].
-Implicit Arguments or5P [b1 b2 b3 b4 b5].
-Implicit Arguments or6P [b1 b2 b3 b4 b5 b6].
+Arguments and6P [b1 b2 b3 b4 b5 b6].
+Arguments or5P [b1 b2 b3 b4 b5].
+Arguments or6P [b1 b2 b3 b4 b5 b6].
 Prenex Implicits and6P or5P or6P.
 
 

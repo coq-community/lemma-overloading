@@ -15,7 +15,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-Set Automatic Coercions Import.
 
 From mathcomp.ssreflect Require Import ssreflect ssrfun ssrbool ssrnat seq eqtype.
 Require Import heaps noalias.
@@ -31,8 +30,10 @@ Import Prenex Implicits.
 (* and demand that the booleam is an inequality.                          *)
 
 Module NoAlias2.
+Section NoAlias2Section.
 
-Structure tagged_bool (x y : ptr) := Tag {untag :> bool}.
+Structure tagged_bool (x y : ptr) := Tag {untag : bool}.
+Local Coercion untag : tagged_bool >-> bool.
 
 Canonical Structure ineq x y := @Tag x y (x != y).
 
@@ -46,9 +47,12 @@ Proof. by case: f=>[[s]] H /= U; case: H=>_ _; apply. Qed.
 Canonical Structure start x y (f : Search2.form x y) :=
   @Form x y f (ineq x y) (@start_pf x y f).
 
+End NoAlias2Section.
+
 Module Exports.
 Canonical Structure ineq.
 Canonical Structure start.
+Coercion untag : tagged_bool >-> bool.
 End Exports.
 
 End NoAlias2.
@@ -59,7 +63,7 @@ Lemma noaliasR2 s x y (f : Scan.form s) (g : NoAlias2.form x y s) :
                def f -> NoAlias2.eq_of g.
 Proof. admit. Admitted.
 
-Implicit Arguments noaliasR2 [s x y f g].
+Arguments noaliasR2 [s x y f g].
 
 Example exnc A (x1 x2 x3 x4 : ptr) (v1 v2 : A) (h1 h2 : heap) :
   def (h1 :+ x2 :-> 1 :+ h2 :+ x1 :-> v2 :+ (x3 :-> v1 :+ empty)) ->
@@ -95,13 +99,15 @@ Abort.
 (* opposite. In short: this example works by mistake. It is expectable *)
 (* that this will be fixed in some future release.                     *)
 Module NoAlias3.
+Section NoAlias3Section.
 
 (* Main structure *)
 Structure form x (s : seq ptr) :=
-  Form {y_of :> ptr;
-         _ : uniq s -> x != y_of}.
+  Form {y_of : ptr;
+        _ : uniq s -> x != y_of}.
+Local Coercion y_of : form >-> ptr.
 
-Implicit Arguments Form [].
+Arguments Form : clear implicits.
 
 Lemma noalias_pf (x y : ptr) (f : Search2.form x y) :
         uniq f -> x != y.
@@ -110,8 +116,11 @@ Proof. by move: f=>[[s]][]. Qed.
 Canonical Structure start x y (f : Search2.form x y) :=
   @Form x f y (@noalias_pf x y f).
 
+End NoAlias3Section.
+
 Module Exports.
 Canonical Structure start.
+Coercion y_of : form >-> ptr.
 End Exports.
 
 End NoAlias3.
@@ -122,7 +131,7 @@ Lemma noaliasR s x (f : Scan.form s) (g : NoAlias3.form x s) :
                def f -> x != NoAlias3.y_of g.
 Proof. by move: f g=>[[h]] H1 [[y']] /= H2; case/H1=>U _; apply: H2. Qed.
 
-Implicit Arguments noaliasR [s x f g].
+Arguments noaliasR [s x f g].
 Prenex Implicits noaliasR.
 
 Example exnc A (x1 x2 x3 x4 : ptr) (v1 v2 : A) (h1 h2 : heap) :

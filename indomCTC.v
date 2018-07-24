@@ -25,8 +25,6 @@ Import Prenex Implicits.
 Class Indom (x : ptr) (h : heap) :=
    { indom : def h -> x \in dom h }.
 
-Implicit Arguments indom [ [Indom] ].
-
 Program Instance found A x (v:A) : Indom x (x:->v).
 Next Obligation.
 rewrite defPt in H.

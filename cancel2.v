@@ -17,7 +17,7 @@ Structure abs_pts x pts_A (pts_v : pts_A) pts_r :=
   AbsPts {
     pts_h :> pack_heap;
     _ : pack_h pts_h = x :-> pts_v :+ pts_r }.
-Implicit Arguments AbsPts [pts_A].
+Arguments AbsPts x [pts_A].
 
 Definition pts_inv x A (v :A) r (f : abs_pts x v r) :=
   match f return (pack_h f = x:->v:+r) with (AbsPts p i) => i end.
@@ -49,7 +49,7 @@ Structure abs_heap h1 r :=
   AbsHeap {
     heap_h :> pack_heap;
     _ : pack_h heap_h = h1 :+ r }.
-Implicit Arguments AbsHeap [].
+Arguments AbsHeap : clear implicits.
 
 Definition heap_inv h r (f : abs_heap h r) :=
   match f return pack_h f = h :+ r with
@@ -265,7 +265,7 @@ Lemma cancel (h1 h2 : heap) (D : def h1) (H : h1 = h2)
 move=>_.
 apply c.
 Qed.
-Implicit Arguments cancel [h1 h2 c].
+Arguments cancel [h1 h2] D H [c].
 
 
 

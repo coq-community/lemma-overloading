@@ -77,8 +77,6 @@ Canonical Structure search_right x (h : heap) (f : find x) :=
 Lemma indom (x : ptr) (f : find x) : def f -> x \in dom f.
 Proof. by case: f=>[[i]]; apply. Qed.
 
-Implicit Arguments indom [f].
-
 
 (*************************************************)
 (*                   Examples                    *)

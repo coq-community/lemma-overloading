@@ -32,7 +32,7 @@ Class XFind A (s : seq A) (e : A) := {
   index_of : nat;
   xfind : invariant s seq_of index_of e}.
 
-Implicit Arguments XFind [A].
+Arguments XFind [A].
 
 Program Instance found_struct A (x:A) t : XFind (x :: t) x := {| seq_of := (x :: t); index_of := 0|}.
 Next Obligation. by split; [|apply: prefix_refl]. Qed.

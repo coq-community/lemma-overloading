@@ -112,8 +112,8 @@ Canonical Structure simplpredPredType :=
 
 End Predicates.
 
-Implicit Arguments Pred0 [T].
-Implicit Arguments PredT [T].
+Arguments Pred0 [T].
+Arguments PredT [T].
 Prenex Implicits Pred0 PredT PredI PredU PredC PredD Preim.
 
 Notation "r1 +p r2" := (PredU r1 r2)

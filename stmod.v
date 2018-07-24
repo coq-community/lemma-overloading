@@ -15,7 +15,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-Set Automatic Coercions Import.
 From mathcomp.ssreflect Require Import ssreflect ssrbool ssrfun ssrnat eqtype seq.
 Require Import prelude heaps rels hprop domains.
 Set Implicit Arguments.
@@ -42,7 +41,7 @@ Canonical Structure exn_eqType := EqType exn exn_eqMixin.
 
 (* Answer type *)
 Inductive ans (A : Type) : Type := Val of A | Exn of exn.
-Implicit Arguments Exn [A].
+Arguments Exn [A].
 
 Notation pre := (Pred heap).
 Notation post A := (ans A -> heap -> heap -> Prop).
@@ -223,7 +222,7 @@ Proof. by case: e=>p M S; apply. Qed.
 
 End STDef.
 
-Implicit Arguments spec_runs [A s i y m].
+Arguments spec_runs [A s i y m].
 Prenex Implicits bot_runs model_runs def_runs spec_runs.
 
 (************************************)

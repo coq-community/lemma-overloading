@@ -25,9 +25,9 @@ Import Prenex Implicits.
 Class Update (h1 h2 k1 k2 : heap) :=
   { rest : heap; update1 : h1 = k1 :+ rest; update2 : h2 = k2 :+ rest}.
 
-Implicit Arguments update1 [h1 h2 k1 k2].
-Implicit Arguments update2 [h1 h2 k1 k2].
-Implicit Arguments rest [h1 h2 k1 k2].
+Arguments update1 [h1 h2 k1 k2].
+Arguments update2 [h1 h2 k1 k2].
+Arguments rest [h1 h2 k1 k2].
 
 Program
 Instance found_struct k1 k2 : Update k1 k2 k1 k2 | 1 := {| rest := empty |}.

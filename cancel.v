@@ -61,7 +61,7 @@ Structure ast (i j : ctx) (t : synheap) :=
   Ast {heap_of :> tagged_heap;
        _ : invariant i j t heap_of}.
 
-Implicit Arguments Ast [].
+Arguments Ast : clear implicits.
 
 Lemma union_pf i j k t1 t2 (f1 : ast i j t1) (f2 : ast j k t2) :
         invariant i k (t1 ++ t2) (union_tag (f1 :+ f2)).

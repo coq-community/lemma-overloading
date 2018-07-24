@@ -15,7 +15,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-Set Automatic Coercions Import.
 
 From mathcomp.ssreflect Require Import ssreflect ssrfun ssrbool ssrnat seq.
 Require Import prefix.
@@ -49,7 +48,7 @@ Structure xfind (s r : seq A) (i : nat) := XFind {
   elem_of :> xtagged;
   _ : invariant s r i elem_of}.
 
-Implicit Arguments XFind [].
+Arguments XFind : clear implicits.
 
 
 Lemma found_pf x t : invariant (x :: t) (x :: t) 0 x.

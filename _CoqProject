@@ -27,3 +27,5 @@ llistR.v
 stlogCTC.v
 indom.v
 indomCTC.v
+
+-arg "-w -notation-overridden,-projection-no-head-constant,-redundant-canonical-projection"

@@ -73,8 +73,6 @@ Abort.
 Class Search (x : ptr) (s : seq ptr) :=
         { search : x \in s }.
 
-Implicit Arguments search [ [Search] ].
-
 Program Instance search_found x s : Search x (x :: s).
 Next Obligation.
 by rewrite inE eq_refl.
@@ -119,7 +117,7 @@ Qed.
 Lemma find2E x y s (f : Search2 x y s) : uniq s -> x != y.
 Proof. by move: f=>[[_ _]]; apply. Qed.
 
-Implicit Arguments find2E [x y s f].
+Arguments find2E [x y s f].
 
 Example ex_find2 (w x y z : ptr) : uniq [:: z; y; w; x] -> x != y.
 move=>H.
@@ -134,7 +132,7 @@ move=>D.
 by case: sc s2=>s /= [//|] U _ [/= [_ _ H3]]; apply: H3.
 Qed.
 
-Implicit Arguments noaliasR [h x y sc s2].
+Arguments noaliasR [h x y sc s2].
 
 Hint Extern 20 (Search2 _ _ _) => progress simpl  : typeclass_instances.
 

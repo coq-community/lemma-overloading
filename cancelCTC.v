@@ -30,7 +30,7 @@ Definition invariant i j t h := [/\ interp j t = h, subctx i j & valid j t].
 Class Ast (i j : ctx) (t : synheap) (h : heap) :=
        { ast : invariant i j t h}.
 
-Implicit Arguments Ast [].
+Arguments Ast : clear implicits.
 
 
 (* pass output context of f1 as input of f2 *)
@@ -81,7 +81,7 @@ case: f1 f2=>[[<- _ I]] [[<- S _]] D H.
 by apply: cancel_sound; rewrite -(interp_subctx I S).
 Qed.
 
-Implicit Arguments cancelR [j k t1 t2 h1 h2 f1 f2].
+Arguments cancelR [j k t1 t2 h1 h2 f1 f2].
 
 (************)
 (* Examples *)
