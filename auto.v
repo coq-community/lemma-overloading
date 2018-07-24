@@ -31,15 +31,15 @@ Import Prenex Implicits.
 
 Structure tagged_seq := TagS {untags :> seq Prop}.
 
-Definition recurse := TagS. 
+Definition recurse := TagS.
 Canonical Structure found (g : seq Prop) := recurse g.
 
-Structure find (x : Prop) := 
+Structure find (x : Prop) :=
   Find {seq_of :> tagged_seq;
-        _ : x \In untags seq_of}. 
+        _ : x \In untags seq_of}.
 
-Program Canonical Structure 
-  found_struct x g := @Find x (found (x :: g)) _. 
+Program Canonical Structure
+  found_struct x g := @Find x (found (x :: g)) _.
 Next Obligation. by rewrite InE; left. Qed.
 
 Program Canonical Structure
@@ -53,7 +53,7 @@ Structure equate_to (x : Prop) := Equate {assign :> Prop}.
 
 Canonical Structure singleton x := Equate x x.
 
-Structure check (x : Prop) (g : seq Prop) := 
+Structure check (x : Prop) (g : seq Prop) :=
   Check {x_of :> equate_to x;
          _ : assign x_of \In g}.
 
@@ -80,12 +80,12 @@ Definition orL_tag := imp_tag.
 Definition orR_tag := orL_tag.
 Canonical Structure and_tag p := orR_tag p.
 
-Structure form (g : seq Prop) := 
+Structure form (g : seq Prop) :=
   Form {prop_of :> tagged_prop;
         _ : foldr and True g -> untag prop_of}.
 
 Program Canonical Structure
-  and_struct g (p1 p2 : form g) := 
+  and_struct g (p1 p2 : form g) :=
   @Form g (@and_tag (p1 /\ p2)) _.
 Next Obligation.
 case: p1 p2=>[[p1]] H1 [[p2]] H2.
@@ -93,17 +93,17 @@ by split; [apply: H1 | apply: H2]; apply: H.
 Qed.
 
 Program Canonical Structure
-  orL_struct g (p1 : form g) (p2 : Prop) := 
+  orL_struct g (p1 : form g) (p2 : Prop) :=
   @Form g (@orL_tag (p1 \/ p2)) _.
 Next Obligation. by case: p1=>[[p1]] H1; left; apply: H1 H. Qed.
 
 Program Canonical Structure
-  orR_struct g (p1 : Prop) (p2 : form g) := 
+  orR_struct g (p1 : Prop) (p2 : form g) :=
   @Form g (@orR_tag (p1 \/ p2)) _.
 Next Obligation. by case: p2=>[[p2]] H2; right; apply: H2 H. Qed.
 
 Program Canonical Structure
-  imp_struct g (p : Prop) (q : form (p :: g)) := 
+  imp_struct g (p : Prop) (q : form (p :: g)) :=
   @Form g (@imp_tag (p -> q)) _.
 Next Obligation. by case: q=>[[q]] H1; apply: H1. Qed.
 
@@ -116,12 +116,12 @@ Program Canonical Structure
   var_struct x g (c : check x g) :=
   @Form g (@var_tag c) _ .
 Next Obligation.
-case: c=>[[p]] /=; elim: g H=>[//|t s IH] /=. 
+case: c=>[[p]] /=; elim: g H=>[//|t s IH] /=.
 case=>H1 H2; rewrite InE /=.
 by case; [move=>-> | apply: IH H2].
 Qed.
 
-(* main lemma *) 
+(* main lemma *)
 
 Lemma auto (p : form [::]) : untag p.
 Proof. by case: p=>[[s]] H; apply: H. Qed.

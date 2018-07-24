@@ -34,16 +34,16 @@ Module NoAlias2.
 
 Structure tagged_bool (x y : ptr) := Tag {untag :> bool}.
 
-Canonical Structure ineq x y := @Tag x y (x != y). 
+Canonical Structure ineq x y := @Tag x y (x != y).
 
-Structure form x y (s : seq ptr) := 
+Structure form x y (s : seq ptr) :=
   Form {eq_of : tagged_bool x y;
         _ : uniq s -> untag eq_of}.
 
 Lemma start_pf (x y : ptr) (f : Search2.form x y) : uniq f -> ineq x y.
 Proof. by case: f=>[[s]] H /= U; case: H=>_ _; apply. Qed.
 
-Canonical Structure start x y (f : Search2.form x y) := 
+Canonical Structure start x y (f : Search2.form x y) :=
   @Form x y f (ineq x y) (@start_pf x y f).
 
 Module Exports.
@@ -55,16 +55,16 @@ End NoAlias2.
 
 Export NoAlias2.Exports.
 
-Lemma noaliasR2 s x y (f : Scan.form s) (g : NoAlias2.form x y s) : 
-               def f -> NoAlias2.eq_of g. 
+Lemma noaliasR2 s x y (f : Scan.form s) (g : NoAlias2.form x y s) :
+               def f -> NoAlias2.eq_of g.
 Proof. admit. Admitted.
 
 Implicit Arguments noaliasR2 [s x y f g].
 
 Example exnc A (x1 x2 x3 x4 : ptr) (v1 v2 : A) (h1 h2 : heap) :
-  def (h1 :+ x2 :-> 1 :+ h2 :+ x1 :-> v2 :+ (x3 :-> v1 :+ empty)) -> 
+  def (h1 :+ x2 :-> 1 :+ h2 :+ x1 :-> v2 :+ (x3 :-> v1 :+ empty)) ->
      (x1 != x2) /\
-     (x1 != x2) && (x2 != x3) && (x3 != x1) /\ 
+     (x1 != x2) && (x2 != x3) && (x3 != x1) /\
      (x2 == x3) = false /\ (x1 == x2) = false /\
      (x1 != x2) && (x2 != x3) && (x1 != x4) && (x3 != x1).
 Proof.
@@ -93,21 +93,21 @@ Abort.
 (* a structure is unified *after* the parameters of the structure. In  *)
 (* the default instance (one whose value is a variable), it does the   *)
 (* opposite. In short: this example works by mistake. It is expectable *)
-(* that this will be fixed in some future release.                     *)  
+(* that this will be fixed in some future release.                     *)
 Module NoAlias3.
 
 (* Main structure *)
-Structure form x (s : seq ptr) := 
+Structure form x (s : seq ptr) :=
   Form {y_of :> ptr;
          _ : uniq s -> x != y_of}.
 
 Implicit Arguments Form [].
 
-Lemma noalias_pf (x y : ptr) (f : Search2.form x y) :   
+Lemma noalias_pf (x y : ptr) (f : Search2.form x y) :
         uniq f -> x != y.
-Proof. by move: f=>[[s]][]. Qed. 
+Proof. by move: f=>[[s]][]. Qed.
 
-Canonical Structure start x y (f : Search2.form x y) := 
+Canonical Structure start x y (f : Search2.form x y) :=
   @Form x f y (@noalias_pf x y f).
 
 Module Exports.
@@ -118,26 +118,26 @@ End NoAlias3.
 
 Export NoAlias3.Exports.
 
-Lemma noaliasR s x (f : Scan.form s) (g : NoAlias3.form x s) : 
-               def f -> x != NoAlias3.y_of g. 
+Lemma noaliasR s x (f : Scan.form s) (g : NoAlias3.form x s) :
+               def f -> x != NoAlias3.y_of g.
 Proof. by move: f g=>[[h]] H1 [[y']] /= H2; case/H1=>U _; apply: H2. Qed.
 
 Implicit Arguments noaliasR [s x f g].
 Prenex Implicits noaliasR.
 
 Example exnc A (x1 x2 x3 x4 : ptr) (v1 v2 : A) (h1 h2 : heap) :
-  def (h1 :+ x2 :-> 1 :+ h2 :+ x1 :-> v2 :+ (x3 :-> v1 :+ empty)) -> 
+  def (h1 :+ x2 :-> 1 :+ h2 :+ x1 :-> v2 :+ (x3 :-> v1 :+ empty)) ->
      (x1 != x2) /\
-     (x1 != x2) && (x2 != x3) && (x3 != x1) /\ 
+     (x1 != x2) && (x2 != x3) && (x3 != x1) /\
      (x2 == x3) = false /\ (x1 == x2) = false /\
      (x1 != x2) && (x2 != x3) && (x1 != x4) && (x3 != x1).
 Proof.
 move=>D.
 split.
-- by apply: (noaliasR D). 
+- by apply: (noaliasR D).
 split.
   (* backwards reasoning works *)
-- by rewrite !(noaliasR D). 
+- by rewrite !(noaliasR D).
 split.
   (* subterm selection works *)
 - by rewrite [x2 == x3](negbTE (noaliasR D)).

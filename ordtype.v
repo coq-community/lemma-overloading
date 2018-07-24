@@ -20,12 +20,12 @@ Set Implicit Arguments.
 Unset Strict Implicit.
 Import Prenex Implicits.
 
-Module Ordered. 
+Module Ordered.
 
 Section RawMixin.
 
-Structure mixin_of (T : eqType) := 
-  Mixin {ordering : rel T; 
+Structure mixin_of (T : eqType) :=
+  Mixin {ordering : rel T;
          _ : irreflexive ordering;
          _ : transitive ordering;
          _ : forall x y, [|| ordering x y, x == y | ordering y x]}.
@@ -37,7 +37,7 @@ End RawMixin.
 Section ClassDef.
 
 Record class_of (T : Type) := Class {
-   base : Equality.class_of T; 
+   base : Equality.class_of T;
    mixin : mixin_of (Equality.Pack base T)}.
 
 Local Coercion base : class_of >-> Equality.class_of.
@@ -52,7 +52,7 @@ Definition clone c of phant_id class c := @Pack T c T.
 (* produce an ordered type out of the inherited mixins *)
 (* equalize m0 and m by means of a phantom; will be exploited *)
 (* further down in the definition of OrdType *)
-Definition pack b (m0 : mixin_of (EqType T b)) := 
+Definition pack b (m0 : mixin_of (EqType T b)) :=
   fun m & phant_id m0 m => Pack (@Class T b m) T.
 
 Definition eqType := Equality.Pack class cT.
@@ -80,23 +80,23 @@ Prenex Implicits ord.
 Section Lemmas.
 Variable T : ordType.
 
-Lemma irr : irreflexive (@ord T). 
+Lemma irr : irreflexive (@ord T).
 Proof. by case: T=>s [b [m]]. Qed.
 
-Lemma trans : transitive (@ord T). 
+Lemma trans : transitive (@ord T).
 Proof. by case: T=>s [b [m]]. Qed.
 
-Lemma total (x y : T) : [|| ord x y, x == y | ord y x]. 
-Proof. by case: T x y=>s [b [m]]. Qed. 
+Lemma total (x y : T) : [|| ord x y, x == y | ord y x].
+Proof. by case: T x y=>s [b [m]]. Qed.
 
 Lemma nsym (x y : T) : ord x y -> ord y x -> False.
-Proof. by move=>E1 E2; move: (trans E1 E2); rewrite irr. Qed. 
+Proof. by move=>E1 E2; move: (trans E1 E2); rewrite irr. Qed.
 
-End Lemmas. 
+End Lemmas.
 
 Section Totality.
-Variable K : ordType.  
- 
+Variable K : ordType.
+
 CoInductive total_spec (x y : K) : bool -> bool -> bool -> Type :=
 | total_spec_lt of ord x y : total_spec x y true false false
 | total_spec_eq of x == y : total_spec x y false true false
@@ -106,18 +106,18 @@ Lemma totalP x y : total_spec x y (ord x y) (x == y) (ord y x).
 Proof.
 case H1: (x == y).
 - by rewrite (eqP H1) irr; apply: total_spec_eq.
-case H2: (ord x y); case H3: (ord y x). 
-- by case: (nsym H2 H3). 
+case H2: (ord x y); case H3: (ord y x).
+- by case: (nsym H2 H3).
 - by apply: total_spec_lt H2.
 - by apply: total_spec_gt H3.
 by move: (total x y); rewrite H1 H2 H3.
 Qed.
-End Totality. 
+End Totality.
 
 Section NatOrd.
 Lemma irr_ltn_nat : irreflexive ltn. Proof. by move=>x; rewrite /= ltnn. Qed.
 Lemma trans_ltn_nat : transitive ltn. Proof. by apply: ltn_trans. Qed.
-Lemma total_ltn_nat : forall x y, [|| x < y, x == y | y < x]. 
+Lemma total_ltn_nat : forall x y, [|| x < y, x == y | y < x].
 Proof. by move=>*; case: ltngtP. Qed.
 
 Definition nat_ordMixin := OrdMixin irr_ltn_nat trans_ltn_nat total_ltn_nat.
@@ -128,7 +128,7 @@ Section ProdOrd.
 Variables K T : ordType.
 
 (* lexicographic ordering *)
-Definition lex : rel (K * T) := 
+Definition lex : rel (K * T) :=
   fun x y => if x.1 == y.1 then ord x.2 y.2 else ord x.1 y.1.
 
 Lemma irr_lex : irreflexive lex.
@@ -139,7 +139,7 @@ Proof.
 move=>[x1 x2][y1 y2][z1 z2]; rewrite /lex /=.
 case: ifP=>H1; first by rewrite (eqP H1); case: eqP=>// _; apply: trans.
 case: ifP=>H2; first by rewrite (eqP H2) in H1 *; rewrite H1.
-case: ifP=>H3; last by apply: trans. 
+case: ifP=>H3; last by apply: trans.
 by rewrite (eqP H3)=>R1; move/(nsym R1).
 Qed.
 
@@ -160,7 +160,7 @@ Section FinTypeOrd.
 Variable T : finType.
 
 Definition ordf : rel T :=
-  fun x y => index x (enum T) < index y (enum T). 
+  fun x y => index x (enum T) < index y (enum T).
 
 Lemma irr_ordf : irreflexive ordf.
 Proof. by move=>x; rewrite /ordf ltnn. Qed.

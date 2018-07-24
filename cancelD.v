@@ -47,13 +47,13 @@ Definition default_tag := Tag.
 Definition dyneq_tag := default_tag.
 Canonical Structure and_tag p := dyneq_tag p.
 
-Structure form (p : Prop) := 
+Structure form (p : Prop) :=
   Form {prop_of :> tagged_prop;
         _ : p <-> puntag prop_of}.
 
 Program
 Canonical Structure
-  conj_struct p1 p2 (f1 : form p1) (f2 : form p2) := 
+  conj_struct p1 p2 (f1 : form p1) (f2 : form p2) :=
   @Form (p1 /\ p2) (and_tag (f1 /\ f2)) _.
 Next Obligation.
 by split; case: f1 f2=>[[f1]] H1 [[f2]] H2 /=; rewrite H1 H2.
@@ -61,7 +61,7 @@ Qed.
 
 Program
 Canonical Structure
-  dyneq_struct A (v1 v2 : A) := 
+  dyneq_struct A (v1 v2 : A) :=
   @Form (v1 = v2) (dyneq_tag (dyn v1 = dyn v2)) _.
 Next Obligation.
 by split=>[-> //|]; move/dyn_inj.
@@ -69,7 +69,7 @@ Qed.
 
 Program
 Canonical Structure
-  default_struct p := 
+  default_struct p :=
    @Form p (default_tag p) _.
 Next Obligation.
 by [].
@@ -83,9 +83,9 @@ Qed.
 
 Notation cancelD D H := (simplify (cancelR D H)).
 
-Example ex3 h1 h2 h3 h4 x1 x2 (d1 d2 d3 d4 : nat) : 
+Example ex3 h1 h2 h3 h4 x1 x2 (d1 d2 d3 d4 : nat) :
      def ((h3 :+ (x1 :-> d1)) :+ (h1 :+ empty) :+ (x2 :-> d2)) ->
-     (h3 :+ (x1 :-> d1)) :+ (h1 :+ empty) :+ 
+     (h3 :+ (x1 :-> d1)) :+ (h1 :+ empty) :+
      (x2 :-> d2) = (x2 :-> d3) :+ (h2 :+ empty :+ h3) :+ h4 :+ (x1 :-> d4) ->
      d1 = d4 /\ d2 = d3 /\ h1 = h2 :+ h4.
 Proof.

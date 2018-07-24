@@ -22,16 +22,16 @@ Set Implicit Arguments.
 Unset Strict Implicit.
 Import Prenex Implicits.
 
-Delimit Scope stsep_scope with stsep. 
+Delimit Scope stsep_scope with stsep.
 Open Scope stsep_scope.
 
-Definition lolli (p : _ -> Prop) q i m := 
-  forall i1 h, i = i1 :+ h -> def i -> p i1 -> 
+Definition lolli (p : _ -> Prop) q i m :=
+  forall i1 h, i = i1 :+ h -> def i -> p i1 ->
     exists m1, m = m1 :+ h /\ def m /\ q i1 m1.
 
 Notation "p '--o' q"   := (lolli p q) (at level 75) : stsep_scope.
 
-Lemma antiframe p q i m h : 
+Lemma antiframe p q i m h :
         def (i :+ h) -> (p --o q) (i :+ h) (m :+ h) -> (p --o q) i m.
 Proof.
 move=>D1 H i2 m2 E D2 H1; rewrite {i}E in H D1 D2 *.
@@ -41,8 +41,8 @@ by rewrite E in D3; rewrite (defUnl D3).
 Qed.
 
 (* p --o q is local *)
-Lemma locality p q i1 m h : 
-        def (i1 :+ h) -> (p # top) i1 -> (p --o q) (i1 :+ h) m -> 
+Lemma locality p q i1 m h :
+        def (i1 :+ h) -> (p # top) i1 -> (p --o q) (i1 :+ h) m ->
           exists m1, m = m1 :+ h /\ def m /\ (p --o q) i1 m1.
 Proof.
 move=>D [h1][h2][E][H1] _ H2; rewrite {i1}E in D H2 *.
@@ -52,27 +52,27 @@ by apply: antiframe D H2.
 Qed.
 
 Lemma fr_pre p i j : (p # top) i -> (p # top) (i :+ j).
-Proof. 
-by case=>i1 [i2][->][H] _; rewrite -unA; exists i1; exists (i2 :+ j). 
+Proof.
+by case=>i1 [i2][->][H] _; rewrite -unA; exists i1; exists (i2 :+ j).
 Qed.
 
 (********************)
 (* Separation monad *)
 (********************)
 
-Definition fr A (s : spec A) : spec A := 
+Definition fr A (s : spec A) : spec A :=
   (s.1 # top, fun x => s.1 --o s.2 x).
 
 Prenex Implicits fr.
 
 Notation "[ s ]" := (fr s).
 
-Definition STsep A (s : spec A) := ST [s]. 
+Definition STsep A (s : spec A) := ST [s].
 
 Section SepReturn.
 Variable (A : Type) (x : A).
- 
-Definition ret_s : spec A := (emp, fun y i m => m = i /\ y = Val x). 
+
+Definition ret_s : spec A := (emp, fun y i m => m = i /\ y = Val x).
 
 Lemma retP : Model.conseq (Model.ret_s x) [ret_s].
 Proof.
@@ -84,11 +84,11 @@ Definition ret := Model.Do (Model.ret x) retP.
 
 End SepReturn.
 
-Section SepBind. 
-Variables (A B : Type) (s1 : spec A) (s2 : A -> spec B). 
+Section SepBind.
+Variables (A B : Type) (s1 : spec A) (s2 : A -> spec B).
 Variables (e1 : STsep s1) (e2 : forall x, STsep (s2 x)).
 
-Definition bind_s : spec B := 
+Definition bind_s : spec B :=
   (Model.bind_pre [s1] (fr \o s2), Model.bind_post [s1] (fr \o s2)).
 
 Lemma bindP : Model.conseq (Model.bind_s [s1] (fr \o s2)) [bind_s].
@@ -103,7 +103,7 @@ case: H=>[[x][h][]|[e][->]]; case/(locality D1 H1)=>h1 [->][D2] T2.
   by exists m1; do !split=>//; left; exists x; exists h1.
 by exists h1; do !split=>//; right; exists e.
 Qed.
-  
+
 Definition bind : STsep bind_s := Model.Do (Model.bind e1 e2) bindP.
 
 End SepBind.
@@ -114,9 +114,9 @@ Definition verify' A (s : spec A) i (r : ans A -> heap -> Prop) :=
 Notation verify s i r := (@verify' _ [s] i r).
 
 Section SepFrame.
-Variables (A : Type) (s : spec A). 
+Variables (A : Type) (s : spec A).
 
-Lemma frame i j (r : ans A -> heap -> Prop) : 
+Lemma frame i j (r : ans A -> heap -> Prop) :
         verify s i (fun y m => def (m :+ j) -> r y (m :+ j)) ->
         verify s (i :+ j) r.
 Proof.
@@ -135,24 +135,24 @@ by rewrite unh0=>[[<-]][_]; apply: H2.
 Qed.
 
 Lemma frame1 i (r : ans A -> heap -> Prop) :
-        verify' s empty (fun y m => def (m :+ i) -> r y (m :+ i)) -> 
+        verify' s empty (fun y m => def (m :+ i) -> r y (m :+ i)) ->
         verify s i r.
 Proof. by move=>H; rewrite -[i]un0h; apply: frame; apply: frame0. Qed.
 
 End SepFrame.
 
-Definition conseq A (s : spec A) (p : pre) (q : post A) := 
+Definition conseq A (s : spec A) (p : pre) (q : post A) :=
   forall i, p i -> verify s i (fun y m => q y i m).
 
-Local Notation conseq1 := 
-  (fun A (s1 s2 : spec A) => 
-     conseq s1 (let 'pair x _ := s2 in x) 
+Local Notation conseq1 :=
+  (fun A (s1 s2 : spec A) =>
+     conseq s1 (let 'pair x _ := s2 in x)
                (let 'pair _ x := s2 in x)).
 
-Lemma conseq_refl A (s : spec A) : conseq1 A s s. 
+Lemma conseq_refl A (s : spec A) : conseq1 A s s.
 Proof. by case: s=>s1 s2 i H; apply: frame0. Qed.
 
-Hint Resolve conseq_refl. 
+Hint Resolve conseq_refl.
 
 Section SepConseq.
 Variables (A : Type) (s1 s2 : spec A) (e : STsep s1).
@@ -162,7 +162,7 @@ Lemma doP : Model.conseq [s1] [s2].
 Proof.
 move=>i H D; split=>[|y m {H D} /=].
 - case: H D=>i1 [i2][->][H] _ D.
-  by case: (@pf i1 H (defUnl D))=>H1 _; apply: fr_pre. 
+  by case: (@pf i1 H (defUnl D))=>H1 _; apply: fr_pre.
 move=>S D i1 i2 E D2 H2; rewrite {i}E in D S D2 H2.
 case: (@pf i1 H2 (defUnl D2))=>H1 T1.
 case: (locality D2 H1 S)=>m1 [->][D3] {S}.
@@ -176,16 +176,16 @@ End SepConseq.
 Notation "'Do' e" := (do' e _) (at level 80).
 
 Section SepRead.
-Variables (A : Type) (x : ptr). 
+Variables (A : Type) (x : ptr).
 
-Definition read_s : spec A := 
+Definition read_s : spec A :=
   (fun i => exists v : A, i = x :-> v,
    fun y i m => i = m /\ forall v, i = x :-> v -> y = Val v).
 
 Lemma readP : Model.conseq (Model.read_s A x) [read_s].
 Proof.
 move=>i H D; split=>[|{H D} y _ [->] H _ i1 h E1 D E2].
-- case: H D=>i1 [i2][->][[v]] -> _ D /=. 
+- case: H D=>i1 [i2][->][[v]] -> _ D /=.
   rewrite domPtUn inE /= D eq_refl; split=>//.
   by exists v; rewrite lookPtUn.
 move: E1 E2 H D=>-> [v ->] H D; exists (x :-> v); do 3!split=>//.
@@ -197,10 +197,10 @@ Definition read : STsep read_s := Model.Do (Model.read A x) readP.
 
 End SepRead.
 
-Section SepWrite. 
+Section SepWrite.
 Variables (A : Type) (x : ptr) (v : A).
- 
-Definition write_s : spec unit := 
+
+Definition write_s : spec unit :=
   (fun i => exists B : Type, exists y : B, i = x :-> y,
    fun y i m => y = Val tt /\ m = x :-> v).
 
@@ -213,14 +213,14 @@ move: E1 E2 D1 D2=>->->-> D; exists (x :-> v).
 by rewrite updUnl domPt inE /= eq_refl (defPt_null D) /= updU eq_refl.
 Qed.
 
-Definition write : STsep write_s := Model.Do (Model.write x v) writeP. 
+Definition write : STsep write_s := Model.Do (Model.write x v) writeP.
 
-End SepWrite. 
+End SepWrite.
 
 Section SepAlloc.
 Variables (A : Type) (v : A).
-  
-Definition alloc_s : spec ptr :=  
+
+Definition alloc_s : spec ptr :=
   (emp, fun y i m => exists x, y = Val x /\ m = x :-> v).
 
 Lemma allocP : Model.conseq (Model.alloc_s v) [alloc_s].
@@ -232,14 +232,14 @@ exists (x :-> v); rewrite updUnr (negbTE H2) defPtUn H1 H2 D.
 by do !split=>//; exists x.
 Qed.
 
-Definition alloc : STsep alloc_s := Model.Do (Model.alloc v) allocP. 
+Definition alloc : STsep alloc_s := Model.Do (Model.alloc v) allocP.
 
 End SepAlloc.
 
-Section SepBlockAlloc.  
-Variables (A : Type) (v : A) (n : nat). 
+Section SepBlockAlloc.
+Variables (A : Type) (v : A) (n : nat).
 
-Definition allocb_s : spec ptr := 
+Definition allocb_s : spec ptr :=
   (emp, fun y i m => exists x:ptr, y = Val x /\ m = updi x (nseq n v)).
 
 Lemma allocbP : Model.conseq (Model.allocb_s v n) [allocb_s].
@@ -258,7 +258,7 @@ End SepBlockAlloc.
 Section SepDealloc.
 Variable x : ptr.
 
-Definition dealloc_s : spec unit := 
+Definition dealloc_s : spec unit :=
   (fun i => exists A : Type, exists v:A, i = x :-> v,
    fun y i m => y = Val tt /\ m = empty).
 
@@ -277,9 +277,9 @@ End SepDealloc.
 
 Section SepThrow.
 Variables (A : Type) (e : exn).
- 
-Definition throw_s : spec A := 
-  (emp, fun y i m => m = i /\ y = Exn e). 
+
+Definition throw_s : spec A :=
+  (emp, fun y i m => m = i /\ y = Exn e).
 
 Lemma throwP : Model.conseq (Model.throw_s A e) [throw_s].
 Proof.
@@ -296,7 +296,7 @@ Variables (A B : Type) (s : spec A) (s1 : A -> spec B) (s2 : exn -> spec B).
 Variables (e : STsep s) (e1 : forall x, STsep (s1 x)).
 Variables (e2 : forall e, STsep (s2 e)).
 
-Definition try_s : spec B := 
+Definition try_s : spec B :=
   (Model.try_pre [s] (fr \o s1) (fr \o s2),
    Model.try_post [s] (fr \o s1) (fr \o s2)).
 
@@ -309,9 +309,9 @@ move=>i H D; split=>[|{H D} y m H1 D1 i1 h E1 D2 /= [H2][H3] H4].
   by apply: fr_pre.
 rewrite {i}E1 /= in H1 D2.
 case: H1=>[[x]|[x]][h1][];
-case/(locality D2 H2)=>m1 [->][D3] T1; move: (T1); 
-[move/H3 | move/H4]=>T'; case/(locality D3 T')=>m2 [->][D4] T2; 
-exists m2; do 2!split=>//; [left | right]; 
+case/(locality D2 H2)=>m1 [->][D3] T1; move: (T1);
+[move/H3 | move/H4]=>T'; case/(locality D3 T')=>m2 [->][D4] T2;
+exists m2; do 2!split=>//; [left | right];
 by exists x; exists m1.
 Qed.
 
@@ -330,7 +330,7 @@ End SepFix.
 (* Conditionals for various types *)
 
 Section CondBool.
-Variables (A : Type) (b : bool) (s1 s2 : spec A). 
+Variables (A : Type) (b : bool) (s1 s2 : spec A).
 
 Program
 Definition If (e1 : STsep s1) (e2 : STsep s2) : STsep (if b then s1 else s2) :=
@@ -346,25 +346,25 @@ Definition Match_opt (e1 : STsep s1) (e2 : forall v, STsep (s2 v)) :
              STsep (match x with Some v => s2 v | None => s1 end) :=
   match x with Some v => Do (e2 v) | None => Do e1 end.
 
-End CondOption. 
+End CondOption.
 
 Section CondDecide.
-Variable (A : Type) (p1 p2 : Prop) (b : {p1} + {p2}) 
+Variable (A : Type) (p1 p2 : Prop) (b : {p1} + {p2})
          (s1 : p1 -> spec A) (s2 : p2 -> spec A).
 
 Program
 Definition Match_dec (e1 : forall x, STsep (s1 x))
-                     (e2 : forall x, STsep (s2 x)) : 
+                     (e2 : forall x, STsep (s2 x)) :
              STsep (match b with left x => s1 x | right x => s2 x end) :=
   match b with left x => Do (e1 x) | right x => Do (e2 x) end.
 
-End CondDecide. 
+End CondDecide.
 
 Section CondNat.
 Variable (A : Type) (n : nat) (s1 : spec A) (s2 : nat -> spec A).
 
-Program 
-Definition Match_nat (e1 : STsep s1) (e2 : forall n, STsep (s2 n)) : 
+Program
+Definition Match_nat (e1 : STsep s1) (e2 : forall n, STsep (s2 n)) :
              STsep (match n with 0 => s1 | m.+1 => s2 m end) :=
   match n with 0 => Do e1 | m.+1 => Do (e2 m) end.
 
@@ -394,8 +394,8 @@ Proof.
 split=>H1 i H2 D1; case: (H1 i H2 D1)=>S1 S2.
 - by split=>// y m H D [x1 x2]; apply: S2.
 by split=>// y m H D x1 x2; apply: (S2 y m H D (x1, x2)).
-Qed. 
-   
+Qed.
+
 Lemma impC (B : Type) (q1 q2 : heap -> B -> Prop) (r : B -> post A) :
         conseq s p (fun y i m => forall x, q1 i x -> q2 i x -> r x y i m) <->
         conseq s p (fun y i m => forall x, q1 i x /\ q2 i x -> r x y i m).
@@ -405,7 +405,7 @@ split=>H1 i H2 D1; case: (H1 i H2 D1)=>S1 S2.
 by split=>// *; apply: S2.
 Qed.
 
-Lemma ghE (B : Type) (q : heap -> B -> Prop) (r : B -> post A) : 
+Lemma ghE (B : Type) (q : heap -> B -> Prop) (r : B -> post A) :
         (forall i, p i -> def i -> exists x, q i x) ->
         (forall i x, q i x -> p i -> def i ->
            verify s i (fun y m => r x y i m)) ->
@@ -420,25 +420,25 @@ End Ghosts.
 
 Definition gh := (allC, impC).
 
-Notation "x '<--' c1 ';' c2" := (bind c1 (fun x => c2)) 
+Notation "x '<--' c1 ';' c2" := (bind c1 (fun x => c2))
   (at level 78, right associativity) : stsep_scope.
-Notation "c1 ';;' c2" := (bind c1 (fun _ => c2)) 
+Notation "c1 ';;' c2" := (bind c1 (fun _ => c2))
   (at level 78, right associativity) : stsep_scope.
 Notation "'!' x" := (read _ x) (at level 50) : stsep_scope.
 Notation "e1 '::=' e2" := (write e1 e2) (at level 60) : stsep_scope.
-Notation "'throw' [ t ] E" := (throw t E) 
+Notation "'throw' [ t ] E" := (throw t E)
   (at level 70, no associativity) : stsep_scope.
-Notation "'ttry' E 'then' [ r ] E1 'else' [ x ] E2" := 
+Notation "'ttry' E 'then' [ r ] E1 'else' [ x ] E2" :=
   (try E (fun r => E1) (fun x => E2)) (at level 80) : stsep_scope.
-Notation "'ttry' E 'then' [ r ] E1 'else' E2" := 
+Notation "'ttry' E 'then' [ r ] E1 'else' E2" :=
   (try E (fun r => E1) (fun _ => E2)) (at level 80) : stsep_scope.
-Notation "'ttry' E 'then' E1 'else' [ x ] E2" := 
+Notation "'ttry' E 'then' E1 'else' [ x ] E2" :=
   (try E (fun _ => E1) (fun x => E2)) (at level 80) : stsep_scope.
-Notation "'ttry' E 'then' E1 'else' E2" := 
+Notation "'ttry' E 'then' E1 'else' E2" :=
   (try E (fun _ => E1) (fun _ => E2)) (at level 80) : stsep_scope.
-Notation "'match_opt' E 'then' E1 'else' [ x ] E2" := 
+Notation "'match_opt' E 'then' E1 'else' [ x ] E2" :=
   (Match_opt E E1 (fun x => E2)) (at level 80) : stsep_scope.
-Notation "'match_opt' E 'then' E1 'else' [ x ] E2" := 
+Notation "'match_opt' E 'then' E1 'else' [ x ] E2" :=
   (Match_opt E E1 (fun x => E2)) (at level 80) : stsep_scope.
-Notation "'If' E 'then' E1 'else' E2" := 
+Notation "'If' E 'then' E1 'else' E2" :=
   (If E E1 E2) (at level 80) : stsep_scope.

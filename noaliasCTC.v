@@ -29,7 +29,7 @@ Import Prenex Implicits.
 Definition scan_axiom h s :=
   def h -> uniq s /\ forall x, x \in s -> x \in dom h.
 
-Class Scan (h : heap) := 
+Class Scan (h : heap) :=
         { seq_of : seq ptr ;
           scan : scan_axiom h seq_of }.
 
@@ -38,8 +38,8 @@ Program Instance scan_union h1 h2 (f1 : Scan h1) (f2 : Scan h2) :
 Next Obligation.
 case: f1 f2=>s1 /= sc1 [s2 /= sc2] D.
 case/(_ (defUnl D)): sc1=>U1 H1; case/(_ (defUnr D)): sc2=>U2 H2.
-split=>[|x]; last first. 
-- rewrite mem_cat; case/orP; [move/H1 | move/H2]; 
+split=>[|x]; last first.
+- rewrite mem_cat; case/orP; [move/H1 | move/H2];
   by rewrite domUn !inE /= D => -> //=; rewrite orbT.
 rewrite cat_uniq U1 U2 andbT -all_predC.
 apply/allP=>x; move/H2=>H3; apply: (introN idP); move/H1=>H4.
@@ -57,10 +57,10 @@ Next Obligation.
 by move=>_; split.
 Qed.
 
-Lemma scanE x h (f : Scan h): def h -> x \in seq_of -> x \in dom h. 
+Lemma scanE x h (f : Scan h): def h -> x \in seq_of -> x \in dom h.
 Proof. move=>D; case:f=>s /= [//|_]; apply. Qed.
 
-Example ex_scan x y h : 
+Example ex_scan x y h :
           let: hp := (y :-> 1 :+ h :+ x :-> 2) in def hp -> x \in dom hp.
 Proof.
 move=>D.
@@ -87,12 +87,12 @@ Qed.
 
 Example ex_find (x y z : ptr) : x \in [:: z; x; y].
 Proof.
-rewrite search. 
+rewrite search.
 Abort.
 
 
 (* Search2 *)
-Definition search2_axiom (x y : ptr) (s : seq ptr) := 
+Definition search2_axiom (x y : ptr) (s : seq ptr) :=
   [/\ x \in s, y \in s & uniq s -> x != y].
 
 Class Search2 x y s := { search2 : search2_axiom x y s}.
@@ -111,7 +111,7 @@ Qed.
 
 Program Instance search2_foundz x y z s (f : Search2 x y s) : Search2 x y (z :: s) | 1.
 Next Obligation.
-case: f=>[[H1 H2 H3]]. 
+case: f=>[[H1 H2 H3]].
 rewrite /search2_axiom /= !inE /= H1 H2 !orbT; split=>//.
 by case/andP=>_; apply: H3.
 Qed.
@@ -127,11 +127,11 @@ rewrite (find2E H).
 Abort.
 
 (* Now, the main lemma *)
-Lemma noaliasR h x y (sc : Scan h) (s2 : Search2 x y seq_of): 
-               def h -> x != y. 
+Lemma noaliasR h x y (sc : Scan h) (s2 : Search2 x y seq_of):
+               def h -> x != y.
 Proof.
-move=>D. 
-by case: sc s2=>s /= [//|] U _ [/= [_ _ H3]]; apply: H3. 
+move=>D.
+by case: sc s2=>s /= [//|] U _ [/= [_ _ H3]]; apply: H3.
 Qed.
 
 Implicit Arguments noaliasR [h x y sc s2].
@@ -141,20 +141,20 @@ Hint Extern 20 (Search2 _ _ _) => progress simpl  : typeclass_instances.
 Example ex_noalias x1 x2 : def (x2 :-> 1 :+ x1 :-> 2) -> x1 != x2.
 Proof.
 move=>D.
-by eapply (noaliasR D). 
+by eapply (noaliasR D).
 Abort.
 
 Example ex_noalias2 x1 x2 h : def (x2 :-> 1 :+ h :+ x1 :-> 2) -> x1 != x2.
 Proof.
 move=>D.
-by eapply (noaliasR D). 
+by eapply (noaliasR D).
 Abort.
 
 
 Example exnc A (x1 x2 x3 x4 : ptr) (v1 v2 : A) (h1 h2 : heap) :
-  def (h1 :+ x2 :-> 1 :+ h2 :+ x1 :-> v2 :+ (x3 :-> v1 :+ empty)) -> 
+  def (h1 :+ x2 :-> 1 :+ h2 :+ x1 :-> v2 :+ (x3 :-> v1 :+ empty)) ->
      (x1 != x2) /\
-     (x1 != x2) && (x2 != x3) && (x3 != x1) /\ 
+     (x1 != x2) && (x2 != x3) && (x3 != x1) /\
      (x2 == x3) = false /\ (x1 == x2) = false /\
      ((x1 != x2) && (x2 != x3)) = (x1 != x2) /\
      ((x1 != x2) && (x2 != x3)) = (x1 != x2) /\
@@ -165,10 +165,10 @@ Example exnc A (x1 x2 x3 x4 : ptr) (v1 v2 : A) (h1 h2 : heap) :
 Proof.
 move=>D.
 split.
-- by apply: (noaliasR D). 
+- by apply: (noaliasR D).
 split.
   (* backwards reasoning works *)
-- by rewrite !(noaliasR D). 
+- by rewrite !(noaliasR D).
 split.
   (* subterm selection works *)
 - by rewrite [x2 == x3](negbTE (noaliasR D)).

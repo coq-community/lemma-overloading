@@ -16,7 +16,7 @@
 *)
 
 From mathcomp.ssreflect Require Import ssreflect ssrbool ssrnat eqtype seq ssrfun.
-Require Import heaps rels hprop stmod stsep stlog. 
+Require Import heaps rels hprop stmod stsep stlog.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Import Prenex Implicits.
@@ -37,7 +37,7 @@ Next Obligation. by rewrite unh0. Qed.
 Program
 Instance left_struct l h1 h2 k1 k2 (f : Update h1 h2 k1 k2) :
   Update (l :+ h1) (l :+ h2) k1 k2 | 2 := {| rest := (l :+ rest f) |}.
-Next Obligation. 
+Next Obligation.
 have H : h1 = k1 :+ (rest f) by eapply (update1 f).
 by rewrite -unCA -H.
 Qed.
@@ -49,7 +49,7 @@ Qed.
 Program
 Instance right_struct l h1 h2 k1 k2 (f : Update h1 h2 k1 k2) :
   Update (h1 :+ l) (h2 :+ l) k1 k2 | 2 := {| rest := (rest f :+ l) |}.
-Next Obligation. 
+Next Obligation.
 have H : h1 = k1 :+ (rest f) by eapply (update1 f).
 by rewrite unA -H.
 Qed.
@@ -60,34 +60,34 @@ Qed.
 
 Notation cont A := (ans A -> heap -> Prop).
 
-Section EvalWriteR. 
+Section EvalWriteR.
 Variables (A B C : Type).
 
-Lemma bnd_writeR s (v : A) (w : C) x h1 h2 
-(f : Update h1 h2 (x:->v) (x:->w)) (r : cont B) : 
-        verify (s tt) h1 r -> 
-        verify (bind_s (write_s x v) s) h2 r. 
-Proof. 
+Lemma bnd_writeR s (v : A) (w : C) x h1 h2
+(f : Update h1 h2 (x:->v) (x:->w)) (r : cont B) :
+        verify (s tt) h1 r ->
+        verify (bind_s (write_s x v) s) h2 r.
+Proof.
 set l := rest f.
 have H1 : h1 = (x :-> v) :+ l by eapply (update1 f).
 have H2 : h2 = (x :-> w) :+ l by eapply (update2 f).
-by rewrite H1 H2; apply: bnd_write. 
+by rewrite H1 H2; apply: bnd_write.
 Qed.
 
 End EvalWriteR.
 
-Section EvalDeallocR. 
+Section EvalDeallocR.
 Variables (A B : Type).
 
-Lemma bnd_deallocR s (v : A) x h1 h2 
-  (f : Update h1 h2 empty (x:->v)) (r : cont B) : 
-        verify (s tt) h1 r -> 
+Lemma bnd_deallocR s (v : A) x h1 h2
+  (f : Update h1 h2 empty (x:->v)) (r : cont B) :
+        verify (s tt) h1 r ->
         verify (bind_s (dealloc_s x) s) h2 r.
-Proof. 
+Proof.
 set l := rest f.
 have H1 : h1 = empty :+ l by eapply (update1 f).
 have H2 : h2 = (x :-> v) :+ l by eapply (update2 f).
-by rewrite H1 H2 un0h; apply bnd_dealloc. 
+by rewrite H1 H2 un0h; apply bnd_dealloc.
 Qed.
 
 End EvalDeallocR.
@@ -112,12 +112,12 @@ Next Obligation. by rewrite unCA -heq1. Qed.
 Section EvalDoR.
 Variables (A B : Type).
 
-Lemma val_doR (s : spec A) h i (r : cont A) (f : Find1 h i) : 
-         s.1 i -> 
-         (forall x m,  
+Lemma val_doR (s : spec A) h i (r : cont A) (f : Find1 h i) :
+         s.1 i ->
+         (forall x m,
                s.2 (Val x) i m -> def (m :+ rest1) -> r (Val x) (m :+ rest1)) ->
-         (forall e m, 
-               s.2 (Exn e) i m -> def (m :+ rest1) -> r (Exn e) (m :+ rest1)) -> 
+         (forall e m,
+               s.2 (Exn e) i m -> def (m :+ rest1) -> r (Exn e) (m :+ rest1)) ->
          verify s h r.
 Proof.
 move=>H1 H2 H3.
@@ -128,12 +128,12 @@ Qed.
 
 End EvalDoR.
 
-Example ex_val_do (s : spec nat) (r : cont nat) (x y : ptr) : 
-         s.1 (y:->2) -> 
-         (forall x' m, 
+Example ex_val_do (s : spec nat) (r : cont nat) (x y : ptr) :
+         s.1 (y:->2) ->
+         (forall x' m,
                s.2 (Val x') (y:->2) m -> def (x:->1:+m) -> r (Val x') (x:->1:+m)) ->
-         (forall e m, 
-               s.2 (Exn e) (y:->2) m -> def (x:->1:+m) -> r (Exn e) (x:->1:+m)) -> 
+         (forall e m,
+               s.2 (Exn e) (y:->2) m -> def (x:->1:+m) -> r (Exn e) (x:->1:+m)) ->
          verify s (x:->1 :+ y:->2) r.
 move=>H1 H2 H3.
 apply: (val_doR _ (i:=y:->2))=>//=.
@@ -141,7 +141,7 @@ apply: (val_doR _ (i:=y:->2))=>//=.
 by move=>x'' m''; rewrite unh0 unC; apply: H3.
 Qed.
 
-Example ex_bwd i x1 x2 (e : unit -> spec nat) q: 
+Example ex_bwd i x1 x2 (e : unit -> spec nat) q:
           verify (e tt) (i :+ (x1 :-> 1 :+ x2 :-> 4)) q ->
           verify (bind_s (write_s x2 4) e) (i :+ (x1 :-> 1 :+ x2 :-> 2)) q.
 move=>H.
@@ -149,14 +149,14 @@ by apply: bnd_writeR.
 Abort.
 
 
-Example ex_fwd i x1 x2 (e : unit -> spec nat) q: 
+Example ex_fwd i x1 x2 (e : unit -> spec nat) q:
           verify (e tt) (i :+ (x1 :-> 1 :+ x2 :-> 4)) q ->
           verify (bind_s (write_s x2 4) e) (i :+ (x1 :-> 1 :+ x2 :-> 2)) q.
-move=>H. 
+move=>H.
 by apply: (bnd_writeR _ H).
 Abort.
 
-Example ex_dealloc_bwd i x1 x2 (e : unit -> spec nat) q: 
+Example ex_dealloc_bwd i x1 x2 (e : unit -> spec nat) q:
           verify (e tt) (i :+ (x1 :-> 1)) q ->
           verify (bind_s (dealloc_s x2) e) (i :+ (x1 :-> 1 :+ x2 :-> 2)) q.
 move=>H.

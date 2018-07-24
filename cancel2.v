@@ -14,12 +14,12 @@ Definition pack_right := pack_found.
 Canonical pack_left h := pack_right h.
 
 Structure abs_pts x pts_A (pts_v : pts_A) pts_r :=
-  AbsPts { 
+  AbsPts {
     pts_h :> pack_heap;
     _ : pack_h pts_h = x :-> pts_v :+ pts_r }.
 Implicit Arguments AbsPts [pts_A].
 
-Definition pts_inv x A (v :A) r (f : abs_pts x v r) := 
+Definition pts_inv x A (v :A) r (f : abs_pts x v r) :=
   match f return (pack_h f = x:->v:+r) with (AbsPts p i) => i end.
 
 Program
@@ -46,7 +46,7 @@ Qed.
 
 
 Structure abs_heap h1 r :=
-  AbsHeap { 
+  AbsHeap {
     heap_h :> pack_heap;
     _ : pack_h heap_h = h1 :+ r }.
 Implicit Arguments AbsHeap [].
@@ -120,9 +120,9 @@ Next Obligation.
 move=>h2 r; by rewrite un0h.
 Qed.
 
-Program 
+Program
 Canonical ins4 x A (v : A) r A' (v':A') r' (pf : abs_pts x v' r') (d : def (pts_h pf))
-               (i : x:->v :+ r = (pts_h pf)) (rec : @heapeq empty r' r _ _) := 
+               (i : x:->v :+ r = (pts_h pf)) (rec : @heapeq empty r' r _ _) :=
   @HeapEq (x:->v) (pts_h pf) r d i (pack03 (dummy rec)) (dyn v = dyn v' /\ prop rec) _.
 Next Obligation.
 move=>x A v r A' v' r' [h2 /= ->] D H.
@@ -153,18 +153,18 @@ move/(heaps.cancel D).
 by move=>[->].
 Qed.
 
-Program 
+Program
 Canonical ins5 x A (v : A) h2 r (d : def h2)
-               (i : x:->v :+ r = h2) (rec : @heapeq empty h2 (x:->v :+ r) d _) := 
+               (i : x:->v :+ r = h2) (rec : @heapeq empty h2 (x:->v :+ r) d _) :=
   @HeapEq (x:->v) h2 r d i (pack04 (dummy rec)) _ (proof rec).
 Next Obligation.
 by move=>*;rewrite un0h.
 Qed.
 
 
-Program 
+Program
 Canonical ins6 x A (v : A) h1 r A' (v' : A') r' (pf : abs_pts x v' r') (d : def (pts_h pf))
-               (i : (x:->v :+ h1) :+ r = (pts_h pf)) (rec : @heapeq h1 r' r _ _) := 
+               (i : (x:->v :+ h1) :+ r = (pts_h pf)) (rec : @heapeq h1 r' r _ _) :=
   @HeapEq (x:->v:+h1) (pts_h pf) r d i (pack05 (dummy rec)) (dyn v = dyn v' /\ prop rec) _.
 Next Obligation.
 move=>x A v h1 r A' v' r' [h2 /= ->] D H.
@@ -197,9 +197,9 @@ by move=>[->].
 Qed.
 
 
-Program 
+Program
 Canonical ins7 x A (v : A) h1 h2 r (d : def h2)
-               (i : (x:->v :+ h1) :+ r = h2) (rec : @heapeq h1 h2 (x:->v:+r) d _) := 
+               (i : (x:->v :+ h1) :+ r = h2) (rec : @heapeq h1 h2 (x:->v:+r) d _) :=
   @HeapEq (x:->v:+h1) h2 r d i (pack06 (dummy rec)) _ (proof rec).
 Next Obligation.
 move=>x A v h1 h2 r D H.
@@ -217,7 +217,7 @@ Qed.
 Next Obligation.
 move=>h1 h2 r r' [hr /= I] D H.
 rewrite -H in D.
-rewrite -unA unC in H, D. 
+rewrite -unA unC in H, D.
 rewrite I (unC _ r') in H.
 by apply (eqUh D H).
 Qed.
@@ -242,7 +242,7 @@ Qed.
 Next Obligation.
 move=>h1 r r' [hr /= I] D H.
 rewrite -H in D.
-rewrite unC in H, D. 
+rewrite unC in H, D.
 rewrite I (unC _ r') in H.
 by rewrite un0h; apply (eqUh D H).
 Qed.
@@ -259,19 +259,19 @@ Lemma cancel2 :
 forall h1 h2 : heap, h1 = h2 -> h1 :+ empty = h2.
 Proof. by move=>h1 h2 ->; apply: unh0. Qed.
 
-Lemma cancel (h1 h2 : heap) (D : def h1) (H : h1 = h2) 
-  (c : @heapeq h1 h2 empty (cancel1 D H) (cancel2 H)) : 
+Lemma cancel (h1 h2 : heap) (D : def h1) (H : h1 = h2)
+  (c : @heapeq h1 h2 empty (cancel1 D H) (cancel2 H)) :
   tt = dummy c -> prop c.
-move=>_. 
+move=>_.
 apply c.
 Qed.
 Implicit Arguments cancel [h1 h2 c].
 
 
 
-Example ex3 h1 h3 x1 x2 (d1 d2 d3 d4 : nat) : 
+Example ex3 h1 h3 x1 x2 (d1 d2 d3 d4 : nat) :
      def ((h3 :+ (x1 :-> d1)) :+ h1 :+ (x2 :-> d2)) ->
-     (h3 :+ (x1 :-> d1)) :+ h1 :+ (x2 :-> d2) = 
+     (h3 :+ (x1 :-> d1)) :+ h1 :+ (x2 :-> d2) =
      (x2 :-> d3) :+ h3 :+ (x1 :-> d4) ->
      d1 = d4 /\ d2 = d3 /\ h1 = empty.
 rewrite -!unA.
@@ -283,9 +283,9 @@ move/dyn_inj=>->[]; move/dyn_inj=>->.
 by rewrite !un0h unh0=>->.
 Time Qed.
 
-Example stress 
+Example stress
      (h1 h2 h3 h4 h5 h6 h7 h8 h9 h10 : heap)
-     (x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 : ptr) : 
+     (x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 : ptr) :
      def (x6 :-> 6 :+ x7 :-> 7 :+ x8 :-> 8 :+ x9 :-> 9 :+ x10 :-> 10) ->
      x6 :-> 6 :+ x7 :-> 7 :+ x8 :-> 8 :+ x9 :-> 9 :+ x10 :-> 10 =
      x6 :-> 6 :+ x7 :-> 7 :+ x8 :-> 8 :+ x9 :-> 9 :+ x10 :-> 10 ->

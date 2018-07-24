@@ -43,8 +43,8 @@ Definition invariant x (h : tagged_heap) :=
   def (untag h) -> x \in dom (untag h).
 
 (* Main structure and instances *)
-Structure find (x : ptr) := 
-  Form { heap_of :> tagged_heap; 
+Structure find (x : ptr) :=
+  Form { heap_of :> tagged_heap;
          _ : invariant x heap_of }.
 
 Lemma found_pf A x (v : A) : invariant x (found_tag (x :-> v)).
@@ -53,7 +53,7 @@ Proof. by rewrite /invariant defPt domPt inE /= eq_refl. Qed.
 Canonical Structure ptr_found A x (v : A) :=
   @Form x (found_tag (x :-> v)) (@found_pf A x v).
 
-Lemma left_pf x (h : heap) (f : find x) : 
+Lemma left_pf x (h : heap) (f : find x) :
         invariant x (left_tag (untag (heap_of f) :+ h)).
 Proof.
 case:f=>[[i]]; rewrite /invariant /= => H D.
@@ -63,7 +63,7 @@ Qed.
 Canonical Structure search_left x (h : heap) (f : find x) :=
   @Form x (left_tag (untag (heap_of f) :+ h)) (@left_pf x h f).
 
-Lemma right_pf x (h : heap) (f : find x) : 
+Lemma right_pf x (h : heap) (f : find x) :
         invariant x (right_tag (h :+ untag (heap_of f))).
 Proof.
 case: f=>[[i]]; rewrite /invariant /= => H D.
@@ -86,9 +86,9 @@ Implicit Arguments indom [f].
 
 (* simple example *)
 Example ex1 A (x1 x2 : ptr) (v1 v2 : A) (h1 h2 : heap) :
-          def (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty)) -> 
-          if x2 \in dom (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty)) 
-            then 1 == 1 
+          def (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty)) ->
+          if x2 \in dom (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty))
+            then 1 == 1
             else 1 == 0.
 Proof.
 move=>D.
@@ -97,9 +97,9 @@ Qed.
 
 (* same example, automatically unfolding a definition *)
 Example ex2 A (x1 x2 : ptr) (v1 v2 : A) (h1 h2 : heap) :
-          def (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty)) -> 
-          if x2 \in dom (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty)) 
-            then 1 == 1 
+          def (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty)) ->
+          if x2 \in dom (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty))
+            then 1 == 1
             else 1 == 0.
 Proof.
 set H := _ :+ _ :+ (_ :+ _).

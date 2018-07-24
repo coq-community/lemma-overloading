@@ -36,7 +36,7 @@ Set Automatic Coercions Import.
 (* - The module Scan stores in a list all the pointers in h                   *)
 (* - The module Search finds a pointer in a list                              *)
 (* - The module Search2 finds for two distinct pointers in a list             *)
-(* - The module NoAlias combines the above to prove our goal                  *) 
+(* - The module NoAlias combines the above to prove our goal                  *)
 (******************************************************************************)
 
 (* Collect pointers in a heap *)
@@ -62,29 +62,29 @@ Definition axiom h s :=
 (* Main structure *)
 Structure form s := Form {heap_of :> tagged_heap; _ : axiom heap_of s}.
 
-Lemma union_pf s1 s2 (h1 : form s1) (h2 : form s2) : 
+Lemma union_pf s1 s2 (h1 : form s1) (h2 : form s2) :
         axiom (union_tag (h1 :+ h2)) (s1 ++ s2).
 Proof.
 move:h1 h2=>[[i1]] H1 [[i2]] H2; rewrite /axiom /= in H1 H2 * => D.
 case/(_ (defUnl D)): H1=>U1 H1; case/(_ (defUnr D)): H2=>U2 H2.
-split=>[|x]; last first. 
-- rewrite mem_cat; case/orP; [move/H1 | move/H2]; 
+split=>[|x]; last first.
+- rewrite mem_cat; case/orP; [move/H1 | move/H2];
   by rewrite domUn !inE /= D => -> //=; rewrite orbT.
 rewrite cat_uniq U1 U2 andbT -all_predC.
 apply/allP=>x; move/H2=>H3; apply: (introN idP); move/H1=>H4.
 by case: defUn D=>// _ _; move/(_ _ H4); rewrite H3.
 Qed.
 
-Canonical Structure union_form s1 s2 h1 h2 := 
+Canonical Structure union_form s1 s2 h1 h2 :=
   Form (@union_pf s1 s2 h1 h2).
 
 Lemma ptr_pf A x (v : A) : axiom (ptr_tag (x :-> v)) [:: x].
-Proof. 
+Proof.
 rewrite /axiom /= defPt => D; split=>//.
 by move=>y; rewrite inE; move/eqP=>->; rewrite domPt inE /= eq_refl D.
 Qed.
 
-Canonical Structure ptr_form A x (v : A) :=  
+Canonical Structure ptr_form A x (v : A) :=
   Form (@ptr_pf A x v).
 
 Lemma default_pf h : axiom (default_tag h) [::].
@@ -107,7 +107,7 @@ End Scan.
 
 Export Scan.Exports.
 
-Example ex_scan x y h : 
+Example ex_scan x y h :
           let: hp := (y :-> 1 :+ h :+ x :-> 2) in def hp -> x \in dom hp.
 Proof.
 move=>D; apply: Scan.scanE=>//=.
@@ -136,13 +136,13 @@ Structure form x := Form {seq_of :> tagged_seq; _ : axiom x seq_of}.
 Lemma found_pf x s : axiom x (found_tag (x :: s)).
 Proof. by rewrite /axiom inE eq_refl. Qed.
 
-Canonical Structure found_form x s := 
+Canonical Structure found_form x s :=
   Form (found_pf x s).
 
 Lemma recurse_pf x y (f : form x) : axiom x (recurse_tag (y :: f)).
 Proof. by move:f=>[[s]]; rewrite /axiom /= inE orbC => ->. Qed.
 
-Canonical Structure recurse_form x y (f : form x) := 
+Canonical Structure recurse_form x y (f : form x) :=
   Form (recurse_pf y f).
 
 Module Exports.
@@ -151,10 +151,10 @@ Canonical Structure found_form.
 Canonical Structure recurse_form.
 End Exports.
 
-Lemma findE x (f : form x) : x \in untag f. 
+Lemma findE x (f : form x) : x \in untag f.
 Proof. by move:f=>[s]; apply. Qed.
 
-End Search. 
+End Search.
 
 Export Search.Exports.
 
@@ -170,7 +170,7 @@ Module Search2.
    - If we found y, then search for x using the previous module
    - If, instead, we found some pointer z, then recurse
 *)
- 
+
 (* Stucture for controlling the flow of the algorithm *)
 Structure tagged_seq := Tag {untag :> seq ptr}.
 
@@ -178,7 +178,7 @@ Definition foundz_tag := Tag.
 Definition foundy_tag := foundz_tag.
 Canonical Structure foundx_tag s := foundy_tag s.
 
-Definition axiom (x y : ptr) (s : tagged_seq) := 
+Definition axiom (x y : ptr) (s : tagged_seq) :=
   [/\ x \in untag s, y \in untag s & uniq s -> x != y].
 
 (* Main structure *)
@@ -192,7 +192,7 @@ move: s=>[[s]]; rewrite /Search.axiom /= /axiom !inE eq_refl /= => H1.
 by rewrite H1 orbT; split=>//; case/andP=>H2 _; case: eqP H1 H2=>// -> ->.
 Qed.
 
-Canonical Structure foundx_form x y (s : Search.form y) := 
+Canonical Structure foundx_form x y (s : Search.form y) :=
   Form (foundx_pf x s).
 
 Lemma foundy_pf x y (s : Search.form x) : axiom x y (foundy_tag (y :: s)).
@@ -201,7 +201,7 @@ move: s=>[[s]]; rewrite /Search.axiom /= /axiom !inE eq_refl /= => H1.
 by rewrite H1 orbT; split=>//; case/andP=>H2 _; case: eqP H1 H2=>// -> ->.
 Qed.
 
-Canonical Structure foundy_form x y (s : Search.form x) := 
+Canonical Structure foundy_form x y (s : Search.form x) :=
   Form (foundy_pf y s).
 
 Lemma foundz_pf x y z (s : form x y) : axiom x y (foundz_tag (z :: s)).
@@ -211,7 +211,7 @@ rewrite /axiom /= !inE /= H1 H2 !orbT; split=>//.
 by case/andP=>_; apply: H3.
 Qed.
 
-Canonical Structure foundz_form x y z (s : form x y) := 
+Canonical Structure foundz_form x y z (s : form x y) :=
   Form (foundz_pf z s).
 
 Module Exports.
@@ -244,17 +244,17 @@ Structure tagged_ptr (y : ptr) := Tag {untag :> ptr}.
 Definition singleton y := @Tag y y.
 
 (* Main structure *)
-Structure form x y (s : seq ptr) := 
+Structure form x y (s : seq ptr) :=
   Form {y_of :> tagged_ptr y;
          _ : uniq s -> x != untag y_of}.
 
 Implicit Arguments Form [].
 
-Lemma noalias_pf (x y : ptr) (f : Search2.form x y) :   
+Lemma noalias_pf (x y : ptr) (f : Search2.form x y) :
         uniq f -> x != singleton y.
-Proof. by move: f=>[[s]][]. Qed. 
+Proof. by move: f=>[[s]][]. Qed.
 
-Canonical Structure start x y (f : Search2.form x y) := 
+Canonical Structure start x y (f : Search2.form x y) :=
   @Form x y f (singleton y) (@noalias_pf x y f).
 
 Module Exports.
@@ -266,17 +266,17 @@ End NoAlias.
 
 Export NoAlias.Exports.
 
-Lemma noaliasR s x y (f : Scan.form s) (g : NoAlias.form x y s) : 
-               def f -> x != NoAlias.y_of g. 
+Lemma noaliasR s x y (f : Scan.form s) (g : NoAlias.form x y s) :
+               def f -> x != NoAlias.y_of g.
 Proof. by move: f g=>[[h]] H1 [[y']] /= H2; case/H1=>U _; apply: H2. Qed.
 
 Implicit Arguments noaliasR [s x y f g].
 Prenex Implicits noaliasR.
 
 Example exnc A (x1 x2 x3 x4 : ptr) (v1 v2 : A) (h1 h2 : heap) :
-  def (h1 :+ x2 :-> 1 :+ h2 :+ x1 :-> v2 :+ (x3 :-> v1 :+ empty)) -> 
+  def (h1 :+ x2 :-> 1 :+ h2 :+ x1 :-> v2 :+ (x3 :-> v1 :+ empty)) ->
      (x1 != x2) /\
-     (x1 != x2) && (x2 != x3) && (x3 != x1) /\ 
+     (x1 != x2) && (x2 != x3) && (x3 != x1) /\
      (x2 == x3) = false /\ (x1 == x2) = false /\
      ((x1 != x2) && (x2 != x3)) = (x1 != x2) /\
      ((x1 != x2) && (x2 != x3)) = (x1 != x2) /\
@@ -287,10 +287,10 @@ Example exnc A (x1 x2 x3 x4 : ptr) (v1 v2 : A) (h1 h2 : heap) :
 Proof.
 move=>D.
 split.
-- by apply: (noaliasR D). 
+- by apply: (noaliasR D).
 split.
   (* backwards reasoning works *)
-- by rewrite !(noaliasR D). 
+- by rewrite !(noaliasR D).
 split.
   (* subterm selection works *)
 - by rewrite [x2 == x3](negbTE (noaliasR D)).
@@ -330,17 +330,17 @@ Notation noaliasR_fwd D x y := (noaliasR_fwd1 D x y (Logic.eq_refl _)).
 Notation "()" := (Logic.eq_refl _).
 
 Example exnc A (x1 x2 x3 x4 : ptr) (v1 v2 : A) (h1 h2 : heap) :
-  def (h1 :+ x2 :-> 1 :+ h2 :+ x1 :-> v2 :+ (x3 :-> v1 :+ empty)) -> 
+  def (h1 :+ x2 :-> 1 :+ h2 :+ x1 :-> v2 :+ (x3 :-> v1 :+ empty)) ->
      (x1 != x2) /\
-     (x1 != x2) && (x2 != x3) && (x3 != x1) /\ 
+     (x1 != x2) && (x2 != x3) && (x3 != x1) /\
      (x2 == x3) = false /\ (x1 == x2) = false.
 Proof.
 move=>D.
 split.
-- apply: (noaliasR_fwd1 D x1 x2 ()). 
+- apply: (noaliasR_fwd1 D x1 x2 ()).
 split.
   set H := noaliasR_fwd1 D.
-  by rewrite (H x1 x2 _ ()) (H x2 x3 _ ()) (H x3 x1 _ ()). 
+  by rewrite (H x1 x2 _ ()) (H x2 x3 _ ()) (H x3 x1 _ ()).
 split.
   (* subterm selection works *)
 - by rewrite [x2 == x3](negbTE (noaliasR_fwd D x2 x3)).
@@ -359,7 +359,7 @@ Implicit Arguments scan_it [s f].
 Definition search_them x y g := @Search2.find2E x y g.
 Implicit Arguments search_them [g].
 
-Example without_notation 
+Example without_notation
  A (x1 x2 x3 : ptr) (v1 v2 v3 : A) (h1 h2 : heap) :
  def (h1 :+ (x1 :-> v1 :+ x2 :-> v2) :+ (h2 :+ x3 :-> v3))
  -> (x1 != x3).
@@ -376,22 +376,22 @@ by apply.
 Qed.
 
 (*
-Lemma noaliasR_fwd_wrong2 s (f : Scan.form s) (d : def f) x y (g : Search2.form x y) 
+Lemma noaliasR_fwd_wrong2 s (f : Scan.form s) (d : def f) x y (g : Search2.form x y)
   : (@search_them x y g (@scan_it s f d)).
 *)
 Notation noaliasR_fwd' x y D := (search_them x y (scan_it D)).
 
 Example exnc A (x1 x2 x3 x4 : ptr) (v1 v2 : A) (h1 h2 : heap) :
-  def (h1 :+ x2 :-> 1 :+ h2 :+ x1 :-> v2 :+ (x3 :-> v1 :+ empty)) -> 
+  def (h1 :+ x2 :-> 1 :+ h2 :+ x1 :-> v2 :+ (x3 :-> v1 :+ empty)) ->
      (x1 != x2) /\
-     (x1 != x2) && (x2 != x3) && (x3 != x1) /\ 
+     (x1 != x2) && (x2 != x3) && (x3 != x1) /\
      (x2 == x3) = false /\ (x1 == x2) = false.
 Proof.
 move=>D.
 split.
-  apply: (noaliasR_fwd' x1 x2 D). 
+  apply: (noaliasR_fwd' x1 x2 D).
 split.
-- by rewrite (noaliasR_fwd' x1 x2 D) (noaliasR_fwd' x2 x3 D) (noaliasR_fwd' x3 x1 D). 
+- by rewrite (noaliasR_fwd' x1 x2 D) (noaliasR_fwd' x2 x3 D) (noaliasR_fwd' x3 x1 D).
 split.
   (* subterm selection works *)
 - by rewrite [x2 == x3](negbTE (noaliasR_fwd' x2 x3 D)).
@@ -400,13 +400,13 @@ split.
 Abort.
 
 (* Main structure *)
-Structure check (x y : ptr) (s : seq ptr) := 
+Structure check (x y : ptr) (s : seq ptr) :=
   Check {y_of :> ptr;
          _ : y_of = y;
          _ : uniq s -> x != y_of}.
 
 Program
-Canonical Structure start x y (f : Search2.form x y) := 
+Canonical Structure start x y (f : Search2.form x y) :=
   @Check x y f y (Logic.eq_refl _) _.
 Next Obligation.
 case: f H=>[s H /= U].
@@ -414,7 +414,7 @@ by case: H=>_ _; apply.
 Qed.
 
 
-Lemma noaliasR_fwd3 s (f : Scan.form s) (D : def f) x y 
+Lemma noaliasR_fwd3 s (f : Scan.form s) (D : def f) x y
   (g : check x y s) : x != y_of g.
 Proof.
 case: f D=>h A /= D.
@@ -435,12 +435,12 @@ by rewrite !(F _ x3) (F _ x2).
 Abort.
 
 (* Main structure *)
-Structure check' (x : ptr) (s : seq ptr) := 
+Structure check' (x : ptr) (s : seq ptr) :=
   Check' {y_of' :> ptr;
          _ : uniq s -> x != y_of'}.
 
 Program
-Canonical Structure start' x y (f : Search2.form x y) := 
+Canonical Structure start' x y (f : Search2.form x y) :=
   @Check' x f y _.
 Next Obligation.
 case: f H=>[s H /= U].

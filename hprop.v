@@ -19,7 +19,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrfun ssrnat eqtype seq fintyp
 Require Import rels heaps.
 From mathcomp.ssreflect Require Import path.
 Set Implicit Arguments.
-Unset Strict Implicit. 
+Unset Strict Implicit.
 Import Prenex Implicits.
 
 Ltac add_morphism_tactic := SetoidTactics.add_morphism_tactic.
@@ -32,23 +32,23 @@ Definition star (p1 p2 : Pred heap) : Pred heap :=
 Definition emp : Pred heap := [Pred i | i = empty].
 Definition this i : Pred heap := [Pred h : heap | i = h].
 Definition ppts A x (v : A) : Pred heap := [Pred h | locked x :-> v = h].
-Definition top : Pred heap := PredT. 
+Definition top : Pred heap := PredT.
 
-Notation "p1 '#' p2" := (star p1 p2) 
+Notation "p1 '#' p2" := (star p1 p2)
   (at level 57, right associativity) : rel_scope.
 Notation "x ':-->' v" := (ppts x v) (at level 50) : rel_scope.
 
-Add Parametric Morphism : star with signature 
-  @EqPred _ ===> @EqPred _ ===> @EqPred _ as star_morph. 
+Add Parametric Morphism : star with signature
+  @EqPred _ ===> @EqPred _ ===> @EqPred _ as star_morph.
 Proof.
-by move=>p1 q1 H1 p2 q2 H2 h /=; split; case=>h1 [h2][->][H3] H4; 
+by move=>p1 q1 H1 p2 q2 H2 h /=; split; case=>h1 [h2][->][H3] H4;
 exists h1; exists h2; [rewrite -H1 -H2 | rewrite H1 H2].
 Qed.
 
 Section BasicProperties.
 
 Lemma starC p1 p2 : p1 # p2 <~> p2 # p1.
-Proof. 
+Proof.
 move=>h /=; split; case=>h1 [h2][->][H1] H2;
 by exists h2; exists h1; rewrite unC.
 Qed.
@@ -64,7 +64,7 @@ Proof. by rewrite starC starp0. Qed.
 
 Lemma starCA p1 p2 p3 : p1 # p2 # p3 <~> p2 # p1 # p3.
 Proof.
-move=>h; split; case=>h1 [_][->][H1][h2][h3][->][H2] H3 /=; 
+move=>h; split; case=>h1 [_][->][H1][h2][h3][->][H2] H3 /=;
 by rewrite unCA; do !esplit.
 Qed.
 

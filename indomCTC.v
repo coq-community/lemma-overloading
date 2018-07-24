@@ -22,7 +22,7 @@ Unset Strict Implicit.
 Import Prenex Implicits.
 
 
-Class Indom (x : ptr) (h : heap) := 
+Class Indom (x : ptr) (h : heap) :=
    { indom : def h -> x \in dom h }.
 
 Implicit Arguments indom [ [Indom] ].
@@ -47,9 +47,9 @@ Qed.
 
 (* simple example *)
 Example ex1 A (x1 x2 : ptr) (v1 v2 : A) (h1 h2 : heap) :
-          def (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty)) -> 
-          if x2 \in dom (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty)) 
-            then 1 == 1 
+          def (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty)) ->
+          if x2 \in dom (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty))
+            then 1 == 1
             else 1 == 0.
 Proof.
 move=>D.
@@ -58,9 +58,9 @@ Qed.
 
 (* same example, automatically unfolding a definition *)
 Example ex2 A (x1 x2 : ptr) (v1 v2 : A) (h1 h2 : heap) :
-          def (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty)) -> 
-          if x2 \in dom (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty)) 
-            then 1 == 1 
+          def (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty)) ->
+          if x2 \in dom (h1 :+ x1 :-> 1 :+ (x2 :-> 3 :+ empty))
+            then 1 == 1
             else 1 == 0.
 Proof.
 set H := _ :+ _ :+ (_ :+ _).

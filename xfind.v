@@ -42,20 +42,20 @@ Canonical Structure found_tag x := recurse_tag x.
 
 (* Main structure
    s : input sequence
-   r : output sequence. If elem_of is in the sequence, then it's equal to s, 
+   r : output sequence. If elem_of is in the sequence, then it's equal to s,
        otherwise it's equal to (elem_of :: s)
    i : output index of elem_of in r *)
 Structure xfind (s r : seq A) (i : nat) := XFind {
-  elem_of :> xtagged; 
+  elem_of :> xtagged;
   _ : invariant s r i elem_of}.
 
 Implicit Arguments XFind [].
 
 
-Lemma found_pf x t : invariant (x :: t) (x :: t) 0 x. 
+Lemma found_pf x t : invariant (x :: t) (x :: t) 0 x.
 Proof. by split; [|apply: prefix_refl]. Qed.
 
-Canonical Structure found_struct x t := 
+Canonical Structure found_struct x t :=
   XFind (x :: t) (x :: t) 0 (found_tag x) (found_pf x t).
 
 Lemma recurse_pf (i : nat) (y : A) (s r : seq A) (f : xfind s r i) :
@@ -68,7 +68,7 @@ Canonical Structure recurse_struct i y t r (f : xfind t r i) :=
 Lemma extend_pf x : invariant [::] [:: x] 0 x.
 Proof. by []. Qed.
 
-Canonical Structure extend_struct x := 
+Canonical Structure extend_struct x :=
   XFind [::] [:: x] 0 (extend_tag x) (extend_pf x).
 
 End XFind.

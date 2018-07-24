@@ -28,12 +28,12 @@ Import Prenex Implicits.
 Section Prefix.
 Variable A : Type.
 
-Fixpoint onth (s : seq A) n : option A := 
-  if s is x :: s' then 
-    if n is n'.+1 then onth s' n' else Some x 
+Fixpoint onth (s : seq A) n : option A :=
+  if s is x :: s' then
+    if n is n'.+1 then onth s' n' else Some x
   else None.
 
-Definition prefix s1 s2 := 
+Definition prefix s1 s2 :=
   forall n x, onth s1 n = some x -> onth s2 n = some x.
 
 
@@ -51,7 +51,7 @@ Proof. by elim:s n=>[//|x' s' IH] [//|n]; apply: IH. Qed.
 Lemma prefix_refl s : prefix s s.
 Proof. by move=>n x <-. Qed.
 
-Lemma prefix_trans (s2 s1 s3 : seq A) : 
+Lemma prefix_trans (s2 s1 s3 : seq A) :
         prefix s1 s2 -> prefix s2 s3 -> prefix s1 s3.
 Proof. by move=>H1 H2 n x E; apply: H2; apply: H1. Qed.
 
