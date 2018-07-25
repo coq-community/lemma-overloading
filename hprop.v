@@ -15,9 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp.ssreflect Require Import ssreflect ssrfun ssrnat eqtype seq fintype finfun finset.
+From mathcomp.ssreflect Require Import ssreflect ssrfun.
 Require Import rels heaps.
-From mathcomp.ssreflect Require Import path.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Import Prenex Implicits.

@@ -16,7 +16,7 @@
 *)
 
 
-From mathcomp.ssreflect Require Import ssreflect ssrfun ssrbool ssrnat seq.
+From mathcomp.ssreflect Require Import ssreflect ssrnat seq.
 Require Import prefix.
 Set Implicit Arguments.
 Unset Strict Implicit.

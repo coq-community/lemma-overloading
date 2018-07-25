@@ -16,8 +16,8 @@
 *)
 
 
-From mathcomp.ssreflect Require Import ssreflect ssrbool ssrnat eqtype seq ssrfun.
-Require Import heaps rels hprop stmod stsep stlog.
+From mathcomp.ssreflect Require Import ssreflect ssrbool ssrfun.
+Require Import heaps rels stmod stsep stlog.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Import Prenex Implicits.
