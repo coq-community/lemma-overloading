@@ -1,5 +1,10 @@
 # Overloaded lemmas
 
+[![Travis](https://travis-ci.com/coq-community/lemma-overloading.svg?branch=master)](https://travis-ci.com/coq-community/lemma-overloading/builds)
+[![Contributing](https://camo.githubusercontent.com/926d8ca67df15de5bd1abac234c0603d94f66c00/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f636f6e747269627574696f6e732d77656c636f6d652d627269676874677265656e2e7376673f7374796c653d666c6174)](https://github.com/coq-community/manifesto/blob/master/CONTRIBUTING.md)
+[![Code of Conduct](https://camo.githubusercontent.com/ee50e87026b615a0348ce5f77bd088e3ea160b3d/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2545322539442541342d636f64652532306f66253230636f6e647563742d626c75652e7376673f7374796c653d666c6174)](https://github.com/coq-community/manifesto/blob/master/CODE_OF_CONDUCT.md)
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/coq-community/Lobby)
+
 This project contains Hoare Type Theory libraries from
 [How to make ad hoc proof automation less ad hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf) paper.
 
