@@ -1,5 +1,7 @@
 # Overloaded lemmas
 
+[![Travis](https://travis-ci.com/coq-community/lemma-overloading.svg?branch=master)](https://travis-ci.com/coq-community/lemma-overloading/builds)
+
 This project contains Hoare Type Theory libraries from
 [How to make ad hoc proof automation less ad hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf) paper.
 
