@@ -26,13 +26,13 @@ Anton Trunov (@anton-trunov)
 
 [GNU General Public License v3](https://www.gnu.org/licenses/gpl.html)
 
-# Dependencies
+## Dependencies
 
 The following requirements should be met in order to compile the project:
 - Coq v8.8 or greater
 - Mathcomp v1.6.2 or greater (mathcomp/ssreflect package suffices)
 
-# Building instructions
+## Building instructions
 
 ```shell
 git clone https://github.com/coq-community/lemma-overloading
@@ -41,13 +41,13 @@ make   # or make -j <number-of-cores-on-your-machine>
 ```
 
 
-# Files described in the paper
+## Files described in the paper
 
-## `indom.v`
+### `indom.v`
 
 This file contains the indomR lemma from Section 3 "A simple overloaded lemma"
 
-## `terms.v`, `xfind.v`, `cancel.v`, `cancelD.v`, `cancel2.v`
+### `terms.v`, `xfind.v`, `cancel.v`, `cancelD.v`, `cancel2.v`
 
 These files prove the `cancelR` lemma from Section 4 "Reflection: Turning
 semantics into syntax". The first one contains the abstract syntax for heaps
@@ -58,38 +58,38 @@ Finally, `cancelD.v` contains the `simplify` lemma from section 4.3 and `cancel2
 contains an alternative version of the cancellation function without using
 reflection.
  
-## `stlogR.v`
+### `stlogR.v`
 
 File containing a whole bunch of overloaded lemmas to automate the verification
 of imperative programs using Hoare Type Theory. The main technicalities in this
 file are covered in Section 5 "Solving for functional instances".
 
-## `noalias.v`
+### `noalias.v`
 
 File containing all the automated lemmas described in Section 6 "Flexible
 composition and application of overloaded lemmas".
 
 
-# Bonus track
+## Bonus track
 
 The files below didn't make it to the paper but deserve attention.
 
-## `auto.v`
+### `auto.v`
 
 This file contains an adapted example from VeriML (Stampoulist and Shao),
 to automatically prove propositions in a logic with binders.
 
-## `llistR.v`
+### `llistR.v`
 
 Verification of a linked list datatype using the "step" overloaded lemma described in Section 5.2.
 
-## `noaliasBT.v`
+### `noaliasBT.v`
 
 There are several ways to attack a problem.
 Some of them lead to interesting but yet not entirely satisfactory results.
 Here are two versions of the `noalias` overloaded lemma with a different look.
 
-## `indomCTC.v`, `xfindCTC.v`, `cancelCTC.v`, `noaliasCTC.v`, `stlogCTC.v` 
+### `indomCTC.v`, `xfindCTC.v`, `cancelCTC.v`, `noaliasCTC.v`, `stlogCTC.v` 
 
 These files contains the same automated lemmas as in the files `indom`, `cancel`,
 `noalias` and `stlogR`, but done with Coq Type Classes. 
