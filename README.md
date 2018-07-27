@@ -25,7 +25,7 @@ Anton Trunov (@anton-trunov)
 
 The following requirements should be met in order to compile the project:
 - Coq v8.8
-- Mathcomp v1.6.2 or greater
+- Mathcomp v1.6.2 or greater (mathcomp/ssreflect package suffices)
 
 # Building instructions
 
