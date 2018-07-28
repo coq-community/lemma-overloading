@@ -1,45 +1,41 @@
 # Overloaded lemmas
 
-[![Travis](https://travis-ci.com/coq-community/lemma-overloading.svg?branch=master)](https://travis-ci.com/coq-community/lemma-overloading/builds)
-[![Contributing](https://img.shields.io/badge/contributions-welcome-%23f7931e.svg)](https://github.com/coq-community/manifesto/blob/master/CONTRIBUTING.md)
-[![Code of Conduct](https://img.shields.io/badge/%E2%9D%A4-code%20of%20conduct-%23f15a24.svg)](https://github.com/coq-community/manifesto/blob/master/CODE_OF_CONDUCT.md)
-[![Gitter](https://img.shields.io/badge/chat-on%20gitter-%23c1272d.svg)](https://gitter.im/coq-community/Lobby)
+[![Travis][travis-shield]][travis-link]
+[![Contributing][contributing-shield]][contributing-link]
+[![Code of Conduct][conduct-shield]][conduct-link]
+[![Gitter][gitter-shield]][gitter-link]
 
-This project contains Hoare Type Theory libraries from
-[How to make ad hoc proof automation less ad hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf) paper.
+[travis-shield]: https://travis-ci.com/coq-community/lemma-overloading.svg?branch=master
+[travis-link]: https://travis-ci.com/coq-community/lemma-overloading/builds
 
-The project presents a series of design patterns for *canonical structure* programming that
-enable one to carefully and predictably coax Coq’s type inference engine into triggering
-the execution of user-supplied algorithms during unification, and illustrates these patterns
-through several realistic examples drawn from Hoare Type Theory.
-The project also contains a typeclasses-based re-implementation for comparison.
+[contributing-shield]: https://img.shields.io/badge/contributions-welcome-%23f7931e.svg
+[contributing-link]: https://github.com/coq-community/manifesto/blob/master/CONTRIBUTING.md
 
-## Initial authors
+[conduct-shield]: https://img.shields.io/badge/%E2%9D%A4-code%20of%20conduct-%23f15a24.svg
+[conduct-link]: https://github.com/coq-community/manifesto/blob/master/CODE_OF_CONDUCT.md
 
-Georges Gonthier, Beta Ziliani, Aleksandar Nanevski, and Derek Dreyer.
+[gitter-shield]: https://img.shields.io/badge/chat-on%20gitter-%23c1272d.svg
+[gitter-link]: https://gitter.im/coq-community/Lobby
 
-## Current maintainer
+This project contains Hoare Type Theory libraries from [How to make ad hoc proof automation less ad hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf) paper.
 
-Anton Trunov (@anton-trunov)
+The project presents a series of design patterns for *canonical structure* programming that enable one to carefully and predictably coax Coq’s type inference engine into triggering the execution of user-supplied algorithms during unification, and illustrates these patterns through several realistic examples drawn from Hoare Type Theory. The project also contains a typeclasses-based re-implementation for comparison.
 
-## License
+## Meta
 
-[GNU General Public License v3](https://www.gnu.org/licenses/gpl.html)
-
-## Dependencies
-
-The following requirements should be met in order to compile the project:
-- Coq v8.8 or greater
-- Mathcomp v1.6.2 or greater (mathcomp/ssreflect package suffices)
+- Initial author(s): Georges Gonthier, Beta Ziliani, Aleksandar Nanevski, and Derek Dreyer.
+- Coq-community maintainer(s): Anton Trunov (**@anton-trunov**)
+- License: [GNU General Public License v3](LICENSE.md)
+- Compatible Coq versions: Coq 8.8 or greater
+- Additional dependencies: Mathcomp 1.6.2 or greater (mathcomp/ssreflect package suffices)
 
 ## Building instructions
 
-```shell
+``` shell
 git clone https://github.com/coq-community/lemma-overloading
 cd lemma-overloading
 make   # or make -j <number-of-cores-on-your-machine>
 ```
-
 
 ## Files described in the paper
 
