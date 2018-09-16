@@ -1285,7 +1285,7 @@ Qed.
 Definition kleene_lfp := lim pow_chain.
 
 Lemma kleene_lfp_fixed : f kleene_lfp = kleene_lfp.
-Proof. try by rewrite contE lim_liftE; apply: limE; rewrite reindex. Admitted.
+Proof. by rewrite (@contE _ _ f) lim_liftE; apply: limE; rewrite reindex. Qed.
 
 Lemma kleene_lfp_least : forall x, f x = x -> kleene_lfp <== x.
 Proof.
