@@ -1,4 +1,4 @@
-# Overloaded lemmas
+# Lemma overloading
 
 [![Travis][travis-shield]][travis-link]
 [![Contributing][contributing-shield]][contributing-link]
@@ -17,16 +17,16 @@
 [gitter-shield]: https://img.shields.io/badge/chat-on%20gitter-%23c1272d.svg
 [gitter-link]: https://gitter.im/coq-community/Lobby
 
-This project contains Hoare Type Theory libraries from [How to make ad hoc proof automation less ad hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf) paper.
+This project contains Hoare Type Theory libraries presented in the paper [How to Make Ad Hoc Proof Automation Less Ad Hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf).
 
-The project presents a series of design patterns for *canonical structure* programming that enable one to carefully and predictably coax Coq’s type inference engine into triggering the execution of user-supplied algorithms during unification, and illustrates these patterns through several realistic examples drawn from Hoare Type Theory. The project also contains a typeclasses-based re-implementation for comparison.
+The project showcases a series of design patterns for programming with [canonical structures](https://coq.inria.fr/distrib/current/refman/addendum/canonical-structures.html) that enable one to carefully and predictably coax Coq's type inference engine into triggering the execution of user-supplied algorithms during unification, and illustrates these patterns through several realistic examples drawn from Hoare Type Theory. The project also contains typeclass-based re-implementations for comparison.
 
 ## Meta
 
 - Initial author(s): Georges Gonthier, Beta Ziliani, Aleksandar Nanevski, and Derek Dreyer.
 - Coq-community maintainer(s): [Anton Trunov](https://github.com/anton-trunov) and [Karl Palmskog](https://github.com/palmskog)
 - License: [GNU General Public License v3](LICENSE.md)
-- Compatible Coq versions: Coq 8.8 or greater
+- Compatible Coq versions: [Coq 8.5 or greater](https://github.com/coq/coq/releases)
 - Additional dependencies: [MathComp 1.6.2 or greater](https://github.com/math-comp/math-comp/releases) (`ssreflect` suffices)
 
 ## Building and installation instructions
