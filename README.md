@@ -27,15 +27,18 @@ The project presents a series of design patterns for *canonical structure* progr
 - Coq-community maintainer(s): [Anton Trunov](https://github.com/anton-trunov) and [Karl Palmskog](https://github.com/palmskog)
 - License: [GNU General Public License v3](LICENSE.md)
 - Compatible Coq versions: Coq 8.8 or greater
-- Additional dependencies: Mathcomp 1.6.2 or greater (mathcomp/ssreflect package suffices)
+- Additional dependencies: [MathComp 1.6.2 or greater](https://github.com/math-comp/math-comp/releases) (`ssreflect` suffices)
 
-## Building instructions
+## Building and installation instructions
 
 ``` shell
 git clone https://github.com/coq-community/lemma-overloading
 cd lemma-overloading
 make   # or make -j <number-of-cores-on-your-machine>
+make install
 ```
+Be sure to use the branch of the repository which corresponds
+to the Coq version you are using.
 
 ## Files described in the paper
 
