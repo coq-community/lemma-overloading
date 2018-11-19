@@ -42,7 +42,7 @@ Structure form x y (s : seq ptr) :=
         _ : uniq s -> untag eq_of}.
 
 Lemma start_pf (x y : ptr) (f : Search2.form x y) : uniq f -> ineq x y.
-Proof. by case: f=>[[s]] H /= U; case: H=>_ _; apply. Qed.
+Proof. by case: f=>s []. Qed.
 
 Canonical Structure start x y (f : Search2.form x y) :=
   @Form x y f (ineq x y) (@start_pf x y f).
@@ -61,7 +61,7 @@ Export NoAlias2.Exports.
 
 Lemma noaliasR2 s x y (f : Scan.form s) (g : NoAlias2.form x y s) :
                def f -> NoAlias2.eq_of g.
-Proof. admit. Admitted.
+Proof. by case: f=> [h] H /H [U _]; case: g=> [] /= ? /(_ U). Qed.
 
 Arguments noaliasR2 [s x y f g].
 
