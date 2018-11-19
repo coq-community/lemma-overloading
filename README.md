@@ -26,8 +26,8 @@ The project showcases a series of design patterns for programming with [canonica
 - Initial author(s): Georges Gonthier, Beta Ziliani, Aleksandar Nanevski, and Derek Dreyer
 - Coq-community maintainer(s): [Anton Trunov](https://github.com/anton-trunov) and [Karl Palmskog](https://github.com/palmskog)
 - License: [GNU General Public License v3](LICENSE.md)
-- Compatible Coq versions: [Coq 8.5 or greater](https://github.com/coq/coq/releases)
-- Additional dependencies: [MathComp 1.6.2 or greater](https://github.com/math-comp/math-comp/releases) (`ssreflect` suffices)
+- Compatible Coq versions: [Coq 8.8 or greater](https://github.com/coq/coq/releases) (please use [releases](releases) for previous Coq versions)
+- Additional dependencies: [MathComp 1.7.0 or greater](https://github.com/math-comp/math-comp/releases) (`ssreflect` suffices)
 
 ## Building and installation instructions
 
@@ -37,8 +37,6 @@ cd lemma-overloading
 make   # or make -j <number-of-cores-on-your-machine>
 make install
 ```
-Be sure to use the branch of the repository which corresponds
-to the Coq version you are using.
 
 After installation, all files (modules) can be found under the
 `LemmaOverloading` namespace.
