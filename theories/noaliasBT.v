@@ -157,4 +157,4 @@ split.
 (* just as it should *)
 rewrite !(negbTE (noaliasR D)).
 admit.
-Admitted.
+Abort.
