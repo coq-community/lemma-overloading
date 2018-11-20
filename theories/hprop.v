@@ -19,7 +19,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrfun.
 Require Import rels heaps.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 Ltac add_morphism_tactic := SetoidTactics.add_morphism_tactic.
 Notation " R ===> R' " := (@Morphisms.respectful _ _ R R')

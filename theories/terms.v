@@ -19,7 +19,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrbool ssrnat ssrfun eqtype se
 Require Import prelude prefix perms heaps.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 
 (**************************************************************************)

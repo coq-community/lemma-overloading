@@ -19,7 +19,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrfun ssrbool seq.
 Require Import Setoid.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 (* First some basic propositional equalities Basically, we need to repeat *)
 (* most of ssrbool.v here but we'll do it as we go. *)

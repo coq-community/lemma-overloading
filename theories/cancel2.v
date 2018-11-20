@@ -2,7 +2,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrfun ssrbool ssrnat seq eqtyp
 Require Import prelude prefix heaps terms.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 Obligation Tactic := idtac.
 

@@ -18,7 +18,7 @@
 From mathcomp.ssreflect Require Import ssreflect ssrbool ssrnat eqtype ssrfun seq fintype.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 Module Ordered.
 

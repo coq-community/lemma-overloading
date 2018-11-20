@@ -19,7 +19,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrbool seq ssrfun.
 Require Import heaps rels hprop stmod stsep.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 Lemma bnd_is_try (A B : Type) (s1 : spec A) (s2 : A -> spec B) i r :
         verify (try_s s1 s2 (fun y => fr (throw_s B y))) i r ->

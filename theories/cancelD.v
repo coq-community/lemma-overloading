@@ -19,7 +19,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrbool.
 Require Import prelude xfind heaps cancel.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 (* Wrap over cancelR to simplify equations of the form
       dyn d1 = dyn d2       (1)

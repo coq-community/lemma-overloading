@@ -19,7 +19,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrbool ssrfun.
 Require Import heaps stmod stsep stlog.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 
 Class Update (h1 h2 k1 k2 : heap) :=

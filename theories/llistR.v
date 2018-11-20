@@ -19,7 +19,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrbool eqtype seq ssrfun.
 Require Import heaps rels hprop stmod stsep stlogR.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 (* linked lists, storing a value and next pointer in consecutive locations *)
 

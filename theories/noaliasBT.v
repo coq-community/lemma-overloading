@@ -20,7 +20,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrbool seq eqtype.
 Require Import heaps noalias.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 
 (* A more symmetric implementation, which triggers on inequality, not on  *)

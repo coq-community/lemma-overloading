@@ -19,7 +19,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrbool ssrfun ssrnat eqtype se
 Require Import prelude heaps rels hprop domains.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 (* Exceptions are an equality type *)
 Inductive exn : Type := exn_from_nat : nat -> exn.
