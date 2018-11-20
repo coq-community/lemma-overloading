@@ -58,8 +58,7 @@ Notation " R ===> R' " := (@Morphisms.respectful _ _ R R')
 (* not included in the other libraries *)
 
 Definition inj_pair2 := @inj_pair2.
-Arguments inj_pair2 [U P p x y].
-Prenex Implicits inj_pair2.
+Arguments inj_pair2 {U P p x y}.
 
 Lemma inj_sval A P : injective (@sval A P).
 Proof.
@@ -252,13 +251,6 @@ End Reorder.
 
 Prenex Implicits swap rCA rAC rA iA pL pR.
 
-(*
-Definition Id A : simpl_fun A A := [fun x => x].
-
-Arguments Id [A].
-Prenex Implicits Id.
-*)
-
 (* idempotency lemmas *)
 Lemma swapI A B : swap \o swap = @id (A * B).
 Proof. by apply: fext; case. Qed.
@@ -363,9 +355,8 @@ Qed.
 
 End ReflectConnectives.
 
-Arguments and6P [b1 b2 b3 b4 b5 b6].
-Arguments or5P [b1 b2 b3 b4 b5].
-Arguments or6P [b1 b2 b3 b4 b5 b6].
-Prenex Implicits and6P or5P or6P.
+Arguments and6P {b1 b2 b3 b4 b5 b6}.
+Arguments or5P {b1 b2 b3 b4 b5}.
+Arguments or6P {b1 b2 b3 b4 b5 b6}.
 
 

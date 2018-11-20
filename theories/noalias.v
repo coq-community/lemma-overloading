@@ -291,8 +291,7 @@ Lemma noaliasR s x y (f : Scan.form s) (g : NoAlias.form x y s) :
                def f -> x != NoAlias.y_of g.
 Proof. by move: f g=>[[h]] H1 [[y']] /= H2; case/H1=>U _; apply: H2. Qed.
 
-Arguments noaliasR [s x y f g].
-Prenex Implicits noaliasR.
+Arguments noaliasR {s x y f g}.
 
 Example exnc A (x1 x2 x3 x4 : ptr) (v1 v2 : A) (h1 h2 : heap) :
   def (h1 :+ x2 :-> 1 :+ h2 :+ x1 :-> v2 :+ (x3 :-> v1 :+ empty)) ->

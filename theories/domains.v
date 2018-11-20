@@ -975,8 +975,7 @@ Notation "[ 'cpo' 'of' T 'for' cT ]" := (@clone T cT _ idfun)
 Notation "[ 'cpo' 'of' T ]" := (@clone T _ _ id)
   (at level 0, format "[ 'cpo'  'of'  T ]") : form_scope.
 
-Arguments CPO.lim [cT].
-Prenex Implicits CPO.lim.
+Arguments CPO.lim {cT}.
 Notation lim := CPO.lim.
 
 Section Laws.
@@ -1169,8 +1168,7 @@ Qed.
 
 End AdmissibleClosure.
 
-Arguments chain_closed [T].
-Prenex Implicits chain_closed.
+Arguments chain_closed {T}.
 
 (* diagonal of an admissible set of pairs is admissible *)
 Lemma chain_clos_diag (T : cpo) (s : Pred (T * T)) :
@@ -1302,8 +1300,7 @@ End Kleene.
 Lemma id_cont (D : cpo) : continuous (@id D).
 Proof. by exists id_mono; move=>d; rewrite id_chainE. Qed.
 
-Arguments id_cont [D].
-Prenex Implicits id_cont.
+Arguments id_cont {D}.
 
 Lemma const_cont (D1 D2 : cpo) (y : D2) : continuous (fun x : D1 => y).
 Proof.
@@ -1312,8 +1309,7 @@ exists const_mono; move=>s; apply: poset_asym.
 by apply: limM=>_ [x][->].
 Qed.
 
-Arguments const_cont [D1 D2 y].
-Prenex Implicits const_cont.
+Arguments const_cont {D1 D2 y}.
 
 Lemma comp_cont (D1 D2 D3 : cpo) (f1 : D2 -> D1) (f2 : D3 -> D2) :
         continuous f1 -> continuous f2 -> continuous (f1 \o f2).
@@ -1322,8 +1318,7 @@ case=>M1 H1 [M2 H2]; exists (comp_mono M1 M2); move=>d.
 by rewrite /= H2 H1 comp_chainE.
 Qed.
 
-Arguments comp_cont [D1 D2 D3 f1 f2].
-Prenex Implicits comp_cont.
+Arguments comp_cont {D1 D2 D3 f1 f2}.
 
 Lemma proj1_cont (D1 D2 : cpo) : continuous (@fst D1 D2).
 Proof. by exists proj1_mono. Qed.
@@ -1331,9 +1326,8 @@ Proof. by exists proj1_mono. Qed.
 Lemma proj2_cont (D1 D2 : cpo) : continuous (@snd D1 D2).
 Proof. by exists proj2_mono. Qed.
 
-Arguments proj1_cont [D1 D2].
-Arguments proj2_cont [D1 D2].
-Prenex Implicits proj1_cont proj2_cont.
+Arguments proj1_cont {D1 D2}.
+Arguments proj2_cont {D1 D2}.
 
 Lemma diag_cont (D : cpo) : continuous (fun x : D => (x, x)).
 Proof.
@@ -1341,8 +1335,7 @@ exists diag_mono=>d; apply: poset_asym;
 by split=>/=; [rewrite proj1_diagE | rewrite proj2_diagE].
 Qed.
 
-Arguments diag_cont [D].
-Prenex Implicits diag_cont.
+Arguments diag_cont {D}.
 
 Lemma app_cont A (D : cpo) x : continuous (fun f : A -> D => f x).
 Proof. by exists (app_mono x). Qed.
@@ -1350,9 +1343,8 @@ Proof. by exists (app_mono x). Qed.
 Lemma dapp_cont A (D : A -> cpo) x : continuous (fun f : dfunCPO D => f x).
 Proof. by exists (dapp_mono x). Qed.
 
-Arguments app_cont [A D].
-Arguments dapp_cont [A D].
-Prenex Implicits app_cont dapp_cont.
+Arguments app_cont {A D}.
+Arguments dapp_cont {A D}.
 
 Lemma prod_cont (S1 S2 T1 T2 : cpo) (f1 : S1 -> T1) (f2 : S2 -> T2) :
         continuous f1 -> continuous f2 -> continuous (f1 \* f2).
@@ -1361,5 +1353,4 @@ case=>M1 H1 [M2 H2]; exists (prod_mono M1 M2)=>d; apply: poset_asym;
 by (split=>/=; [rewrite proj1_prodE H1 | rewrite proj2_prodE H2]).
 Qed.
 
-Arguments prod_cont [S1 S2 T1 T2 f1 f2].
-Prenex Implicits prod_cont.
+Arguments prod_cont {S1 S2 T1 T2 f1 f2}.

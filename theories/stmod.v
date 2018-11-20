@@ -222,8 +222,8 @@ Proof. by case: e=>p M S; apply. Qed.
 
 End STDef.
 
-Arguments spec_runs [A s i y m].
-Prenex Implicits bot_runs model_runs def_runs spec_runs.
+Arguments spec_runs {A s i y m}.
+Prenex Implicits bot_runs model_runs def_runs.
 
 (************************************)
 (* modeling the language primitives *)
