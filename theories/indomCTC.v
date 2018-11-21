@@ -19,7 +19,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrbool ssrnat eqtype.
 Require Import heaps.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 
 Class Indom (x : ptr) (h : heap) :=

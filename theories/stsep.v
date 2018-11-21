@@ -19,7 +19,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrbool ssrnat ssrfun seq eqtyp
 Require Import heaps rels hprop stmod.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 Delimit Scope stsep_scope with stsep.
 Open Scope stsep_scope.

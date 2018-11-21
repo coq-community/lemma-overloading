@@ -21,7 +21,7 @@ From mathcomp.ssreflect Require Import path eqtype.
 Require Import prelude Eqdep.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 (* uncomment for ssreflect trunk *)
 Notation eqn_addl := eqn_add2l.

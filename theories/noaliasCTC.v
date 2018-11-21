@@ -19,7 +19,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrbool seq eqtype.
 Require Import heaps.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 
 (* Same as noalias but with Coq Type Classes. *)

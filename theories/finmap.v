@@ -20,7 +20,7 @@ Require Import ordtype.
 Require Import prelude.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 Section Def.
 Variables (K : ordType) (V : Type).

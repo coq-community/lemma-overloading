@@ -19,7 +19,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrbool ssrnat seq eqtype.
 Require Import prelude heaps terms prefix xfindCTC.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 Definition invariant i j t h := [/\ interp j t = h, subctx i j & valid j t].
 

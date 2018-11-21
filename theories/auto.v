@@ -19,7 +19,7 @@ From mathcomp.ssreflect Require Import ssreflect seq.
 Require Import rels.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 (* Automated proving of a proposition in a logic with binders *)
 (* adapted from VeriML paper of Stampoulist and Shao. *)

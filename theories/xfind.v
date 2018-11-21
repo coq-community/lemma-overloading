@@ -20,7 +20,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrnat seq.
 Require Import prefix.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 (******************************************************************************)
 (*       Module for searching and inserting elements in a list                *)

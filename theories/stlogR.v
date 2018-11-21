@@ -20,7 +20,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrbool ssrfun.
 Require Import heaps rels stmod stsep stlog.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 (******************************************************************************)
 (* This file contains several lemmas automated with canonical structures to   *)

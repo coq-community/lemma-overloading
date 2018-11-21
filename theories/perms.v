@@ -19,7 +19,7 @@ From mathcomp.ssreflect Require Import ssreflect ssrfun seq.
 Require Import rels.
 Set Implicit Arguments.
 Unset Strict Implicit.
-Import Prenex Implicits.
+Unset Printing Implicit Defensive.
 
 (****************************************************)
 (* A theory of permutations over non-equality types *)
