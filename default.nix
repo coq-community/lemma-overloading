@@ -1,21 +1,23 @@
-{ pkgs ? (import <nixpkgs> {}), coq-version ? "master" }:
+{ pkgs ? (import <nixpkgs> {}), coq-version-or-url, shell ? false }:
 
 let
+  coq-version-parts = builtins.match "([0-9]+).([0-9]+)" coq-version-or-url;
   coqPackages =
-    if coq-version == "8.8" then pkgs.coqPackages_8_8 else
-    if coq-version == "8.9" then pkgs.coqPackages_8_9 else
-    pkgs.mkCoqPackages
-      (import (fetchTarball "https://github.com/coq/coq/tarball/${coq-version}") {})
-    ;
+    if coq-version-parts == null then
+      pkgs.mkCoqPackages (import (fetchTarball coq-version-or-url) {})
+    else
+      pkgs."coqPackages_${builtins.concatStringsSep "_" coq-version-parts}";
 in
 
-pkgs.stdenv.mkDerivation rec {
+with coqPackages;
+
+pkgs.stdenv.mkDerivation {
 
   name = "lemma-overloading";
 
-  buildInputs = with coqPackages; [ coq ssreflect ];
+  propagatedBuildInputs = [ coq ssreflect ];
 
-  src = ./.;
+  src = if shell then null else ./.;
 
-  installFlags = "COQLIB=$(out)/lib/coq/";
+  installFlags = "COQLIB=$(out)/lib/coq/${coq.coq-version}/";
 }
