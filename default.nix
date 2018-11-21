@@ -5,12 +5,7 @@ let
     if coq-version == "8.8" then pkgs.coqPackages_8_8 else
     if coq-version == "8.9" then pkgs.coqPackages_8_9 else
     pkgs.mkCoqPackages
-      (import (fetchTarball "https://github.com/coq/coq/tarball/${coq-version}") {
-        buildIde = false;
-        buildDoc = false;
-        doInstallCheck = false;
-        coq-version = "8.9";
-      })
+      (import (fetchTarball "https://github.com/coq/coq/tarball/${coq-version}") {})
     ;
 in
 
