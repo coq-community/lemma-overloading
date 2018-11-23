@@ -1,4 +1,6 @@
--R theories LemmaOverloading
+-Q theories LemmaOverloading
+-arg "-w -notation-overridden,-projection-no-head-constant,-redundant-canonical-projection"
+
 theories/prelude.v
 theories/rels.v
 theories/ordtype.v
@@ -27,5 +29,3 @@ theories/llistR.v
 theories/stlogCTC.v
 theories/indom.v
 theories/indomCTC.v
-
--arg "-w -notation-overridden,-projection-no-head-constant,-redundant-canonical-projection"

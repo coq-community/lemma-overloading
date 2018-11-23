@@ -15,7 +15,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp.ssreflect Require Import ssreflect ssrbool seq eqtype.
+Require Import mathcomp.ssreflect.ssreflect.
+From mathcomp
+Require Import ssrbool seq eqtype.
+From LemmaOverloading
 Require Import heaps.
 Set Implicit Arguments.
 Unset Strict Implicit.
