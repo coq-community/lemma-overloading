@@ -15,7 +15,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp.ssreflect Require Import ssreflect ssrbool.
+Require Import mathcomp.ssreflect.ssreflect.
+From mathcomp
+Require Import ssrbool.
+From LemmaOverloading
 Require Import prelude xfind heaps cancel.
 Set Implicit Arguments.
 Unset Strict Implicit.

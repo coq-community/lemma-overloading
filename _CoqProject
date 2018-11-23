@@ -1,4 +1,4 @@
--R theories LemmaOverloading
+-Q theories LemmaOverloading
 theories/prelude.v
 theories/rels.v
 theories/ordtype.v

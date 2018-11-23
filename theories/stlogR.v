@@ -15,8 +15,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-
-From mathcomp.ssreflect Require Import ssreflect ssrbool ssrfun.
+Require Import mathcomp.ssreflect.ssreflect.
+From mathcomp
+Require Import ssrbool ssrfun.
+From LemmaOverloading
 Require Import heaps rels stmod stsep stlog.
 Set Implicit Arguments.
 Unset Strict Implicit.
