@@ -17,28 +17,49 @@
 [gitter-shield]: https://img.shields.io/badge/chat-on%20gitter-%23c1272d.svg
 [gitter-link]: https://gitter.im/coq-community/Lobby
 
-This project contains Hoare Type Theory libraries presented in the paper [How to make ad hoc proof automation less ad hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf).
+This project contains Hoare Type Theory libraries presented
+in the paper [How to make ad hoc proof automation less ad hoc][paper].
 
-The project showcases a series of design patterns for programming with [canonical structures](https://coq.inria.fr/distrib/current/refman/addendum/canonical-structures.html) that enable one to carefully and predictably coax Coq's type inference engine into triggering the execution of user-supplied algorithms during unification, and illustrates these patterns through several realistic examples drawn from Hoare Type Theory. The project also contains typeclass-based re-implementations for comparison.
+The project demonstrates a series of design patterns for programming
+with [canonical structures][manual] that enable one to carefully
+and predictably coax Coq&#39;s type inference engine into triggering
+the execution of user-supplied algorithms during unification, and
+illustrates these patterns through several realistic examples drawn
+from Hoare Type Theory. The project also contains typeclass-based
+re-implementations for comparison.
+
+[paper]: https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf
+[manual]: https://coq.inria.fr/distrib/current/refman/addendum/canonical-structures.html
+
 
 ## Meta
 
-- Initial author(s): Georges Gonthier, Beta Ziliani, Aleksandar Nanevski, and Derek Dreyer
-- Coq-community maintainer(s): [Anton Trunov](https://github.com/anton-trunov) and [Karl Palmskog](https://github.com/palmskog)
+- Initial author(s):
+  - Georges Gonthier
+  - Beta Ziliani
+  - Aleksandar Nanevski
+  - Derek Dreyer
+- Coq-community maintainer(s):
+  - Anton Trunov ([**@anton-trunov**](https://github.com/anton-trunov))
+  - Karl Palmskog ([**@palmskog**](https://github.com/palmskog))
 - License: [GNU General Public License v3](LICENSE.md)
-- Compatible Coq versions: [Coq 8.8 or greater](https://github.com/coq/coq/releases) (please use [releases](https://github.com/coq-community/lemma-overloading/releases) for previous Coq versions)
-- Additional dependencies: [MathComp 1.7.0 or greater](https://github.com/math-comp/math-comp/releases) (`ssreflect` suffices)
+- Compatible Coq versions: Coq 8.8 or greater
+- Additional dependencies:
+  - MathComp 1.7.0 or greater (`ssreflect` suffices)
+
 
 ## Building and installation instructions
 
 The easiest way to install the latest released version is via
 [OPAM](https://opam.ocaml.org/doc/Install.html):
+
 ```shell
 opam repo add coq-released https://coq.inria.fr/opam/released
 opam install coq-lemma-overloading
 ```
 
 To instead build and install manually, do:
+
 ``` shell
 git clone https://github.com/coq-community/lemma-overloading
 cd lemma-overloading
@@ -46,19 +67,19 @@ make   # or make -j <number-of-cores-on-your-machine>
 make install
 ```
 
-After installation, all files (modules) can be found under the
-`LemmaOverloading` namespace.
+After installation, the included modules are available under
+the `LemmaOverloading` namespace.
 
 ## Files described in the paper
 
 ### `indom.v`
 
-This file contains the indomR lemma from Section 3 "A simple overloaded lemma"
+This file contains the indomR lemma from Section 3 &quot;A simple overloaded lemma&quot;
 
 ### `terms.v`, `xfind.v`, `cancel.v`, `cancelD.v`, `cancel2.v`
 
-These files prove the `cancelR` lemma from Section 4 "Reflection: Turning
-semantics into syntax". The first one contains the abstract syntax for heaps
+These files prove the `cancelR` lemma from Section 4 &quot;Reflection: Turning
+semantics into syntax&quot;. The first one contains the abstract syntax for heaps
 along with the lemma `cancel_sound`. `xfind.v` has the xfind structure
 to find an element in a list, return its index, and extend the list if the
 element is not found. The file `cancel.v` has the main overloaded lemma `cancelR`.
@@ -70,17 +91,17 @@ reflection.
 
 File containing a whole bunch of overloaded lemmas to automate the verification
 of imperative programs using Hoare Type Theory. The main technicalities in this
-file are covered in Section 5 "Solving for functional instances".
+file are covered in Section 5 &quot;Solving for functional instances&quot;.
 
 ### `noalias.v`
 
-File containing all the automated lemmas described in Section 6 "Flexible
-composition and application of overloaded lemmas".
+File containing all the automated lemmas described in Section 6 &quot;Flexible
+composition and application of overloaded lemmas&quot;.
 
 
 ## Bonus track
 
-The files below didn't make it to the paper but deserve attention.
+The files below didn&#39;t make it to the paper but deserve attention.
 
 ### `auto.v`
 
@@ -89,7 +110,7 @@ to automatically prove propositions in a logic with binders.
 
 ### `llistR.v`
 
-Verification of a linked list datatype using the "step" overloaded lemma described in Section 5.2.
+Verification of a linked list datatype using the &quot;step&quot; overloaded lemma described in Section 5.2.
 
 ### `noaliasBT.v`
 
@@ -105,5 +126,8 @@ These files contains the same automated lemmas as in the files `indom`, `cancel`
 ## Note
 
 The files not mentioned in this README file are part of the HTT library,
-from [Structuring the Verification of Heap-Manipulating Programs](https://software.imdea.org/~aleks/papers/reflect/reflect.pdf)
-by A. Nanevski et al, POPL'10.
+from [Structuring the Verification of Heap-Manipulating Programs][reflect]
+by A. Nanevski et al., POPL&#39;10.
+
+[reflect]: https://software.imdea.org/~aleks/papers/reflect/reflect.pdf
+
