@@ -82,4 +82,4 @@ Qed.
 
 End Prefix.
 
-Hint Resolve prefix_refl.
+Hint Resolve prefix_refl : core.

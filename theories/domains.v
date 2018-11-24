@@ -102,7 +102,7 @@ Proof. by case: T y x z=>S [[l b B R A Tr]] ? x y z; apply: (Tr). Qed.
 
 End Laws.
 
-Hint Resolve botP poset_refl.
+Hint Resolve botP poset_refl : core.
 
 Add Parametric Relation (T : poset) : T (@Poset.leq T)
   reflexivity proved by (@poset_refl _)
