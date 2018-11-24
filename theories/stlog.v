@@ -401,13 +401,13 @@ Prenex Implicits swp opn.
 Lemma blah (A : Type) (p : ptr) (l : A) : def (p :-> l) -> (p :-> l) \In p :--> l.
 Proof. by move=>H; apply/swp. Qed.
 
-Hint Immediate blah.
+Hint Immediate blah : core.
 
 Lemma blah2 (A : Type) (v1 v2 : A) q :
         def (q :-> v1) -> v1 = v2 -> q :-> v1 \In q :--> v2.
 Proof. by move=>D E; apply/swp; rewrite E. Qed.
 
-Hint Immediate blah2.
+Hint Immediate blah2 : core.
 
 Ltac hauto := (do ?econstructor=>//;
                 try by [defcheck; auto |

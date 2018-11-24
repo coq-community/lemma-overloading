@@ -59,7 +59,7 @@ elim:s=>[|e s IH]; first by apply: permutation_nil.
 by apply: (permutation_skip (x:=e)) IH.
 Qed.
 
-Hint Resolve perm_refl.
+Hint Resolve perm_refl : core.
 
 Lemma perm_sym s1 s2 : perm s1 s2 <-> perm s2 s1.
 Proof.
@@ -124,7 +124,7 @@ apply: (@perm_trans (y::x::s2++s1)); first by apply: permutation_swap eq_refl.
 by apply: permutation_skip IH2.
 Qed.
 
-Hint Resolve perm_catC.
+Hint Resolve perm_catC : core.
 
 Lemma perm_cons_catCA s1 s2 x : perm (x :: s1 ++ s2) (s1 ++ x :: s2).
 Proof.
@@ -135,7 +135,7 @@ Qed.
 Lemma perm_cons_catAC s1 s2 x : perm (s1 ++ x :: s2) (x :: s1 ++ s2).
 Proof. by apply/perm_sym; apply: perm_cons_catCA. Qed.
 
-Hint Resolve perm_cons_catCA perm_cons_catAC.
+Hint Resolve perm_cons_catCA perm_cons_catAC : core.
 
 Lemma perm_cons_cat_consL s1 s2 s x :
         perm s (s1 ++ s2) -> perm (x :: s) (s1 ++ x :: s2).
@@ -260,4 +260,4 @@ Proof. by move=>*; rewrite !catA perm_cat2r. Qed.
 End Permutations.
 
 Hint Resolve perm_refl perm_catC perm_cons_catCA
-             perm_cons_catAC perm_catAC perm_catCA.
+             perm_cons_catAC perm_catAC perm_catCA : core.

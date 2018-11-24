@@ -310,7 +310,7 @@ Qed.
 Lemma def0 : def empty.
 Proof. by []. Qed.
 
-Hint Resolve def0.
+Hint Resolve def0 : core.
 
 Lemma defU h x d : def (upd h x d) = (x != null) && (def h).
 Proof.
@@ -644,7 +644,7 @@ Proof. by rewrite -lt0n addn1. Qed.
 
 Opaque fresh.
 
-Hint Resolve dom_fresh fresh_null.
+Hint Resolve dom_fresh fresh_null : core.
 
 (********)
 (* pick *)
@@ -757,7 +757,7 @@ apply/subdomP=>[//||x in1]; first by apply negbT.
 by apply: (subdomQ H2) (subdomQ H1 in1).
 Qed.
 
-Hint Resolve subdom_emp subdomPE.
+Hint Resolve subdom_emp subdomPE : core.
 
 (***********)
 (* subheap *)
@@ -1199,7 +1199,7 @@ Notation "h1 =~ h2" := (loweq h1 h2) (at level 80).
 Lemma low_refl h : h =~ h.
 Proof. by rewrite /loweq. Qed.
 
-Hint Resolve low_refl.
+Hint Resolve low_refl : core.
 
 Lemma low_sym h1 h2 : (h1 =~ h2) = (h2 =~ h1).
 Proof. by rewrite /loweq eq_sym. Qed.
@@ -1247,7 +1247,7 @@ Qed.
 Lemma lowPn A1 A2 (x : ptr) (v1 : A1) (v2 : A2) : x :-> v1 =~ x :-> v2.
 Proof. by apply/loweqP=>y; rewrite !ldomP !domPt. Qed.
 
-Hint Resolve lowPn.
+Hint Resolve lowPn : core.
 
 Lemma highPn A1 A2 (x1 x2 : ptr) (v1 : A1) (v2 : A2) :
         high x1 -> high x2 -> x1 :-> v1 =~ x2 :-> v2.
