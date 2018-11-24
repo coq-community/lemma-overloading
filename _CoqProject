@@ -1,5 +1,8 @@
 -Q theories LemmaOverloading
--arg "-w -notation-overridden,-projection-no-head-constant,-redundant-canonical-projection"
+
+-arg -w -arg -notation-overridden
+-arg -w -arg -projection-no-head-constant
+-arg -w -arg -redundant-canonical-projection
 
 theories/prelude.v
 theories/rels.v
