@@ -15,7 +15,10 @@ pkgs.stdenv.mkDerivation {
 
   name = "lemma-overloading";
 
-  propagatedBuildInputs = [ coq ssreflect ];
+  propagatedBuildInputs = [
+    coq
+    ssreflect
+  ];
 
   src = if shell then null else ./.;
 

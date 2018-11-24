@@ -17,28 +17,49 @@
 [gitter-shield]: https://img.shields.io/badge/chat-on%20gitter-%23c1272d.svg
 [gitter-link]: https://gitter.im/coq-community/Lobby
 
-This project contains Hoare Type Theory libraries presented in the paper [How to make ad hoc proof automation less ad hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf).
+This project contains Hoare Type Theory libraries presented
+in the paper [How to make ad hoc proof automation less ad hoc][paper].
 
-The project showcases a series of design patterns for programming with [canonical structures](https://coq.inria.fr/distrib/current/refman/addendum/canonical-structures.html) that enable one to carefully and predictably coax Coq's type inference engine into triggering the execution of user-supplied algorithms during unification, and illustrates these patterns through several realistic examples drawn from Hoare Type Theory. The project also contains typeclass-based re-implementations for comparison.
+The project demonstrates a series of design patterns for programming
+with [canonical structures][manual] that enable one to carefully
+and predictably coax Coq's type inference engine into triggering
+the execution of user-supplied algorithms during unification, and
+illustrates these patterns through several realistic examples drawn
+from Hoare Type Theory. The project also contains typeclass-based
+re-implementations for comparison.
+
+[paper]: https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf
+[manual]: https://coq.inria.fr/distrib/current/refman/addendum/canonical-structures.html
+
 
 ## Meta
 
-- Initial author(s): Georges Gonthier, Beta Ziliani, Aleksandar Nanevski, and Derek Dreyer
-- Coq-community maintainer(s): [Anton Trunov](https://github.com/anton-trunov) and [Karl Palmskog](https://github.com/palmskog)
+- Initial author(s):
+  - Georges Gonthier
+  - Beta Ziliani
+  - Aleksandar Nanevski
+  - Derek Dreyer
+- Coq-community maintainer(s):
+  - Anton Trunov ([**@anton-trunov**](https://github.com/anton-trunov))
+  - Karl Palmskog ([**@palmskog**](https://github.com/palmskog))
 - License: [GNU General Public License v3](LICENSE.md)
-- Compatible Coq versions: [Coq 8.8 or greater](https://github.com/coq/coq/releases) (please use [releases](https://github.com/coq-community/lemma-overloading/releases) for previous Coq versions)
-- Additional dependencies: [MathComp 1.7.0 or greater](https://github.com/math-comp/math-comp/releases) (`ssreflect` suffices)
+- Compatible Coq versions: Coq 8.8 or greater
+- Additional dependencies:
+  - MathComp 1.7.0 or greater (`ssreflect` suffices)
+
 
 ## Building and installation instructions
 
 The easiest way to install the latest released version is via
 [OPAM](https://opam.ocaml.org/doc/Install.html):
+
 ```shell
 opam repo add coq-released https://coq.inria.fr/opam/released
 opam install coq-lemma-overloading
 ```
 
 To instead build and install manually, do:
+
 ``` shell
 git clone https://github.com/coq-community/lemma-overloading
 cd lemma-overloading
@@ -46,8 +67,8 @@ make   # or make -j <number-of-cores-on-your-machine>
 make install
 ```
 
-After installation, all files (modules) can be found under the
-`LemmaOverloading` namespace.
+After installation, the included modules are available under
+the `LemmaOverloading` namespace.
 
 ## Files described in the paper
 
@@ -105,5 +126,8 @@ These files contains the same automated lemmas as in the files `indom`, `cancel`
 ## Note
 
 The files not mentioned in this README file are part of the HTT library,
-from [Structuring the Verification of Heap-Manipulating Programs](https://software.imdea.org/~aleks/papers/reflect/reflect.pdf)
-by A. Nanevski et al, POPL'10.
+from [Structuring the Verification of Heap-Manipulating Programs][reflect]
+by A. Nanevski et al., POPL'10.
+
+[reflect]: https://software.imdea.org/~aleks/papers/reflect/reflect.pdf
+
