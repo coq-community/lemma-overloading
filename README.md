@@ -42,7 +42,7 @@ re-implementations for comparison.
 - Coq-community maintainer(s):
   - Anton Trunov ([**@anton-trunov**](https://github.com/anton-trunov))
   - Karl Palmskog ([**@palmskog**](https://github.com/palmskog))
-- License: [GNU General Public License v3](LICENSE.md)
+- License: [GNU General Public License v3.0 or later](LICENSE.md)
 - Compatible Coq versions: Coq 8.8 or greater (use releases for other Coq versions)
 - Additional dependencies:
   - [MathComp](https://math-comp.github.io/math-comp/) 1.7.0 or greater (`ssreflect` suffices)
