@@ -17,8 +17,9 @@
 [gitter-shield]: https://img.shields.io/badge/chat-on%20gitter-%23c1272d.svg
 [gitter-link]: https://gitter.im/coq-community/Lobby
 
-This project contains Hoare Type Theory libraries presented
-in the paper [How to make ad hoc proof automation less ad hoc][paper].
+This project contains Hoare Type Theory libraries presented in
+the paper [How to make ad hoc proof automation less ad hoc][paper]
+(DOI:`10.1017/S0956796813000051`).
 
 The project demonstrates a series of design patterns for programming
 with [canonical structures][manual] that enable one to carefully
@@ -43,9 +44,9 @@ re-implementations for comparison.
   - Anton Trunov ([**@anton-trunov**](https://github.com/anton-trunov))
   - Karl Palmskog ([**@palmskog**](https://github.com/palmskog))
 - License: [GNU General Public License v3.0 or later](LICENSE.md)
-- Compatible Coq versions: Coq 8.8 or greater (use releases for other Coq versions)
+- Compatible Coq versions: Coq 8.8 or later (use releases for other Coq versions)
 - Additional dependencies:
-  - [MathComp](https://math-comp.github.io/math-comp/) 1.7.0 or greater (`ssreflect` suffices)
+  - [MathComp](https://math-comp.github.io/math-comp/) 1.7.0 or later (`ssreflect` suffices)
 
 
 
