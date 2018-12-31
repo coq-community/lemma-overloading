@@ -15,9 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-Require Import mathcomp.ssreflect.ssreflect.
 From mathcomp
-Require Import ssrfun ssrnat div ssrbool seq.
+Require Import ssreflect ssrfun ssrnat div ssrbool seq.
 From LemmaOverloading
 Require Import prelude finmap ordtype.
 From mathcomp

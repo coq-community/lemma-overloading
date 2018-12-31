@@ -15,9 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-Require Import mathcomp.ssreflect.ssreflect.
 From mathcomp
-Require Import ssrbool ssrnat ssrfun seq eqtype.
+Require Import ssreflect ssrbool ssrnat ssrfun seq eqtype.
 From LemmaOverloading
 Require Import heaps rels hprop stmod.
 Set Implicit Arguments.
