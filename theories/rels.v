@@ -15,9 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-Require Import mathcomp.ssreflect.ssreflect.
 From mathcomp
-Require Import ssrfun ssrbool seq.
+Require Import ssreflect ssrfun ssrbool seq.
 Require Import Setoid.
 Set Implicit Arguments.
 Unset Strict Implicit.
