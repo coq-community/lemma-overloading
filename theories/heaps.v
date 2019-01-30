@@ -905,7 +905,7 @@ Lemma cancel A h1 h2 x (v1 v2 : A) :
 Proof.
 move=>D E.
 have: look x (x :-> v1 :+ h1) = look x (x :-> v2 :+ h2) by rewrite E.
-rewrite !lookPtUn -?E // => X; move: (dyn_inj X)=>{X} X.
+rewrite !lookPtUn -?E // => X; move: (dyn_inj X)=> {}X.
 by rewrite -{}X in E *; rewrite -(unhKl D E) (defUnr D).
 Qed.
 
@@ -1010,7 +1010,7 @@ Lemma updi_inv x xs1 xs2 :
 Proof.
 elim: xs1 x xs2 =>[|v1 xs1 IH] x /=; case=>[|v2 xs2] //= D;
 [move/esym| | ]; try by rewrite empbE empUn empPt.
-by case/(cancel D)=><- {D} D; move/(IH _ _ D)=><-.
+by case/(cancel D)=><- {}D; move/(IH _ _ D)=><-.
 Qed.
 
 Lemma updi_iinv x xs1 xs2 h1 h2 :
@@ -1019,7 +1019,7 @@ Lemma updi_iinv x xs1 xs2 h1 h2 :
 Proof.
 elim: xs1 x xs2 h1 h2=>[|v1 xs1 IH] x /=; case=>[|v2 xs2] //= h1 h2.
 - by rewrite !un0h.
-move=>[E]; rewrite -!unA=>D; case/(cancel D)=><- {D} D.
+move=>[E]; rewrite -!unA=>D; case/(cancel D)=><- {}D.
 by case/(IH _ _ _ _ E D)=>->->.
 Qed.
 
@@ -1172,7 +1172,7 @@ case E: (x1 %% 2 == _).
 - by rewrite -addn1 -modn_add2m (eqP E) modn_add2m addn1 eq_refl.
 suff L: ((x1.+1) %% 2 == (x2.+1) %% 2) -> (x1 %% 2 == x2 %% 2).
 - by rewrite E in L; case: eqP L=>// _; apply.
-move=>{E} E; rewrite -(modn_addr x1) -(modn_addr x2).
+move=> {}E; rewrite -(modn_addr x1) -(modn_addr x2).
 by rewrite -addSnnS -modn_add2m (eqP E) modn_add2m addSnnS.
 Qed.
 
