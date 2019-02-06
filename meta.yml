@@ -40,7 +40,6 @@ opam-file-maintainer: palmskog@gmail.com
 license:
   fullname: GNU General Public License v3.0 or later
   identifier: GPL-3.0-or-later
-  shortname: GPL 3
   file: LICENSE.md
 
 supported_coq_versions:
@@ -57,7 +56,7 @@ tested_coq_opam_version: dev
 dependencies:
 - opam:
     name: coq-mathcomp-ssreflect
-    version: '{(>= "1.7.0" & < "1.8~") | (= "dev")}'
+    version: '{(>= "1.7" & < "1.8~") | (= "dev")}'
   nix: ssreflect
   description: |
     [MathComp](https://math-comp.github.io/math-comp/) 1.7.0 or later (`ssreflect` suffices)
