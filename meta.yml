@@ -1,18 +1,19 @@
 ---
 fullname: Lemma overloading
 shortname: lemma-overloading
+organization: coq-community
+
+synopsis: Libraries demonstrating design patterns for programming and proving with canonical structures in Coq
 
 description: |
   This project contains Hoare Type Theory libraries which
   demonstrate a series of design patterns for programming
-  with [canonical structures][manual] that enable one to carefully
+  with canonical structures that enable one to carefully
   and predictably coax Coq's type inference engine into triggering
   the execution of user-supplied algorithms during unification, and
   illustrates these patterns through several realistic examples drawn
   from Hoare Type Theory. The project also contains typeclass-based
   re-implementations for comparison.
-
-  [manual]: https://coq.inria.fr/distrib/current/refman/addendum/canonical-structures.html
 
 paper:
   doi: 10.1017/S0956796813000051
@@ -47,7 +48,7 @@ supported_coq_versions:
   opam: '{(>= "8.8" & < "8.10~") | (= "dev")}'
 
 tested_coq_versions:
-- version_or_url: https://github.com/coq/coq/tarball/master
+- version_or_url: https://github.com/coq/coq-on-cachix/tarball/master
 - version_or_url: 8.9
 - version_or_url: 8.8
 
@@ -56,7 +57,7 @@ tested_coq_opam_version: dev
 dependencies:
 - opam:
     name: coq-mathcomp-ssreflect
-    version: '{(>= "1.7" & < "1.8~") | (= "dev")}'
+    version: '{(>= "1.7.0" & < "1.8~") | (= "dev")}'
   nix: ssreflect
   description: |
     [MathComp](https://math-comp.github.io/math-comp/) 1.7.0 or later (`ssreflect` suffices)
