@@ -444,7 +444,7 @@ case: A g=>// U _ [y' /= ->].
 by apply.
 Qed.
 
-Arguments noaliasR_fwd3 [s f] D x y [g].
+Arguments noaliasR_fwd3 [s f] D x y {g}.
 
 Example triggered
  A (x1 x2 x3 : ptr) (v1 v2 v3 : A) (h1 h2 : heap) :

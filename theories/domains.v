@@ -80,7 +80,7 @@ Notation "[ 'poset' 'of' T ]" := (@clone T _ _ id)
 Notation "x <== y" := (Poset.leq x y) (at level 70).
 Notation bot := Poset.bot.
 
-Arguments Poset.bot [cT].
+Arguments Poset.bot {cT}.
 Prenex Implicits Poset.bot.
 
 (* re-state lattice properties using the exported notation *)
@@ -468,7 +468,7 @@ Definition sup_closure (T : lattice) (s : Pred T) :=
 
 End Lat.
 
-Arguments sup_closed [T].
+Arguments sup_closed {T}.
 Arguments sup_closure [T].
 Prenex Implicits sup_closed sup_closure.
 
