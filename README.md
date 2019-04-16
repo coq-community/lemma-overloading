@@ -6,9 +6,6 @@
 [![Gitter][gitter-shield]][gitter-link]
 [![DOI][doi-shield]][doi-link]
 
-[doi-shield]: https://zenodo.org/badge/DOI/10.1017/S0956796813000051.svg
-[doi-link]: https://doi.org/10.1017/S0956796813000051
-
 [travis-shield]: https://travis-ci.com/coq-community/lemma-overloading.svg?branch=master
 [travis-link]: https://travis-ci.com/coq-community/lemma-overloading/builds
 
@@ -20,6 +17,9 @@
 
 [gitter-shield]: https://img.shields.io/badge/chat-on%20gitter-%23c1272d.svg
 [gitter-link]: https://gitter.im/coq-community/Lobby
+
+[doi-shield]: https://zenodo.org/badge/DOI/10.1017/S0956796813000051.svg
+[doi-link]: https://doi.org/10.1017/S0956796813000051
 
 This project contains Hoare Type Theory libraries which
 demonstrate a series of design patterns for programming
@@ -41,20 +41,19 @@ More details about the project can be found in the paper
   - Beta Ziliani (initial)
   - Aleksandar Nanevski (initial)
   - Derek Dreyer (initial)
-- Maintainer(s):
+- Coq-community maintainer(s):
   - Anton Trunov ([**@anton-trunov**](https://github.com/anton-trunov))
   - Karl Palmskog ([**@palmskog**](https://github.com/palmskog))
 - License: [GNU General Public License v3.0 or later](LICENSE.md)
 - Compatible Coq versions: Coq 8.8 or later (use releases for other Coq versions)
-- Additional dependencies:
+- Additional Coq dependencies:
   - [MathComp](https://math-comp.github.io/math-comp/) 1.7.0 or later (`ssreflect` suffices)
-
 
 
 ## Building and installation instructions
 
-The easiest way to install the latest released version is via
-[OPAM](https://opam.ocaml.org/doc/Install.html):
+The easiest way to install the latest released version of Lemma overloading
+is via [OPAM](https://opam.ocaml.org/doc/Install.html):
 
 ```shell
 opam repo add coq-released https://coq.inria.fr/opam/released
@@ -72,6 +71,7 @@ make install
 
 After installation, the included modules are available under
 the `LemmaOverloading` namespace.
+
 
 ## Files described in the paper
 
