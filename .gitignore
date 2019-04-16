@@ -5,3 +5,4 @@ Makefile.coq.conf
 *.aux
 *.glob
 *.vo
+result
