@@ -33,7 +33,7 @@ opam: &OPAM
 nix: &NIX
   language: nix
   script:
-  - nix-build --argstr coq-version-or-url "$COQ" --extra-substituters https://coq.cachix.org --trusted-public-keys "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= coq.cachix.org-1:5QW/wwEnD+l2jvN6QRbRRsa4hBHG3QiQQ26cxu1F5tI="
+  - nix-build --arg pkgs "import (fetchTarball https://github.com/NixOS/nixpkgs/tarball/b02b4e12c5e1ebde582eb77fc9808faca4d662f1) {}" --argstr coq-version-or-url "$COQ" --extra-substituters https://coq.cachix.org --trusted-public-keys "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= coq.cachix.org-1:5QW/wwEnD+l2jvN6QRbRRsa4hBHG3QiQQ26cxu1F5tI="
 
 matrix:
   include:
