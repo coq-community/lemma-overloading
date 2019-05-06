@@ -11,6 +11,15 @@ in
 
 with coqPackages;
 
+let
+  ssreflect =
+    coqPackages.ssreflect.overrideAttrs(_: rec {
+      name = "coq-${coq.coq-version}-ssreflect-${version}";
+      version = "dev";
+      src = fetchTarball "https://github.com/math-comp/math-comp/tarball/master";
+    });
+in
+
 pkgs.stdenv.mkDerivation {
 
   name = "lemma-overloading";
