@@ -20,11 +20,9 @@ re-implementations for comparison.
 
 build: [make "-j%{jobs}%"]
 install: [make "install"]
-remove: ["rm" "-R" "%{lib}%/coq/user-contrib/LemmaOverloading"]
-flags: light-uninstall
 depends: [
   "ocaml"
-  "coq" {(>= "8.8" & < "8.10~") | (= "dev")}
+  "coq" {(>= "8.8" & < "8.11~") | (= "dev")}
   "coq-mathcomp-ssreflect" {(>= "1.7.0" & < "1.9~") | (= "dev")}
 ]
 
