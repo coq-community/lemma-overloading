@@ -376,7 +376,7 @@ elim: t=>[//|w t IH]; case: w=>[x d H|v'] /=.
   apply: perm_cons_cat_consL.
   by rewrite perm_sym; apply: IH.
 rewrite eq_sym; case: eqP=>[->|_] /=.
-  rewrite -{2}[1]addn0; move/eqP; rewrite eqn_addl; move/eqP.
+  rewrite -{2}[1]addn0; move/eqP; rewrite eqn_add2l; move/eqP.
   by move/count0_hfree=>->.
 rewrite add0n; move/IH=>H; rewrite perm_sym -(cat1s (Var v)).
 by apply: perm_cons_cat_consL; rewrite perm_sym.

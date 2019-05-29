@@ -26,13 +26,6 @@ Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
 
-(* uncomment for ssreflect trunk *)
-Notation eqn_addl := eqn_add2l.
-Notation modn_addl := modnDl.
-Notation modn_mulr := modnMr.
-Notation modn_add2m := modnDm.
-Notation modn_addr := modnDr.
-
 
 (*************)
 (* Locations *)
@@ -71,7 +64,7 @@ Proof. by case: x=>x; rewrite /ptr_offset addnA. Qed.
 
 Lemma ptrK x i j : (x.+i == x.+j) = (i == j).
 Proof.
-by case: x=>x; rewrite ptrE eqn_addl.
+by case: x=>x; rewrite ptrE eqn_add2l.
 Qed.
 
 Lemma ptr_null x m : (x.+m == null) = (x == null) && (m == 0).
@@ -1084,14 +1077,14 @@ Proof. by elim: h. Qed.
 Lemma lfresh_low h n : low (lfresh h) .+ (2*n).
 Proof.
 rewrite /lfresh /low /get_lows.
-case: h; first by rewrite modn_addl modn_mulr.
+case: h; first by rewrite modnDl modnMr.
 case; rewrite /supp /low /=.
-elim=>[|[[x] v] h IH] /=; first by rewrite modn_addl modn_mulr.
+elim=>[|[[x] v] h IH] /=; first by rewrite modnDl modnMr.
 rewrite inE negb_or ptrE /=; move/path_sorted=>H1; case/andP=>H2 H3.
 case: ifP=>E /=; last by apply: IH.
 set f := fun x => (nat_ptr x + 2 + 2 * n) %% 2.
 have F: f (ptr_nat x) = f null.
-- by rewrite /f -modn_mod -addnA -modn_add2m -(eqP E) !modn_mod.
+- by rewrite /f -modn_mod -addnA -modnDm -(eqP E) !modn_mod.
 move: (last_inv (f := f) (x1 := (ptr_nat x)) (x2 := null))=>L.
 by rewrite /f /= in L; rewrite {}L //; apply: IH.
 Qed.
@@ -1100,17 +1093,17 @@ Lemma hfresh_high h n : high (hfresh h) .+ (2*n).
 Proof.
 rewrite /hfresh /high /get_highs.
 case: h n=>[n|].
-- by rewrite /null /= add0n -addnA -modn_add2m modn_addl modn_mulr addn0.
+- by rewrite /null /= add0n -addnA -modnDm modnDl modnMr addn0.
 case; rewrite /supp /high /=.
 elim=>[|[[x] v] h IH] /=.
-- by move=>_ _ n; rewrite add0n -addnA -modn_add2m modn_addl modn_mulr addn0.
+- by move=>_ _ n; rewrite add0n -addnA -modnDm modnDl modnMr addn0.
 rewrite inE negb_or ptrE /=; move/path_sorted=>H1; case/andP=>H2 H3.
 case: ifP=>E n /=; last by apply: IH.
 set f := fun x => (nat_ptr x + 2 + 2 * n) %% 2.
 have F: f (ptr_nat x) = f (null .+ 1).
 - rewrite /f -modn_mod /= add0n -addnA.
-   rewrite -modn_add2m -(eqP E) modn_mod.
-   by rewrite modn_add2m addnA.
+   rewrite -modnDm -(eqP E) modn_mod.
+   by rewrite modnDm addnA.
 move: (last_inv (f := f) (x1 := (ptr_nat x)) (x2 := null .+ 1))=>L.
 by rewrite /f /= in L; rewrite {}L //; apply: IH.
 Qed.
@@ -1169,11 +1162,11 @@ Qed.
 Lemma modnS x1 x2 : (x1 == x2 %[mod 2]) = (x1.+1 == x2.+1 %[mod 2]).
 Proof.
 case E: (x1 %% 2 == _).
-- by rewrite -addn1 -modn_add2m (eqP E) modn_add2m addn1 eq_refl.
+- by rewrite -addn1 -modnDm (eqP E) modnDm addn1 eq_refl.
 suff L: ((x1.+1) %% 2 == (x2.+1) %% 2) -> (x1 %% 2 == x2 %% 2).
 - by rewrite E in L; case: eqP L=>// _; apply.
-move=>{E} E; rewrite -(modn_addr x1) -(modn_addr x2).
-by rewrite -addSnnS -modn_add2m (eqP E) modn_add2m addSnnS.
+move=>{E} E; rewrite -(modnDr x1) -(modnDr x2).
+by rewrite -addSnnS -modnDm (eqP E) modnDm addSnnS.
 Qed.
 
 Lemma hlE x : high x = ~~ low x.
