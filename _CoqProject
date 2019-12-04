@@ -5,7 +5,6 @@
 -arg -w -arg -projection-no-head-constant
 -arg -w -arg -redundant-canonical-projection
 -arg -w -arg -undeclared-scope
--arg -w -arg -auto-template
 -arg -w -arg -duplicate-clear
 
 theories/prelude.v
