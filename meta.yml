@@ -55,8 +55,6 @@ supported_coq_versions:
   opam: '{(>= "8.8" & < "8.12~") | (= "dev")}'
 
 tested_coq_nix_versions:
-- version_or_url: https://github.com/coq/coq-on-cachix/tarball/master
-- version_or_url: https://github.com/coq/coq-on-cachix/tarball/v8.11
 - version_or_url: '8.10'
 - version_or_url: '8.9'
 - version_or_url: '8.8'
@@ -83,7 +81,7 @@ keywords:
 categories:
 - name: Computer Science/Data Types and Data Structures
 
-documentation: |
+documentation: |-
   ## Files described in the paper
   
   ### `indom.v`

@@ -128,4 +128,3 @@ from [Structuring the Verification of Heap-Manipulating Programs][reflect]
 by A. Nanevski et al., POPL'10.
 
 [reflect]: https://software.imdea.org/~aleks/papers/reflect/reflect.pdf
-
