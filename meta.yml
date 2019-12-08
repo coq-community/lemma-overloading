@@ -3,12 +3,14 @@ fullname: Lemma Overloading
 shortname: lemma-overloading
 organization: coq-community
 community: true
+travis: true
+doi: 10.1017/S0956796813000051
 
 synopsis: >-
   Libraries demonstrating design patterns for programming and proving
   with canonical structures in Coq
 
-description: |
+description: |-
   This project contains Hoare Type Theory libraries which
   demonstrate a series of design patterns for programming
   with canonical structures that enable one to carefully
@@ -18,10 +20,10 @@ description: |
   from Hoare Type Theory. The project also contains typeclass-based
   re-implementations for comparison.
 
-paper:
-  doi: 10.1017/S0956796813000051
-  url: https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf
-  title: How to make ad hoc proof automation less ad hoc
+publications:
+- pub_url: https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf
+  pub_title: How to make ad hoc proof automation less ad hoc
+  pub_doi: 10.1017/S0956796813000051
 
 authors:
 - name: Georges Gonthier
@@ -41,6 +43,8 @@ maintainers:
 
 opam-file-maintainer: palmskog@gmail.com
 
+opam-file-version: dev
+
 license:
   fullname: GNU General Public License v3.0 or later
   identifier: GPL-3.0-or-later
@@ -51,9 +55,9 @@ supported_coq_versions:
   opam: '{(>= "8.8" & < "8.12~") | (= "dev")}'
 
 tested_coq_nix_versions:
-- version_or_url: https://github.com/coq/coq-on-cachix/tarball/master
-- version_or_url: https://github.com/coq/coq-on-cachix/tarball/v8.11
 - version_or_url: '8.10'
+- version_or_url: '8.9'
+- version_or_url: '8.8'
 
 tested_coq_opam_versions:
 - version: dev
@@ -61,10 +65,10 @@ tested_coq_opam_versions:
 dependencies:
 - opam:
     name: coq-mathcomp-ssreflect
-    version: '{(>= "1.7.0" & < "1.10~") | (= "dev")}'
+    version: '{(>= "1.7" & < "1.11~") | (= "dev")}'
   nix: ssreflect
-  description: |
-    [MathComp](https://math-comp.github.io/math-comp/) 1.7.0 or later (`ssreflect` suffices)
+  description: |-
+    [MathComp](https://math-comp.github.io) 1.7.0 or later (`ssreflect` suffices)
 
 namespace: LemmaOverloading
 
@@ -77,7 +81,7 @@ keywords:
 categories:
 - name: Computer Science/Data Types and Data Structures
 
-documentation: |
+documentation: |-
   ## Files described in the paper
   
   ### `indom.v`

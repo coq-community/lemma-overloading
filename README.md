@@ -30,10 +30,6 @@ illustrates these patterns through several realistic examples drawn
 from Hoare Type Theory. The project also contains typeclass-based
 re-implementations for comparison.
 
-
-More details about the project can be found in the paper
-[How to make ad hoc proof automation less ad hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf).
-
 ## Meta
 
 - Author(s):
@@ -47,8 +43,10 @@ More details about the project can be found in the paper
 - License: [GNU General Public License v3.0 or later](LICENSE.md)
 - Compatible Coq versions: 8.8 or later (use releases for other Coq versions)
 - Additional Coq dependencies:
-  - [MathComp](https://math-comp.github.io/math-comp/) 1.7.0 or later (`ssreflect` suffices)
-
+  - [MathComp](https://math-comp.github.io) 1.7.0 or later (`ssreflect` suffices)
+- Coq namespace: `LemmaOverloading`
+- Related publication(s):
+  - [How to make ad hoc proof automation less ad hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf) doi:[10.1017/S0956796813000051](https://doi.org/10.1017/S0956796813000051)
 
 ## Building and installation instructions
 
@@ -68,9 +66,6 @@ cd lemma-overloading
 make   # or make -j <number-of-cores-on-your-machine>
 make install
 ```
-
-After installation, the included modules are available under
-the `LemmaOverloading` namespace.
 
 
 ## Files described in the paper
@@ -133,4 +128,3 @@ from [Structuring the Verification of Heap-Manipulating Programs][reflect]
 by A. Nanevski et al., POPL'10.
 
 [reflect]: https://software.imdea.org/~aleks/papers/reflect/reflect.pdf
-
