@@ -55,4 +55,9 @@ matrix:
     - PACKAGE=coq-lemma-overloading.dev
     - NJOBS=2
     <<: *OPAM
+  - env:
+    - COQ_IMAGE=coqorg/coq:8.11
+    - PACKAGE=coq-lemma-overloading.dev
+    - NJOBS=2
+    <<: *OPAM
 
