@@ -517,8 +517,8 @@ Proof. by move=>t H1 H2 p; move/(_ _ H1 H2). Qed.
 Lemma sup_closP (s : Pred T) : sup_closed (sup_closure s).
 Proof.
 split; first by move=>t _ [].
-move=>d H1 t H3 H4; move: (sup_clos_min H3 H4)=>{H3} H3.
-by case: H4=>_; apply=>// x; move/H1; move/H3.
+move=>d H1 t /sup_clos_min H3 H4.
+by case: (H4) => _; apply=> x /H1/(H3 H4).
 Qed.
 
 Lemma sup_clos_idemp (s : Pred T) : sup_closed s -> sup_closure s =p s.
@@ -1142,8 +1142,8 @@ Proof. by move=>H1 H2 p; move/(_ _ H1 H2). Qed.
 Lemma chain_closP (s : Pred T) : chain_closed (chain_closure s).
 Proof.
 split; first by move=>t _ [].
-move=>d H1 t H3 H4; move: (chain_clos_min H3 H4)=>{H3} H3.
-by case: H4=>_; apply=>// x; move/H1; move/H3.
+move=>d H1 t /chain_clos_min H3 H4.
+by case: (H4) => _; apply=> x /H1/(H3 H4).
 Qed.
 
 Lemma chain_clos_idemp (s : Pred T) :
