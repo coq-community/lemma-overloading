@@ -4,6 +4,7 @@
 [![Contributing][contributing-shield]][contributing-link]
 [![Code of Conduct][conduct-shield]][conduct-link]
 [![Gitter][gitter-shield]][gitter-link]
+[![coqdoc][coqdoc-shield]][coqdoc-link]
 [![DOI][doi-shield]][doi-link]
 
 [travis-shield]: https://travis-ci.com/coq-community/lemma-overloading.svg?branch=master
@@ -17,6 +18,9 @@
 
 [gitter-shield]: https://img.shields.io/badge/chat-on%20gitter-%23c1272d.svg
 [gitter-link]: https://gitter.im/coq-community/Lobby
+
+[coqdoc-shield]: https://img.shields.io/badge/docs-coqdoc-blue.svg
+[coqdoc-link]: https://coq-community.github.io/lemma-overloading/toc.html
 
 [doi-shield]: https://zenodo.org/badge/DOI/10.1017/S0956796813000051.svg
 [doi-link]: https://doi.org/10.1017/S0956796813000051
@@ -69,6 +73,10 @@ make install
 
 
 ## Files described in the paper
+
+The Coq source files for the paper How to make ad hoc proof automation less ad hoc,
+Journal of Functional Programming, 23(4), pp. 357-401, are described below. See also the
+[coqdoc presentation][coqdoc] of the files.
 
 ### `indom.v`
 
@@ -128,3 +136,4 @@ from [Structuring the Verification of Heap-Manipulating Programs][reflect]
 by A. Nanevski et al., POPL'10.
 
 [reflect]: https://software.imdea.org/~aleks/papers/reflect/reflect.pdf
+[coqdoc]: https://coq-community.github.io/lemma-overloading/toc.html

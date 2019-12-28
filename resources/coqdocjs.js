@@ -25,21 +25,29 @@ function toArray(nl){
 }
 
 function replInTextNodes() {
+  // Get all the nodes up front.
+  var nodes = Array.from(document.querySelectorAll(".code, .inlinecode"))
+    .flatMap(elem => Array.from(elem.childNodes)
+          .filter(e => e.nodeType == Node.TEXT_NODE)
+    );
+
+  // Create a replacement template node to clone from.
+  var replacementTemplate = document.createElement("span");
+  replacementTemplate.setAttribute("class", "id");
+  replacementTemplate.setAttribute("type", "keyword");
+
+  // Do the replacements.
   coqdocjs.replInText.forEach(function(toReplace){
-    toArray(document.getElementsByClassName("code")).concat(toArray(document.getElementsByClassName("inlinecode"))).forEach(function(elem){
-      toArray(elem.childNodes).forEach(function(node){
-        if (node.nodeType != Node.TEXT_NODE) return;
-        var fragments = node.textContent.split(toReplace);
-        node.textContent = fragments[fragments.length-1];
-        for (var k = 0; k < fragments.length - 1; ++k) {
-          node.parentNode.insertBefore(document.createTextNode(fragments[k]),node);
-          var replacement = document.createElement("span");
-          replacement.appendChild(document.createTextNode(toReplace));
-          replacement.setAttribute("class", "id");
-          replacement.setAttribute("type", "keyword");
-          node.parentNode.insertBefore(replacement, node);
-        }
-      });
+    var replacement = replacementTemplate.cloneNode(true);
+    replacement.appendChild(document.createTextNode(toReplace));
+
+    nodes.forEach(node => {
+      var fragments = node.textContent.split(toReplace);
+      node.textContent = fragments[fragments.length-1];
+      for (var k = 0; k < fragments.length - 1; ++k) {
+        fragments[k] && node.parentNode.insertBefore(document.createTextNode(fragments[k]),node);
+        node.parentNode.insertBefore(replacement.cloneNode(true), node);
+      }
     });
   });
 }
