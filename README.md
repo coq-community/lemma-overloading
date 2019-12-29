@@ -51,6 +51,7 @@ re-implementations for comparison.
 - Coq namespace: `LemmaOverloading`
 - Related publication(s):
   - [How to make ad hoc proof automation less ad hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf) doi:[10.1017/S0956796813000051](https://doi.org/10.1017/S0956796813000051)
+  - [Structuring the Verification of Heap-Manipulating Programs](https://software.imdea.org/~aleks/papers/reflect/reflect.pdf) doi:[10.1145/1706299.1706331](https://doi.org/10.1145/1706299.1706331)
 
 ## Building and installation instructions
 
@@ -74,8 +75,8 @@ make install
 
 ## Files described in the paper
 
-The Coq source files for the paper How to make ad hoc proof automation less ad hoc,
-Journal of Functional Programming, 23(4), pp. 357-401, are described below. See also the
+The Coq source files mentioned in the paper [How to make ad hoc proof automation less ad hoc][lessadhoc],
+Journal of Functional Programming 23(4), pp. 357-401, are described below. See also the
 [coqdoc presentation][coqdoc] of the files.
 
 ### `indom.v`
@@ -129,11 +130,13 @@ Here are two versions of the `noalias` overloaded lemma with a different look.
 These files contains the same automated lemmas as in the files `indom`, `cancel`,
 `noalias` and `stlogR`, but done with Coq Type Classes. 
 
-## Note
+## Other files
 
-The files not mentioned here are part of the HTT library,
-from [Structuring the Verification of Heap-Manipulating Programs][reflect]
-by A. Nanevski et al., POPL'10.
+The files not mentioned above are part of the HTT library,
+introduced in the paper [Structuring the Verification of Heap-Manipulating Programs][reflect],
+Proceedings of the Symposium on Principles of Programming Languages (POPL) 2010,
+pp. 261-274.
 
+[lessadhoc]: https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf
 [reflect]: https://software.imdea.org/~aleks/papers/reflect/reflect.pdf
 [coqdoc]: https://coq-community.github.io/lemma-overloading/toc.html
