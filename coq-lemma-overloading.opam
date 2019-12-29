@@ -5,6 +5,7 @@ version: "dev"
 homepage: "https://github.com/coq-community/lemma-overloading"
 dev-repo: "git+https://github.com/coq-community/lemma-overloading.git"
 bug-reports: "https://github.com/coq-community/lemma-overloading/issues"
+doc: "https://coq-community.github.io/lemma-overloading/"
 license: "GPL-3.0-or-later"
 
 synopsis: "Libraries demonstrating design patterns for programming and proving with canonical structures in Coq"
