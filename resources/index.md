@@ -39,7 +39,7 @@ The [coqdoc presentation](toc.html) of the source files from the latest release 
 Other related publications, if any, are listed below.
 
 - [How to make ad hoc proof automation less ad hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf) doi:[10.1017/S0956796813000051](https://doi.org/10.1017/S0956796813000051)
-- [Structuring the Verification of Heap-Manipulating Programs](https://software.imdea.org/~aleks/papers/reflect/reflect.pdf) doi:[10.1145/1706299.1706331](https://doi.org/10.1145/1706299.1706331)
+- [Structuring the verification of heap-manipulating programs](https://software.imdea.org/~aleks/papers/reflect/reflect.pdf) doi:[10.1145/1706299.1706331](https://doi.org/10.1145/1706299.1706331)
 
 ## Help and contact
 

@@ -26,7 +26,7 @@ publications:
   pub_title: How to make ad hoc proof automation less ad hoc
   pub_doi: 10.1017/S0956796813000051
 - pub_url: https://software.imdea.org/~aleks/papers/reflect/reflect.pdf
-  pub_title: Structuring the Verification of Heap-Manipulating Programs
+  pub_title: Structuring the verification of heap-manipulating programs
   pub_doi: 10.1145/1706299.1706331
 
 authors:
