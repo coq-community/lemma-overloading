@@ -64,10 +64,10 @@
 }
 
 .proof[show="true"]:before {
-  content: "\2BC6"; /* arrow down */
+  content: "\25BC"; /* arrow down */
 }
 .proof[show="false"]:before {
-  content: "\2BC8"; /* arrow right */
+  content: "\25B6"; /* arrow right */
 }
 
 .proof[show="false"]:hover {

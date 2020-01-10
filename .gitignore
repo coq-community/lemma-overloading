@@ -1,5 +1,7 @@
 Makefile.coq
 Makefile.coq.conf
+_build
+docs
 *~
 *.d
 *.aux
@@ -7,4 +9,3 @@ Makefile.coq.conf
 *.vo
 *.vos
 *.vok
-result
