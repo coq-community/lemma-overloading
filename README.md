@@ -20,7 +20,7 @@
 [gitter-link]: https://gitter.im/coq-community/Lobby
 
 [coqdoc-shield]: https://img.shields.io/badge/docs-coqdoc-blue.svg
-[coqdoc-link]: https://coq-community.github.io/lemma-overloading/toc.html
+[coqdoc-link]: https://coq-community.github.io/lemma-overloading/docs/latest/coqdoc/toc.html
 
 [doi-shield]: https://zenodo.org/badge/DOI/10.1017/S0956796813000051.svg
 [doi-link]: https://doi.org/10.1017/S0956796813000051
@@ -77,7 +77,7 @@ make install
 
 The Coq source files mentioned in the paper [How to make ad hoc proof automation less ad hoc][lessadhoc],
 Journal of Functional Programming 23(4), pp. 357-401, are described below. See also the
-[coqdoc presentation][coqdoc] of the files.
+[coqdoc presentation][coqdoc] of the files from the latest release.
 
 ### `indom.v`
 
@@ -139,4 +139,4 @@ pp. 261-274.
 
 [lessadhoc]: https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf
 [reflect]: https://software.imdea.org/~aleks/papers/reflect/reflect.pdf
-[coqdoc]: https://coq-community.github.io/lemma-overloading/toc.html
+[coqdoc]: https://coq-community.github.io/lemma-overloading/docs/latest/coqdoc/toc.html
