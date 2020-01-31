@@ -45,8 +45,8 @@ re-implementations for comparison.
   - Anton Trunov ([**@anton-trunov**](https://github.com/anton-trunov))
   - Karl Palmskog ([**@palmskog**](https://github.com/palmskog))
 - License: [GNU General Public License v3.0 or later](LICENSE.md)
-- Compatible Coq versions: 8.8 or later (use releases for other Coq versions)
-- Additional Coq dependencies:
+- Compatible Coq versions: 8.10 or later (use releases for other Coq versions)
+- Additional dependencies:
   - [MathComp](https://math-comp.github.io) 1.7.0 or later (`ssreflect` suffices)
 - Coq namespace: `LemmaOverloading`
 - Related publication(s):
