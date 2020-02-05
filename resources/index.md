@@ -36,6 +36,7 @@ The current stable release of Lemma Overloading can be [downloaded from GitHub](
 
 The coqdoc presentations of releases can be browsed online:
 
+- [v8.11.0](docs/v8.11.0/coqdoc/toc.html)
 - [v8.10.0](docs/v8.10.0/coqdoc/toc.html)
 
 Other related publications, if any, are listed below.
