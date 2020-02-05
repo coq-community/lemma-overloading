@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="config.js"></script>
+<script type="text/javascript" src="coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="./../../..">Project Website</a>
+      <a href="./indexpage.html">Index</a>
+      <a href="./toc.html">Table of Contents</a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<h1 class="libtitle">LemmaOverloading.xfind</h1>
+
+<div class="code">
+<span class="comment">(*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Copyright&nbsp;(C)&nbsp;2012&nbsp;&nbsp;G.&nbsp;Gonthier,&nbsp;B.&nbsp;Ziliani,&nbsp;A.&nbsp;Nanevski,&nbsp;D.&nbsp;Dreyer<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;free&nbsp;software:&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation,&nbsp;either&nbsp;version&nbsp;3&nbsp;of&nbsp;the&nbsp;License,&nbsp;or<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(at&nbsp;your&nbsp;option)&nbsp;any&nbsp;later&nbsp;version.<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;&nbsp;See&nbsp;the<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;along&nbsp;with&nbsp;this&nbsp;program.&nbsp;&nbsp;If&nbsp;not,&nbsp;see&nbsp;&lt;http://www.gnu.org/licenses/&gt;.<br/>
+*)</span><br/>
+
+<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">mathcomp</span><br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="library">ssreflect</span> <span class="id" title="library">ssrnat</span> <span class="id" title="library">seq</span>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">LemmaOverloading</span><br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="LemmaOverloading.prefix.html#"><span class="id" title="library">prefix</span></a>.<br/>
+<span class="id" title="keyword">Set Implicit Arguments</span>.<br/>
+<span class="id" title="keyword">Unset</span> <span class="id" title="keyword">Strict</span> <span class="id" title="keyword">Implicit</span>.<br/>
+<span class="id" title="keyword">Unset</span> <span class="id" title="keyword">Printing</span> <span class="id" title="keyword">Implicit</span> <span class="id" title="var">Defensive</span>.<br/>
+
+<br/>
+<span class="comment">(******************************************************************************)</span><br/>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;for&nbsp;searching&nbsp;and&nbsp;inserting&nbsp;elements&nbsp;in&nbsp;a&nbsp;list&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br/>
+<span class="comment">(******************************************************************************)</span><br/>
+
+<br/>
+<span class="id" title="keyword">Section</span> <a name="XFind"><span class="id" title="section">XFind</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Variable</span> <a name="XFind.A"><span class="id" title="variable">A</span></a> : <span class="id" title="keyword">Type</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="invariant"><span class="id" title="definition">invariant</span></a> <span class="id" title="var">s</span> <span class="id" title="var">r</span> <span class="id" title="var">i</span> (<span class="id" title="var">e</span> : <a class="idref" href="LemmaOverloading.xfind.html#XFind.A"><span class="id" title="variable">A</span></a>) := <a class="idref" href="LemmaOverloading.prefix.html#onth"><span class="id" title="definition">onth</span></a> <a class="idref" href="LemmaOverloading.xfind.html#r"><span class="id" title="variable">r</span></a> <a class="idref" href="LemmaOverloading.xfind.html#i"><span class="id" title="variable">i</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> <a class="idref" href="LemmaOverloading.xfind.html#e"><span class="id" title="variable">e</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">/\</span></a> <a class="idref" href="LemmaOverloading.prefix.html#prefix"><span class="id" title="definition">prefix</span></a> <a class="idref" href="LemmaOverloading.xfind.html#s"><span class="id" title="variable">s</span></a> <a class="idref" href="LemmaOverloading.xfind.html#r"><span class="id" title="variable">r</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;Tagging&nbsp;for&nbsp;controlling&nbsp;the&nbsp;search&nbsp;of&nbsp;instances&nbsp;*)</span><br/>
+<span class="id" title="keyword">Structure</span> <a name="xtagged"><span class="id" title="record">xtagged</span></a> := <a name="XTag"><span class="id" title="constructor">XTag</span></a> {<a name="xuntag"><span class="id" title="projection">xuntag</span></a> :&gt; <a class="idref" href="LemmaOverloading.xfind.html#XFind.A"><span class="id" title="variable">A</span></a>}.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="extend_tag"><span class="id" title="definition">extend_tag</span></a> := <a class="idref" href="LemmaOverloading.xfind.html#XTag"><span class="id" title="constructor">XTag</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a name="recurse_tag"><span class="id" title="definition">recurse_tag</span></a> := <a class="idref" href="LemmaOverloading.xfind.html#extend_tag"><span class="id" title="definition">extend_tag</span></a>.<br/>
+<span class="id" title="keyword">Canonical</span> <span class="id" title="keyword">Structure</span> <span class="id" title="var">found_tag</span> <span class="id" title="var">x</span> := <a class="idref" href="LemmaOverloading.xfind.html#recurse_tag"><span class="id" title="definition">recurse_tag</span></a> <a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;Main&nbsp;structure<br/>
+&nbsp;&nbsp;&nbsp;s&nbsp;:&nbsp;input&nbsp;sequence<br/>
+&nbsp;&nbsp;&nbsp;r&nbsp;:&nbsp;output&nbsp;sequence.&nbsp;If&nbsp;elem_of&nbsp;is&nbsp;in&nbsp;the&nbsp;sequence,&nbsp;then&nbsp;it's&nbsp;equal&nbsp;to&nbsp;s,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;otherwise&nbsp;it's&nbsp;equal&nbsp;to&nbsp;(elem_of&nbsp;::&nbsp;s)<br/>
+&nbsp;&nbsp;&nbsp;i&nbsp;:&nbsp;output&nbsp;index&nbsp;of&nbsp;elem_of&nbsp;in&nbsp;r&nbsp;*)</span><br/>
+<span class="id" title="keyword">Structure</span> <a name="xfind"><span class="id" title="record">xfind</span></a> (<span class="id" title="var">s</span> <span class="id" title="var">r</span> : <span class="id" title="abbreviation">seq</span> <a class="idref" href="LemmaOverloading.xfind.html#XFind.A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">i</span> : <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>) := <a name="XFind"><span class="id" title="constructor">XFind</span></a> {<br/>
+&nbsp;&nbsp;<a name="elem_of"><span class="id" title="projection">elem_of</span></a> :&gt; <a class="idref" href="LemmaOverloading.xfind.html#xtagged"><span class="id" title="record">xtagged</span></a>;<br/>
+&nbsp;&nbsp;<span class="id" title="var">_</span> : <a class="idref" href="LemmaOverloading.xfind.html#invariant"><span class="id" title="definition">invariant</span></a> <a class="idref" href="LemmaOverloading.xfind.html#s"><span class="id" title="variable">s</span></a> <a class="idref" href="LemmaOverloading.xfind.html#r"><span class="id" title="variable">r</span></a> <a class="idref" href="LemmaOverloading.xfind.html#i"><span class="id" title="variable">i</span></a> <a class="idref" href="LemmaOverloading.xfind.html#elem_of"><span class="id" title="method">elem_of</span></a>}.<br/>
+
+<br/>
+<span class="id" title="var">Arguments</span> <a class="idref" href="LemmaOverloading.xfind.html#XFind"><span class="id" title="constructor">XFind</span></a> : <span class="id" title="tactic">clear</span> <span class="id" title="var">implicits</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="found_pf"><span class="id" title="lemma">found_pf</span></a> <span class="id" title="var">x</span> <span class="id" title="var">t</span> : <a class="idref" href="LemmaOverloading.xfind.html#invariant"><span class="id" title="definition">invariant</span></a> (<a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <a class="idref" href="LemmaOverloading.xfind.html#t"><span class="id" title="variable">t</span></a>) (<a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <a class="idref" href="LemmaOverloading.xfind.html#t"><span class="id" title="variable">t</span></a>) 0 <a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>. <span class="id" title="tactic">by</span> <span class="id" title="tactic">split</span>; [|<span class="id" title="tactic">apply</span>: <a class="idref" href="LemmaOverloading.prefix.html#prefix_refl"><span class="id" title="lemma">prefix_refl</span></a>]. <span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Canonical</span> <span class="id" title="keyword">Structure</span> <span class="id" title="var">found_struct</span> <span class="id" title="var">x</span> <span class="id" title="var">t</span> :=<br/>
+&nbsp;&nbsp;<a class="idref" href="LemmaOverloading.xfind.html#XFind"><span class="id" title="constructor">XFind</span></a> (<a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <a class="idref" href="LemmaOverloading.xfind.html#t"><span class="id" title="variable">t</span></a>) (<a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <a class="idref" href="LemmaOverloading.xfind.html#t"><span class="id" title="variable">t</span></a>) 0 (<a class="idref" href="LemmaOverloading.xfind.html#found_tag"><span class="id" title="definition">found_tag</span></a> <a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a>) (<a class="idref" href="LemmaOverloading.xfind.html#found_pf"><span class="id" title="lemma">found_pf</span></a> <a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="LemmaOverloading.xfind.html#t"><span class="id" title="variable">t</span></a>).<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="recurse_pf"><span class="id" title="lemma">recurse_pf</span></a> (<span class="id" title="var">i</span> : <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>) (<span class="id" title="var">y</span> : <a class="idref" href="LemmaOverloading.xfind.html#XFind.A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">s</span> <span class="id" title="var">r</span> : <span class="id" title="abbreviation">seq</span> <a class="idref" href="LemmaOverloading.xfind.html#XFind.A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">f</span> : <a class="idref" href="LemmaOverloading.xfind.html#xfind"><span class="id" title="record">xfind</span></a> <a class="idref" href="LemmaOverloading.xfind.html#s"><span class="id" title="variable">s</span></a> <a class="idref" href="LemmaOverloading.xfind.html#r"><span class="id" title="variable">r</span></a> <a class="idref" href="LemmaOverloading.xfind.html#i"><span class="id" title="variable">i</span></a>) :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="LemmaOverloading.xfind.html#invariant"><span class="id" title="definition">invariant</span></a> (<a class="idref" href="LemmaOverloading.xfind.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="notation">::</span> <a class="idref" href="LemmaOverloading.xfind.html#s"><span class="id" title="variable">s</span></a>) (<a class="idref" href="LemmaOverloading.xfind.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="notation">::</span> <a class="idref" href="LemmaOverloading.xfind.html#r"><span class="id" title="variable">r</span></a>) <a class="idref" href="LemmaOverloading.xfind.html#i"><span class="id" title="variable">i</span></a><span class="id" title="notation">.+1</span> <a class="idref" href="LemmaOverloading.xfind.html#f"><span class="id" title="variable">f</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>. <span class="id" title="tactic">by</span> <span class="id" title="tactic">case</span>:<span class="id" title="var">f</span>=&gt;[<span class="id" title="var">q</span> [<span class="id" title="var">H1</span> <span class="id" title="var">H2</span>]]; <span class="id" title="tactic">split</span>; [|<span class="id" title="tactic">apply</span>/<a class="idref" href="LemmaOverloading.prefix.html#prefix_cons"><span class="id" title="lemma">prefix_cons</span></a>]. <span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Canonical</span> <span class="id" title="keyword">Structure</span> <span class="id" title="var">recurse_struct</span> <span class="id" title="var">i</span> <span class="id" title="var">y</span> <span class="id" title="var">t</span> <span class="id" title="var">r</span> (<span class="id" title="var">f</span> : <a class="idref" href="LemmaOverloading.xfind.html#xfind"><span class="id" title="record">xfind</span></a> <a class="idref" href="LemmaOverloading.xfind.html#t"><span class="id" title="variable">t</span></a> <a class="idref" href="LemmaOverloading.xfind.html#r"><span class="id" title="variable">r</span></a> <a class="idref" href="LemmaOverloading.xfind.html#i"><span class="id" title="variable">i</span></a>) :=<br/>
+&nbsp;&nbsp;<a class="idref" href="LemmaOverloading.xfind.html#XFind"><span class="id" title="constructor">XFind</span></a> (<a class="idref" href="LemmaOverloading.xfind.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="notation">::</span> <a class="idref" href="LemmaOverloading.xfind.html#t"><span class="id" title="variable">t</span></a>) (<a class="idref" href="LemmaOverloading.xfind.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="notation">::</span> <a class="idref" href="LemmaOverloading.xfind.html#r"><span class="id" title="variable">r</span></a>) <a class="idref" href="LemmaOverloading.xfind.html#i"><span class="id" title="variable">i</span></a><span class="id" title="notation">.+1</span> (<a class="idref" href="LemmaOverloading.xfind.html#recurse_tag"><span class="id" title="definition">recurse_tag</span></a> <a class="idref" href="LemmaOverloading.xfind.html#f"><span class="id" title="variable">f</span></a>) (<a class="idref" href="LemmaOverloading.xfind.html#recurse_pf"><span class="id" title="lemma">recurse_pf</span></a> <a class="idref" href="LemmaOverloading.xfind.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="LemmaOverloading.xfind.html#f"><span class="id" title="variable">f</span></a>).<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="extend_pf"><span class="id" title="lemma">extend_pf</span></a> <span class="id" title="var">x</span> : <a class="idref" href="LemmaOverloading.xfind.html#invariant"><span class="id" title="definition">invariant</span></a> <span class="id" title="notation">[::]</span> <span class="id" title="notation">[::</span> <a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a><span class="id" title="notation">]</span> 0 <a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>. <span class="id" title="tactic">by</span> []. <span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Canonical</span> <span class="id" title="keyword">Structure</span> <span class="id" title="var">extend_struct</span> <span class="id" title="var">x</span> :=<br/>
+&nbsp;&nbsp;<a class="idref" href="LemmaOverloading.xfind.html#XFind"><span class="id" title="constructor">XFind</span></a> <span class="id" title="notation">[::]</span> <span class="id" title="notation">[::</span> <a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a><span class="id" title="notation">]</span> 0 (<a class="idref" href="LemmaOverloading.xfind.html#extend_tag"><span class="id" title="definition">extend_tag</span></a> <a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a>) (<a class="idref" href="LemmaOverloading.xfind.html#extend_pf"><span class="id" title="lemma">extend_pf</span></a> <a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a>).<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="LemmaOverloading.xfind.html#XFind"><span class="id" title="section">XFind</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="findme"><span class="id" title="lemma">findme</span></a> <span class="id" title="var">A</span> (<span class="id" title="var">r</span> <span class="id" title="var">s</span> : <span class="id" title="abbreviation">seq</span> <a class="idref" href="LemmaOverloading.xfind.html#A"><span class="id" title="variable">A</span></a>) <span class="id" title="var">i</span> (<span class="id" title="var">f</span> : <a class="idref" href="LemmaOverloading.xfind.html#xfind"><span class="id" title="record">xfind</span></a> <a class="idref" href="LemmaOverloading.xfind.html#r"><span class="id" title="variable">r</span></a> <a class="idref" href="LemmaOverloading.xfind.html#s"><span class="id" title="variable">s</span></a> <a class="idref" href="LemmaOverloading.xfind.html#i"><span class="id" title="variable">i</span></a>) : <a class="idref" href="LemmaOverloading.prefix.html#onth"><span class="id" title="definition">onth</span></a> <a class="idref" href="LemmaOverloading.xfind.html#s"><span class="id" title="variable">s</span></a> <a class="idref" href="LemmaOverloading.xfind.html#i"><span class="id" title="variable">i</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> (<a class="idref" href="LemmaOverloading.xfind.html#xuntag"><span class="id" title="projection">xuntag</span></a> (<a class="idref" href="LemmaOverloading.xfind.html#elem_of"><span class="id" title="projection">elem_of</span></a> <a class="idref" href="LemmaOverloading.xfind.html#f"><span class="id" title="variable">f</span></a>)).<br/>
+<span class="id" title="tactic">by</span> <span class="id" title="tactic">case</span>: <span class="id" title="var">f</span>=&gt;<span class="id" title="var">e</span> [/= -&gt;].<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Example</span> <a name="test"><span class="id" title="definition">test</span></a> <span class="id" title="var">A</span> (<span class="id" title="var">x1</span> <span class="id" title="var">x2</span> <span class="id" title="var">x3</span> : <a class="idref" href="LemmaOverloading.xfind.html#A"><span class="id" title="variable">A</span></a>) : <a class="idref" href="LemmaOverloading.prefix.html#onth"><span class="id" title="definition">onth</span></a> <span class="id" title="notation">[::</span> <a class="idref" href="LemmaOverloading.xfind.html#x1"><span class="id" title="variable">x1</span></a><span class="id" title="notation">;</span> <a class="idref" href="LemmaOverloading.xfind.html#x2"><span class="id" title="variable">x2</span></a><span class="id" title="notation">;</span> <a class="idref" href="LemmaOverloading.xfind.html#x3"><span class="id" title="variable">x3</span></a><span class="id" title="notation">]</span> 2 <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> <a class="idref" href="LemmaOverloading.xfind.html#x3"><span class="id" title="variable">x3</span></a>.<br/>
+<span class="id" title="tactic">apply</span>: <a class="idref" href="LemmaOverloading.xfind.html#findme"><span class="id" title="lemma">findme</span></a>.<br/>
+<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Set</span> <span class="id" title="keyword">Printing</span> <span class="id" title="keyword">Implicit</span>.<br/>
+<span class="id" title="keyword">Print</span> <a class="idref" href="LemmaOverloading.xfind.html#test"><span class="id" title="definition">test</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Example</span> <a name="unit_test"><span class="id" title="definition">unit_test</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">A</span> (<span class="id" title="var">x1</span> <span class="id" title="var">x2</span> <span class="id" title="var">x3</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> : <a class="idref" href="LemmaOverloading.xfind.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">(</span></a><span class="id" title="keyword">forall</span> <span class="id" title="var">s</span> <span class="id" title="var">r</span> <span class="id" title="var">i</span> (<span class="id" title="var">f</span> : <a class="idref" href="LemmaOverloading.xfind.html#xfind"><span class="id" title="record">xfind</span></a> <a class="idref" href="LemmaOverloading.xfind.html#s"><span class="id" title="variable">s</span></a> <a class="idref" href="LemmaOverloading.xfind.html#r"><span class="id" title="variable">r</span></a> <a class="idref" href="LemmaOverloading.xfind.html#i"><span class="id" title="variable">i</span></a>), <span class="id" title="definition">nth</span> <a class="idref" href="LemmaOverloading.xfind.html#x1"><span class="id" title="variable">x1</span></a> <a class="idref" href="LemmaOverloading.xfind.html#r"><span class="id" title="variable">r</span></a> <a class="idref" href="LemmaOverloading.xfind.html#i"><span class="id" title="variable">i</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="LemmaOverloading.xfind.html#xuntag"><span class="id" title="projection">xuntag</span></a> <a class="idref" href="LemmaOverloading.xfind.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <a class="idref" href="LemmaOverloading.xfind.html#xuntag"><span class="id" title="projection">xuntag</span></a> <a class="idref" href="LemmaOverloading.xfind.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a><br/>
+&nbsp;&nbsp;<a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="LemmaOverloading.xfind.html#x"><span class="id" title="variable">x</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+<span class="id" title="tactic">move</span>=&gt;<span class="id" title="var">A</span> <span class="id" title="var">x1</span> <span class="id" title="var">x2</span> <span class="id" title="var">x3</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">test_form</span>.<br/>
+<span class="id" title="tactic">apply</span>: (<span class="id" title="var">test_form</span> <span class="id" title="notation">[::]</span>). <span class="id" title="tactic">simpl</span>.<br/>
+<span class="id" title="tactic">apply</span>: (<span class="id" title="var">test_form</span> <span class="id" title="notation">[::</span> <span class="id" title="var">x1</span><span class="id" title="notation">;</span> <span class="id" title="var">x</span><span class="id" title="notation">]</span>). <span class="id" title="tactic">simpl</span>.<br/>
+<span class="id" title="tactic">apply</span>: (<span class="id" title="var">test_form</span> <span class="id" title="notation">[::</span> <span class="id" title="var">x1</span><span class="id" title="notation">;</span> <span class="id" title="var">x2</span><span class="id" title="notation">;</span> <span class="id" title="var">x</span><span class="id" title="notation">;</span> <span class="id" title="var">x3</span><span class="id" title="notation">]</span>). <span class="id" title="tactic">simpl</span>.<br/>
+<span class="id" title="tactic">apply</span>: (<span class="id" title="var">test_form</span> <span class="id" title="notation">[::</span> <span class="id" title="var">x1</span><span class="id" title="notation">;</span> <span class="id" title="var">x2</span><span class="id" title="notation">;</span> <span class="id" title="var">x3</span><span class="id" title="notation">]</span>). <span class="id" title="tactic">simpl</span>.<br/>
+<span class="id" title="keyword">Abort</span>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr">coqdoc</a> and improved with <a href="https://github.com/palmskog/coqdocjs">CoqdocJS</a> as adapted for <a href="https://github.com/coq-community">coq-community</a>
+</div>
+</div>
+</body>
+
+</html>
