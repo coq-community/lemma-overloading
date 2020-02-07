@@ -40,17 +40,22 @@ matrix:
 
   # Test supported versions of Coq via Nix
   - env:
-    - COQ=8.10
+    - COQ=https://github.com/coq/coq-on-cachix/tarball/master
     <<: *NIX
 
   # Test supported versions of Coq via OPAM
+  - env:
+    - COQ_IMAGE=coqorg/coq:dev
+    - PACKAGE=coq-lemma-overloading.dev
+    - NJOBS=2
+    <<: *OPAM
   - env:
     - COQ_IMAGE=coqorg/coq:8.11
     - PACKAGE=coq-lemma-overloading.dev
     - NJOBS=2
     <<: *OPAM
   - env:
-    - COQ_IMAGE=coqorg/coq:dev
+    - COQ_IMAGE=coqorg/coq:8.10
     - PACKAGE=coq-lemma-overloading.dev
     - NJOBS=2
     <<: *OPAM

@@ -43,7 +43,6 @@ re-implementations for comparison.
   - Derek Dreyer (initial)
 - Coq-community maintainer(s):
   - Anton Trunov ([**@anton-trunov**](https://github.com/anton-trunov))
-  - Karl Palmskog ([**@palmskog**](https://github.com/palmskog))
 - License: [GNU General Public License v3.0 or later](LICENSE.md)
 - Compatible Coq versions: 8.10 or later (use releases for other Coq versions)
 - Additional dependencies:

@@ -1,0 +1,8 @@
+(coq.theory
+ (name LemmaOverloading)
+ (public_name coq-lemma-overloading.LemmaOverloading)
+ (flags :standard
+   -w +default
+   -w -notation-overridden
+   -w -projection-no-head-constant
+   -w -redundant-canonical-projection))
