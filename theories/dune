@@ -1,7 +1,8 @@
 (coq.theory
  (name LemmaOverloading)
- (public_name coq-lemma-overloading.LemmaOverloading)
- (flags :standard
+ (package coq-lemma-overloading)
+ (synopsis "Libraries demonstrating design patterns for programming and proving with canonical structures in Coq")
+ (flags
    -w +default
    -w -notation-overridden
    -w -projection-no-head-constant
