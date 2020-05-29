@@ -1,5 +1,6 @@
 ---
 title: Lemma Overloading
+lang: en
 header-includes:
   - |
     <style type="text/css"> body {font-family: Arial, Helvetica; margin-left: 5em; font-size: large;} </style>
@@ -47,7 +48,7 @@ Other related publications, if any, are listed below.
 ## Help and contact
 
 - Report issues on [GitHub](https://github.com/coq-community/lemma-overloading/issues)
-- Chat with us on [Gitter](https://gitter.im/coq-community/Lobby)
+- Chat with us on [Zulip](https://coq.zulipchat.com/#narrow/stream/237663-coq-community-devs.20.26.20users)
 - Discuss with us on Coq's [Discourse](https://coq.discourse.group) forum
 
 ## Authors and contributors
