@@ -19,10 +19,10 @@ illustrates these patterns through several realistic examples drawn
 from Hoare Type Theory. The project also contains typeclass-based
 re-implementations for comparison."""
 
-build: [make "-j%{jobs}%"]
+build: [make "-j%{jobs}%" ]
 install: [make "install"]
 depends: [
-  "coq" {(>= "8.10" & < "8.12~") | (= "dev")}
+  "coq" {(>= "8.10" & < "8.13~") | (= "dev")}
   "coq-mathcomp-ssreflect" {(>= "1.7" & < "1.11~") | (= "dev")}
 ]
 
