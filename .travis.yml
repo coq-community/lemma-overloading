@@ -14,7 +14,6 @@ language: shell
       echo \"Build triggered by ${TRAVIS_EVENT_TYPE}\"
       export PS4='+ \e[33;1m(\$0 @ line \$LINENO) \$\e[0m '
       set -ex  # -e = exit on failure; -x = trace for debug
-      opam repo -a --set-default add coq-extra-dev https://coq.inria.fr/opam/extra-dev
       opam update -y
       opam pin add ${PACKAGE} . -y -n -k path
       opam install ${PACKAGE} -y -j ${NJOBS} --deps-only
@@ -36,6 +35,7 @@ language: shell
 
 .nix: &NIX
   language: nix
+  nix: 2.3.5
   script:
   - nix-build --argstr coq-version-or-url "$COQ" --extra-substituters https://coq.cachix.org --trusted-public-keys "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= coq.cachix.org-1:5QW/wwEnD+l2jvN6QRbRRsa4hBHG3QiQQ26cxu1F5tI="
 
@@ -50,6 +50,11 @@ jobs:
   # Test supported versions of Coq via OPAM
   - env:
     - COQ_IMAGE=coqorg/coq:dev
+    - PACKAGE=coq-lemma-overloading.dev
+    - NJOBS=2
+    <<: *OPAM
+  - env:
+    - COQ_IMAGE=coqorg/coq:8.12
     - PACKAGE=coq-lemma-overloading.dev
     - NJOBS=2
     <<: *OPAM

@@ -20,7 +20,7 @@
 [zulip-link]: https://coq.zulipchat.com/#narrow/stream/237663-coq-community-devs.20.26.20users
 
 [coqdoc-shield]: https://img.shields.io/badge/docs-coqdoc-blue.svg
-[coqdoc-link]: https://coq-community.github.io/lemma-overloading/docs/latest/coqdoc/toc.html
+[coqdoc-link]: https://coq-community.org/lemma-overloading
 
 [doi-shield]: https://zenodo.org/badge/DOI/10.1017/S0956796813000051.svg
 [doi-link]: https://doi.org/10.1017/S0956796813000051
@@ -67,7 +67,7 @@ To instead build and install manually, do:
 ``` shell
 git clone https://github.com/coq-community/lemma-overloading.git
 cd lemma-overloading
-make   # or make -j <number-of-cores-on-your-machine>
+make   # or make -j <number-of-cores-on-your-machine> 
 make install
 ```
 
