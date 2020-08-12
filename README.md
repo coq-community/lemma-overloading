@@ -41,7 +41,6 @@ re-implementations for comparison.
   - Beta Ziliani (initial)
   - Aleksandar Nanevski (initial)
   - Derek Dreyer (initial)
-
 - Coq-community maintainer(s):
   - Anton Trunov ([**@anton-trunov**](https://github.com/anton-trunov))
 - License: [GNU General Public License v3.0 or later](LICENSE.md)
