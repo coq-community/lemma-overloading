@@ -3,7 +3,6 @@
  (package coq-lemma-overloading)
  (synopsis "Libraries demonstrating design patterns for programming and proving with canonical structures in Coq")
  (flags
-   -w +default
    -w -notation-overridden
    -w -projection-no-head-constant
    -w -redundant-canonical-projection
