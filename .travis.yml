@@ -46,9 +46,6 @@ jobs:
   include:
 
   # Test supported versions of Coq via Nix
-  - env:
-    - COQ=https://github.com/coq/coq-on-cachix/tarball/master
-    <<: *NIX
 
   # Test supported versions of Coq via OPAM
   - env:
