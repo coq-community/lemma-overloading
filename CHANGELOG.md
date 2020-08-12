@@ -4,8 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+
+## [8.12.0] - 2020-08-12
 ### Added
 - Support for building with dune
+### Fixed
+- Coq 8.12 compatibility
+- `notation-incompatible-format` warning suppression to build with Coq 8.12
 
 ## [8.11.0] - 2020-02-01
 ### Removed

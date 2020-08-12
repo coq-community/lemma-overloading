@@ -6,4 +6,5 @@
    -w +default
    -w -notation-overridden
    -w -projection-no-head-constant
-   -w -redundant-canonical-projection))
+   -w -redundant-canonical-projection
+   -w -notation-incompatible-format))
