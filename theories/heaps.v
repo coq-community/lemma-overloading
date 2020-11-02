@@ -1196,7 +1196,7 @@ case E: (loweq h1 h2); constructor; rewrite /loweq in E.
 - by move=>x; rewrite /ldom (eqP E).
 move=>F.
 suff {E} : get_lows h1 = get_lows h2 by move/eqP; rewrite E.
-apply: (eq_sorted_irr (leT := ord)); last by apply: F.
+apply: (@eq_sorted_irr _ ord); last by apply: F.
 - by apply: trans.
 - by apply: irr.
 - case: h1 {F}=>// [[h S] H].
