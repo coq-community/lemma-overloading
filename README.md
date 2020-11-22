@@ -1,14 +1,14 @@
 # Lemma Overloading
 
-[![Travis][travis-shield]][travis-link]
+[![CI][action-shield]][action-link]
 [![Contributing][contributing-shield]][contributing-link]
 [![Code of Conduct][conduct-shield]][conduct-link]
 [![Zulip][zulip-shield]][zulip-link]
 [![coqdoc][coqdoc-shield]][coqdoc-link]
 [![DOI][doi-shield]][doi-link]
 
-[travis-shield]: https://travis-ci.com/coq-community/lemma-overloading.svg?branch=master
-[travis-link]: https://travis-ci.com/coq-community/lemma-overloading/builds
+[action-shield]: https://github.com/coq-community/lemma-overloading/workflows/CI/badge.svg?branch=master
+[action-link]: https://github.com/coq-community/lemma-overloading/actions?query=workflow%3ACI
 
 [contributing-shield]: https://img.shields.io/badge/contributions-welcome-%23f7931e.svg
 [contributing-link]: https://github.com/coq-community/manifesto/blob/master/CONTRIBUTING.md

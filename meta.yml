@@ -3,7 +3,7 @@ fullname: Lemma Overloading
 shortname: lemma-overloading
 organization: coq-community
 community: true
-travis: true
+action: true
 coqdoc: true
 doi: 10.1017/S0956796813000051
 
@@ -55,8 +55,6 @@ license:
 supported_coq_versions:
   text: 8.10 or later (use releases for other Coq versions)
   opam: '{(>= "8.10" & < "8.13~") | (= "dev")}'
-
-tested_coq_nix_versions:
 
 tested_coq_opam_versions:
 - version: dev
