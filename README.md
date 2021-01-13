@@ -1,14 +1,18 @@
+<!---
+This file was generated from `meta.yml`, please do not edit manually.
+Follow the instructions on https://github.com/coq-community/templates to regenerate.
+--->
 # Lemma Overloading
 
-[![CI][action-shield]][action-link]
+[![Docker CI][docker-action-shield]][docker-action-link]
 [![Contributing][contributing-shield]][contributing-link]
 [![Code of Conduct][conduct-shield]][conduct-link]
 [![Zulip][zulip-shield]][zulip-link]
 [![coqdoc][coqdoc-shield]][coqdoc-link]
 [![DOI][doi-shield]][doi-link]
 
-[action-shield]: https://github.com/coq-community/lemma-overloading/workflows/CI/badge.svg?branch=master
-[action-link]: https://github.com/coq-community/lemma-overloading/actions?query=workflow%3ACI
+[docker-action-shield]: https://github.com/coq-community/lemma-overloading/workflows/Docker%20CI/badge.svg?branch=master
+[docker-action-link]: https://github.com/coq-community/lemma-overloading/actions?query=workflow:"Docker%20CI"
 
 [contributing-shield]: https://img.shields.io/badge/contributions-welcome-%23f7931e.svg
 [contributing-link]: https://github.com/coq-community/manifesto/blob/master/CONTRIBUTING.md
@@ -46,7 +50,7 @@ re-implementations for comparison.
 - License: [GNU General Public License v3.0 or later](LICENSE.md)
 - Compatible Coq versions: 8.10 or later (use releases for other Coq versions)
 - Additional dependencies:
-  - [MathComp](https://math-comp.github.io) 1.7.0 or later (`ssreflect` suffices)
+  - [MathComp](https://math-comp.github.io) 1.9.0 or later (`ssreflect` suffices)
 - Coq namespace: `LemmaOverloading`
 - Related publication(s):
   - [How to make ad hoc proof automation less ad hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf) doi:[10.1017/S0956796813000051](https://doi.org/10.1017/S0956796813000051)
