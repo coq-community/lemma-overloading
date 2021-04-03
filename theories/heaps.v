@@ -611,13 +611,13 @@ Qed.
 
 Lemma path_filter (A : ordType) (s : seq A) (p : pred A) x :
         path ord x s -> path ord x (filter p s).
-Proof.
-elim: s x=>[|y s IH] x //=.
-case/andP=>H1 H2.
-case: ifP=>E; first by rewrite /= H1 IH.
-apply: IH; elim: s H2=>[|z s IH] //=.
-by case/andP=>H2 H3; rewrite (@trans _ y).
-Qed.
+Proof. exact/path_filter/trans. Qed.
+
+Lemma ord_sorted_eq (A : ordType) (s1 s2 : seq A) :
+  sorted ord s1 -> sorted ord s2 -> s1 =i s2 -> s1 = s2.
+(* When dropping the compatibility with MathComp 1.11.0: *)
+(* Proof. exact/irr_sorted_eq/irr/trans. Qed. *)
+Proof. by [apply/irr_sorted_eq/irr/trans | apply/eq_sorted_irr/irr/trans]. Qed.
 
 Lemma dom_fresh h n : (fresh h).+n \notin dom h.
 Proof.
@@ -662,8 +662,7 @@ Proof. by case: h1 h2=>[|h1 H1] // [|h2 H2]. Qed.
 
 Lemma subdomP h1 h2 :
         def h1 -> ~~ empb h1 ->
-        reflect (forall x, x \in dom h1 -> x \in dom h2)
-                (subdom h1 h2).
+        reflect {subset dom h1 <= dom h2} (subdom h1 h2).
 Proof.
 case: h1 h2=>[|h1 H1] // [|h2 H2] //= _ H3; last by apply: allP.
 apply: ReflectF.
@@ -684,7 +683,7 @@ Proof. by case: h=>[//|h H _]; apply/allP. Qed.
 
 Lemma subdomD h1 h2 h : subdom h1 h2 -> def (h2 :+ h) -> def (h1 :+ h).
 Proof.
-case: h1 h2 h=>[|h1 H1]; case=>[|h2 H2]; case=>[|h H] //=.
+case: h1 h2 h=>[|h1 H1] [|h2 H2] [|h H] //=.
 rewrite /subdom /def /union2 /=; case: ifP=>E1 //; case: ifP=>E2 // E _.
 case: disjP E2=>// x H3 H4 _; case: disjP E1=>// X1 _.
 by case: (allP (s := supp h1)) E=>//; move/(_ _ H3); move/X1; rewrite H4.
@@ -693,7 +692,7 @@ Qed.
 Lemma subdomE h1 h2 h :
         def (h2 :+ h) -> subdom h1 h2 -> subdom (h1 :+ h) (h2 :+ h).
 Proof.
-case: h1 h2 h=>[|h1 H1]; case=>[|h2 H2]; case=>[|h H] //=.
+case: h1 h2 h=>[|h1 H1] [|h2 H2] [|h H] //=.
 rewrite /union2 /subdom /def /=; case: ifP=>E1 // _; case: ifP=>E2;
 case: (allP (s:=supp h1))=>// E _; last first.
 - case: disjP E2=>// x H3 H4; move/E: H3.
@@ -707,8 +706,7 @@ Lemma subdomUE h1 h2 h1' h2' :
         def (h2 :+ h2') -> subdom h1 h2 -> subdom h1' h2' ->
           subdom (h1 :+ h1') (h2 :+ h2').
 Proof.
-case: h1 h2 h1' h2'=>[|h1 H1]; case=>[|h2 H2];
-case=>[|h1' H1']; case=>[|h2' H2'] //.
+case: h1 h2 h1' h2'=>[|h1 H1] [|h2 H2] [|h1' H1'] [|h2' H2'] //.
 rewrite /subdom /def /union2.
 case: ifP=>E1 // _; case: ifP=>E2 // T1 T2; last first.
 - case: disjP E2=>// x; case: allP T1=>// X _; move/X=>{X}.
@@ -1196,10 +1194,8 @@ case E: (loweq h1 h2); constructor; rewrite /loweq in E.
 - by move=>x; rewrite /ldom (eqP E).
 move=>F.
 suff {E} : get_lows h1 = get_lows h2 by move/eqP; rewrite E.
-apply: (@eq_sorted_irr _ ord); last by apply: F.
-- by apply: trans.
-- by apply: irr.
-- case: h1 {F}=>// [[h S] H].
+apply: ord_sorted_eq; last by apply: F.
+  case: h1 {F}=>// [[h S] H].
   by rewrite sorted_filter //; apply: trans.
 case: h2 {F}=>// [[h S] H].
 by rewrite sorted_filter //; apply: trans.
