@@ -50,7 +50,7 @@ re-implementations for comparison.
 - License: [GNU General Public License v3.0 or later](LICENSE.md)
 - Compatible Coq versions: 8.10 or later (use releases for other Coq versions)
 - Additional dependencies:
-  - [MathComp](https://math-comp.github.io) 1.9.0 or later (`ssreflect` suffices)
+  - [MathComp](https://math-comp.github.io) 1.10.0 or later (`ssreflect` suffices)
 - Coq namespace: `LemmaOverloading`
 - Related publication(s):
   - [How to make ad hoc proof automation less ad hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf) doi:[10.1017/S0956796813000051](https://doi.org/10.1017/S0956796813000051)

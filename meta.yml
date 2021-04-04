@@ -67,16 +67,16 @@ tested_coq_opam_versions:
   repo: 'mathcomp/mathcomp'
 - version: '1.10.0-coq-8.11'
   repo: 'mathcomp/mathcomp'
-- version: '1.9.0-coq-8.10'
+- version: '1.10.0-coq-8.10'
   repo: 'mathcomp/mathcomp'
 
 dependencies:
 - opam:
     name: coq-mathcomp-ssreflect
-    version: '{(>= "1.9" & < "1.13~") | (= "dev")}'
+    version: '{(>= "1.10" & < "1.13~") | (= "dev")}'
   nix: ssreflect
   description: |-
-    [MathComp](https://math-comp.github.io) 1.9.0 or later (`ssreflect` suffices)
+    [MathComp](https://math-comp.github.io) 1.10.0 or later (`ssreflect` suffices)
 
 namespace: LemmaOverloading
 
