@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - A lemma `ord_sorted_eq` in `heaps.v`
 ### Changed
 - Remove the option turning warnings into errors
+### Removed
+- Support for MathComp 1.9.0
 
 ## [8.12.0] - 2020-08-12
 ### Added
