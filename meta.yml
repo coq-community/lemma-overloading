@@ -54,11 +54,13 @@ license:
 
 supported_coq_versions:
   text: 8.10 or later (use releases for other Coq versions)
-  opam: '{(>= "8.10" & < "8.14~") | (= "dev")}'
+  opam: '{(>= "8.10" & < "8.15~") | (= "dev")}'
 
 tested_coq_opam_versions:
 - version: 'coq-dev'
   repo: 'mathcomp/mathcomp-dev'
+- version: '1.13.0-coq-8.14'
+  repo: 'mathcomp/mathcomp'
 - version: '1.12.0-coq-8.13'
   repo: 'mathcomp/mathcomp'
 - version: '1.12.0-coq-8.12'
@@ -73,7 +75,7 @@ tested_coq_opam_versions:
 dependencies:
 - opam:
     name: coq-mathcomp-ssreflect
-    version: '{(>= "1.10" & < "1.13~") | (= "dev")}'
+    version: '{(>= "1.10" & < "1.14~") | (= "dev")}'
   nix: ssreflect
   description: |-
     [MathComp](https://math-comp.github.io) 1.10.0 or later (`ssreflect` suffices)
