@@ -27,22 +27,26 @@ Unset Printing Implicit Defensive.
 Class Indom (x : ptr) (h : heap) :=
    { indom : def h -> x \in dom h }.
 
-Program Instance found A x (v:A) : Indom x (x:->v).
+Obligation Tactic := idtac.
+
+Program Instance found : forall A x (v : A), Indom x (x:->v).
 Next Obligation.
-rewrite defPt in H.
-by rewrite domPt !inE eq_refl H.
+move=> A x v; rewrite defPt => xnull.
+by rewrite domPt !inE eq_refl xnull.
 Qed.
 
-Program Instance found_left x h1 h2 (_ : Indom x h1) : Indom x (h1:+h2).
+Program Instance found_left :
+  forall x h1 h2 (xh1 : Indom x h1), Indom x (h1:+h2).
 Next Obligation.
-rewrite domUn !inE H0.
-case: H=>H; by rewrite (H (defUnl H0)).
+move=> x h1 h2 xh1 defh12; rewrite domUn !inE defh12.
+case: xh1 => xh1; by rewrite (xh1 (defUnl defh12)).
 Qed.
 
-Program Instance found_right x h1 h2 (_ : Indom x h2) : Indom x (h1:+h2).
+Program Instance found_right :
+  forall x h1 h2 (xh2 : Indom x h2), Indom x (h1:+h2).
 Next Obligation.
-rewrite domUn !inE H0.
-by case: H=>H; rewrite (H (defUnr H0)) orbT.
+move=> x h1 h2 xh2 defh12; rewrite domUn !inE defh12.
+by case: xh2 => xh2; rewrite (xh2 (defUnr defh12)) orbT.
 Qed.
 
 (* simple example *)
